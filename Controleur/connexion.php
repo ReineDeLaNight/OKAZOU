@@ -1,18 +1,24 @@
 <?php
-    
+    session_start();
     $erreurAff = "";
-    if (empty($_GET["pseudo"]) && empty($_GET["mdp"]) && !isset($_GET['premiereConnexion'])) { // Pour diriger l'utilisateur la première fois
+    if ((empty($_GET["pseudo"]) && empty($_GET["mdp"])) && !isset($_GET['premiereConnexion'])) { // Pour diriger l'utilisateur la première fois
         include("../Vue/connexion.php");
-    } else if ((empty($_GET["pseudo"]) || empty($_GET["mdp"])) && $_GET['premiereConnexion'] == false) {
+
+    } else if ((empty($_GET["pseudo"]) || empty($_GET["mdp"])) && !$_GET['premiereConnexion']) {
         $erreurAff = "Champs incorrects ou incomplets";
         include("../Vue/connexion.php");
+
     } else {
-        include_once("../Modele/connexion.php");
-        if (testConnexion($_GET["pseudo"], $_GET["mdp"])) {
-            include("../Controleur/accueil.php");
+        require("../Modele/connexion.php");
+        $resultat = testConnexion($_GET["pseudo"], $_GET["mdp"]);
+        
+        if ($resultat) {
+            $_SESSION['etatConnexion'] = true;
+            header("Location:../accueil.php");
+            
         } else {
             $erreurAff = "Champs incorrects ou incomplets";
-            include("../Controleur/connexion.php");
+            include("../Vue/Connexion.php");
         }
     }
 

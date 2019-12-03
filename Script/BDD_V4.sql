@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `membre` (
   `sexe` CHAR(5) NULL,
   `date_inscription` DATE NULL,
   `ville` INT NOT NULL,
-  `role` ENUM('m', 'a') 'm',
+  `role` ENUM('m', 'a') DEFAULT 'm',
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_membre_ville1`
     FOREIGN KEY (`ville`)
