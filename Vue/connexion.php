@@ -7,7 +7,7 @@
 <body>
     <h1>Connexion</h1>
     <?php echo $erreurAff; ?>
-    <form action="../Controleur/connexion.php" method="GET">
+    <form action="./connexion.php" method="GET">
         <p>Pseudo<input type="text" name="pseudo"></p>
         <p>Mot de passe<input type="text" name="mdp"></p>
         <input type="hidden" name="premiereConnexion" value="false">

@@ -73,7 +73,7 @@ if(!empty($_GET['SignUp'])) {
     if($checkFinal == count($erreurVerif)) {
         $_SESSION['etatConnexion'] = true;
         ajoutInfos();
-        header("Location:accueil.php");
+        header("Location:../accueil.php");
     }
    
 }

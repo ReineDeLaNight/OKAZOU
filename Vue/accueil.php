@@ -7,11 +7,6 @@
 <body>
     <h1>OKAZOU</h1>
     <p>Bienvenue sur OKAZOU</p>
-    <form action="../Controleur/connexion.php">
-        <button type="submit">Connexion</button>
-    </form>
-    <form action="../Controleur/inscription.php">
-        <button type="submit">Inscription</button>
-    </form>
+    <?php echo $boutonUtilisateur; ?>
 </body>
 </html>
