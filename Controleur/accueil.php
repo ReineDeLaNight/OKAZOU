@@ -1,8 +1,8 @@
 <?php
     session_start();
-    if (!isset($_SESSION['pseudo']) && !isset($_SESSION['mdp'])) {
-        $_SESSION['tentativeConnexion'] = false;
+    if (!isset($_SESSION['etatConnexion'])) {
+        $_SESSION['etatConnexion'] = false;
     }
-    include("../Vue/accueil.php");
+    include("../Vue/accueil.php");  
 ?>
 

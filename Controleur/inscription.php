@@ -1,4 +1,5 @@
 <?php
+session_start();
 if(!empty($_GET['SignUp'])) {
     $checkFinal = 0;
     // On déclare le tableau a deux dimesions
@@ -69,9 +70,10 @@ if(!empty($_GET['SignUp'])) {
             $checkFinal += 1;
         }
     }
-    if($checkFinal == count($erreurVerif)){
+    if($checkFinal == count($erreurVerif)) {
+        $_SESSION['etatConnexion'] = true;
         ajoutInfos();
-        header("");
+        header("Location:accueil.php");
     }
    
 }

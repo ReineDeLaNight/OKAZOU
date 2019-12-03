@@ -50,7 +50,7 @@ function ajoutInfos(){
     $Req2 -> bindParam(':ville',$ville,PDO::PARAM_STR);
     $Req2 -> execute();
     $idVille = $Req2 -> fetch();
-    print_r($idVille);
+
     $Req = $bdd->prepare("INSERT INTO membre(pseudo, mdp, sexe, date_naissance, date_inscription, ville) 
     VALUES(:pseudo, :mdp, :sexe, :dateNaissance, :dateInscription, :ville)");
     

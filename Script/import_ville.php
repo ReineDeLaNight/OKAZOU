@@ -5,8 +5,8 @@
         $i++;
     }
 
-   $bddOkazou = new PDO('mysql:host=localhost;dbname=okazou;charset=utf8', 'root', '');
-        
+    $bddOkazou = new PDO('mysql:host=localhost;dbname=okazou;charset=utf8', 'root', '');
+
     for ($i= 0; $i < count($data); $i++) {
         $req = $bddOkazou->prepare("INSERT INTO ville (nom, nom_reel, longitude, latitude) VALUES(:nom, :nom_reel, :longitude, :latitude)");
 
