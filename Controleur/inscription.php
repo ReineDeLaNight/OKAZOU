@@ -63,7 +63,7 @@ if(!empty($_GET['SignUp'])) {
     }
     $erreurVerif = verifDate($erreurVerif);
     
-    require("../Modele/inscriptionModele.php");
+    require("../Modele/inscription.php");
     for($i = 0; $i < count($erreurVerif); $i++) {
         if($erreurVerif[$i][1] == true) {
             $checkFinal += 1;
@@ -75,5 +75,5 @@ if(!empty($_GET['SignUp'])) {
     }
    
 }
-require("../Vue/inscriptionVue.php");
+require("../Vue/inscription.php");
 ?>

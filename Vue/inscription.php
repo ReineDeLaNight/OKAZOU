@@ -8,7 +8,7 @@
 
     <body>
 		<h1>Inscription</h1>
-       <form action="inscriptionControleur.php" method="get" class="inscription">
+       <form action="inscription.php" method="get" class="inscription">
      <p> Utilisateur: </p> <input type="text" name="pseudo"/> <?php if(!empty($_GET['SignUp'])) { echo($erreurVerif[1][0]); echo($erreurVerif[4][0]); } ?>
      <p> Mot de Passe: </p> <input type="text" name="mdp"/> <?php if(!empty($_GET['SignUp'])) { echo($erreurVerif[2][0]); } ?>
      <p> Sexe :</p> <select name="sexe">
