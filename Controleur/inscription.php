@@ -1,10 +1,15 @@
 <?php
 session_start();
-$pseudo = $_GET['pseudo'];
-$mdp = $_GET['mdp'];
-$sexe = $_GET['sexe'];
-$dateNaissance = $_GET['dateNaissance'];
-$ville = $_GET['ville'];
+
+// Je rajoute cette condition pour ne pas avoir d'erreur de variables non définies
+// Je test si chaque variable existe
+if (isset($_GET['pseudo']) && isset($_GET['mdp']) && isset($_GET['sexe']) && isset($_GET['dateNaissance']) && isset($_GET['ville'])) {
+    $pseudo = $_GET['pseudo'];
+    $mdp = $_GET['mdp'];
+    $sexe = $_GET['sexe'];
+    $dateNaissance = $_GET['dateNaissance'];
+    $ville = $_GET['ville'];
+}
 
 if(!empty($_GET['SignUp'])) {
     $checkFinal = 0;
@@ -78,6 +83,7 @@ if(!empty($_GET['SignUp'])) {
     }
     if($checkFinal == count($erreurVerif)) {
         $_SESSION['etatConnexion'] = true;
+        $_SESSION['pseudo'] = $pseudo;
         ajoutInfos();
         header("Location:../accueil.php");
     }

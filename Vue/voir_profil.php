@@ -9,8 +9,10 @@
     <body>
     <h1>OKAZOU</h1>
 <?php
+print_r($infoProfil);
     if(empty($_GET['modif'])) {
         echo ("<table border>"); 
+        
         for($i = 1; $i < count($infoProfil)/2; $i++){
             echo("<tr>");
             echo("<td>".$infoProfil[$i]."</td>"); 
@@ -18,9 +20,16 @@
         }
     echo ("</table>");
 ?>
-    <form action='voir_profil.php' method='get'>
-    <input type='submit' value='Modifier' name='modif'>
-    </form>
+    <p>
+        <form action='voir_profil.php' method='get'>
+            <input type='submit' value='Modifier' name='modif'>
+        </form>
+    </p>
+    <p>
+        <form action='../Controleur/confirmation_suppression.php'>
+            <button type='submit'>Supprimer le compte</button>
+        </form>
+    </p>
     <?php
 }
     else {
