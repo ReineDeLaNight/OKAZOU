@@ -1,12 +1,7 @@
-<?php
-session_start();
-$pseudo = $_GET['pseudo'];
-$mdp = $_GET['mdp'];
-$sexe = $_GET['sexe'];
-$dateNaissance = $_GET['dateNaissance'];
-$ville = $_GET['ville'];
-
-if(!empty($_GET['SignUp'])) {
+<?php 
+    session_start();
+    require("../Modele/voir_profil.php");
+if(!empty($_GET['maj'])) {
     $checkFinal = 0;
     // On déclare le tableau a deux dimesions
     $erreurVerif = array();
@@ -77,11 +72,12 @@ if(!empty($_GET['SignUp'])) {
         }
     }
     if($checkFinal == count($erreurVerif)) {
-        $_SESSION['etatConnexion'] = true;
-        ajoutInfos();
-        header("Location:../accueil.php");
-    }
-   
+    modifierProfil();
 }
-require("../Vue/inscription.php");
+}
+    $infoProfil = afficherProfil();
+    require("../Vue/voir_profil.php");
+
+    
+     
 ?>
