@@ -1,5 +1,11 @@
 <?php
 session_start();
+$pseudo = $_GET['pseudo'];
+$mdp = $_GET['mdp'];
+$sexe = $_GET['sexe'];
+$dateNaissance = $_GET['dateNaissance'];
+$ville = $_GET['ville'];
+
 if(!empty($_GET['SignUp'])) {
     $checkFinal = 0;
     // On déclare le tableau a deux dimesions
