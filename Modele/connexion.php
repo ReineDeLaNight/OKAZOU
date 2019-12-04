@@ -10,8 +10,6 @@
         if ($ligne = $identifiants->fetch()) {
            
             $connexion = true;
-            $_SESSION["pseudo"] = $pseudo;
-            $_SESSION["mdp"] = $mdp;
        
         } else {
             $connexion = false;

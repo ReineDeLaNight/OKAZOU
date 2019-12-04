@@ -14,6 +14,8 @@
         
         if ($resultat) {
             $_SESSION['etatConnexion'] = true;
+            $_SESSION["pseudo"] = $pseudo;
+            $_SESSION["mdp"] = $mdp;
             header("Location:../accueil.php");
             
         } else {
