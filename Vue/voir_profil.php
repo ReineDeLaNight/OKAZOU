@@ -9,7 +9,7 @@
     <body>
     <h1>OKAZOU</h1>
 <?php
-print_r($infoProfil);
+
     if(empty($_GET['modif'])) {
         echo ("<table border>"); 
         
