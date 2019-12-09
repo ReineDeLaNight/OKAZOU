@@ -10,6 +10,7 @@
         
         if ($ligne = $identifiants->fetch()) {
             echo($ligne[0]);
+            $_SESSION['id'] = $ligne[0];
             $connexion = true;
        
         } else {

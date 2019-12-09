@@ -72,8 +72,8 @@ if(!empty($_GET['maj'])) {
         }
     }
     if($checkFinal == count($erreurVerif)) {
-    modifierProfil();
-}
+        modifierProfil();
+    }
 }
     $infoProfil = afficherProfil();
     require("../Vue/voir_profil.php");
