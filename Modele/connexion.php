@@ -9,11 +9,8 @@
         
         
         if ($ligne = $identifiants->fetch()) {
-<<<<<<< HEAD
-=======
             echo($ligne[0]);
             $_SESSION['id'] = $ligne[0];
->>>>>>> f6f81b18cd1930ac65b8f35e820af71cb59d8447
             $connexion = true;
             
         } else {
