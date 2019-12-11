@@ -76,6 +76,8 @@ if(!empty($_GET['SignUp'])) {
     $erreurVerif = verifDate($erreurVerif);
     
     require("../Modele/inscription.php");
+    $erreurVerif = verifMembres($erreurVerif);
+    $erreurVerif = verifVille($erreurVerif);
     for($i = 0; $i < count($erreurVerif); $i++) {
         if($erreurVerif[$i][1] == true) {
             $checkFinal += 1;

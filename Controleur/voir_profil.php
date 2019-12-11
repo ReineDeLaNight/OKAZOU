@@ -66,6 +66,7 @@ if(!empty($_GET['maj'])) {
     $erreurVerif = verifDate($erreurVerif);
     
     require("../Modele/inscription.php");
+    $erreurVerif = verifVille($erreurVerif);
     for($i = 0; $i < count($erreurVerif); $i++) {
         if($erreurVerif[$i][1] == true) {
             $checkFinal += 1;

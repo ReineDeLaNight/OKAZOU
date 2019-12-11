@@ -17,7 +17,6 @@ function verifMembres($erreurVerif) {
         return $erreurVerif;   
     }
 }
-$erreurVerif = verifMembres($erreurVerif);
 
 function verifVille($erreurVerif) {
     $ville = strtolower($_GET['ville']);
@@ -35,7 +34,7 @@ function verifVille($erreurVerif) {
         return $erreurVerif;   
     }
 }
-$erreurVerif = verifVille($erreurVerif);
+
 
 function ajoutInfos(){
     $pseudo = $_GET['pseudo'];
