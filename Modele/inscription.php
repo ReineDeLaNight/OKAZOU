@@ -62,4 +62,15 @@ function ajoutInfos(){
     $Req->execute();
     
 }
+
+function get_id() {
+    echo $_GET['pseudo'];
+    $bdd = new PDO("mysql:host=localhost;dbname=okazou","root","");
+    $req = $bdd->prepare("SELECT id FROM membre WHERE pseudo LIKE :pseudo");
+    $req->bindParam(':pseudo', $_GET['pseudo'], PDO::PARAM_STR);
+    $req->execute();
+    $id = $req->fetch();
+    var_dump($id);
+    return $id[0];
+}
 ?>

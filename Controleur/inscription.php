@@ -84,9 +84,10 @@ if(!empty($_GET['SignUp'])) {
         }
     }
     if($checkFinal == count($erreurVerif)) {
+        ajoutInfos();
         $_SESSION['etatConnexion'] = true;
         $_SESSION['pseudo'] = $pseudo;
-        ajoutInfos();
+        $_SESSION['id'] = get_id();
         header("Location:../accueil.php");
     }
    
