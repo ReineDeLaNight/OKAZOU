@@ -14,6 +14,7 @@
         $resultat = testConnexion($_GET["pseudo"], $_GET["mdp"]);
         
         if ($resultat) {
+            $_SESSION['role'] = get_role();
             $_SESSION['etatConnexion'] = true;
             $_SESSION["pseudo"] = $_GET["pseudo"];
             header("Location:../accueil.php");
@@ -23,6 +24,4 @@
             include("../Vue/Connexion.php");
         }
     }
-
-
 ?>

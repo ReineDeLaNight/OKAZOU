@@ -70,7 +70,16 @@ function get_id() {
     $req->bindParam(':pseudo', $_GET['pseudo'], PDO::PARAM_STR);
     $req->execute();
     $id = $req->fetch();
-    var_dump($id);
     return $id[0];
+}
+
+function get_role() {
+    echo $_GET['pseudo'];
+    $bdd = new PDO("mysql:host=localhost;dbname=okazou","root","");
+    $req = $bdd->prepare("SELECT role FROM membre WHERE pseudo LIKE :pseudo");
+    $req->bindParam(':pseudo', $_GET['pseudo'], PDO::PARAM_STR);
+    $req->execute();
+    $role = $req->fetch();
+    return $role[0];
 }
 ?>

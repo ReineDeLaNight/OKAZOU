@@ -88,6 +88,7 @@ if(!empty($_GET['SignUp'])) {
         $_SESSION['etatConnexion'] = true;
         $_SESSION['pseudo'] = $pseudo;
         $_SESSION['id'] = get_id();
+        $_SESSION['role'] = get_role();
         header("Location:../accueil.php");
     }
    
