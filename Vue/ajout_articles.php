@@ -76,7 +76,7 @@
         <optgroup>
         <optgroup label ="Pantalons">
         <optgroup label ="Hommes">
-        <option value="flemme"> MEURS </option>
+        <option value="pflemme"> MEURS </option>
         <optgroup>
         <optgroup label ="Femmes">
         <option value="de ouf"> MEURS </option>

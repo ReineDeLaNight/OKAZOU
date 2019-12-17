@@ -9,5 +9,8 @@
     <form action="../Controleur/ajout_articles.php">
         <button type="submit">Ajouter un article</button>
     </form>
+    <form action="../Controleur/trouver_modif_article.php">
+        <button type="submit">Modifier un article</button>
+    </form>
 </body>
 </html>

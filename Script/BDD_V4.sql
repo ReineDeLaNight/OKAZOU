@@ -68,7 +68,7 @@ DROP TABLE IF EXISTS `taille` ;
 CREATE TABLE IF NOT EXISTS `taille` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `taille` VARCHAR(45) NULL,
-  `categorie` ENUM('pantalon', 'chaussette', 'tshirt', 'chapeau', 'manteau') NULL,
+  `categorie` ENUM('pantalon', 'chaussette', 'tshirt', 'chapeau', 'manteau','hauts') NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
