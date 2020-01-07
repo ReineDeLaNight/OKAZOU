@@ -1,9 +1,10 @@
 <?php 
 session_start();
-
 require("../Modele/voir_articles.php");
 $infoArticle = afficherArticles();
+if(isset($_SESSION['id'])){
+    ajouterHistorique();
 $favori = ajouterFavori(); 
-print_r($favori);
+}
 require("../Vue/voir_articles.php");
 ?>
