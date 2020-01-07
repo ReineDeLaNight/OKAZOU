@@ -1,5 +1,6 @@
 <?php
     session_start();
+    include("./Modele/accueil.php");
     if (!isset($_SESSION['etatConnexion'])) {  // Si l'utilisateur n'est pas connecté
         $_SESSION['etatConnexion'] = false;
         $boutonUtilisateur = 
@@ -38,7 +39,12 @@
             <button type="submit">Inscription</button>
         </form>';
     }
-    
+    $listeArticle = listeArticle();
+    for($i=0; $i<sizeof($listeArticle) ;$i++)
+    {
+        $item[$i] = createItem($listeArticle[$i]);
+    }
     include("./Vue/accueil.php");
+    //$listeArticle[rand(0,sizeof($listeArticle)-1)]
 ?>
 
