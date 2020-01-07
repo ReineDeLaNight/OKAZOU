@@ -13,7 +13,28 @@ function afficherArticles() {
     $infoArticle = $req -> fetch();
     return $infoArticle;
 }
+function ajouterHistorique() {
+    $codeArticle = $_GET['code'];
+    $dateFav = date("Y-m-d");
+    $membre = $_SESSION['id'];
+    $flag = 'h';
 
+    $bdd = new PDO('mysql:host=localhost;dbname=okazou;charset=utf8', 'root', ''); 
+    $req1 = $bdd -> prepare("SELECT COUNT(id) FROM favori WHERE article LIKE :codeArticle AND membre LIKE :membre AND flag LIKE :flag");
+    $req1 -> bindParam(':codeArticle', $codeArticle, PDO::PARAM_INT);
+    $req1 -> bindParam(':membre', $membre, PDO::PARAM_INT);
+    $req1 -> bindParam(':flag', $flag, PDO::PARAM_STR);
+    $req1 -> execute(); 
+    $test = $req1 -> fetch();
+    if($test[0]==0) {
+        $req = $bdd -> prepare("INSERT INTO favori(date_favori, flag, article, membre) VALUES (:dateFav, :flag, :codeArticle, :membre)");
+        $req -> bindParam(':dateFav', $dateFav, PDO::PARAM_STR);
+        $req -> bindParam(':flag', $flag, PDO::PARAM_STR);
+        $req -> bindParam(':codeArticle', $codeArticle, PDO::PARAM_INT);
+        $req -> bindParam(':membre', $membre, PDO::PARAM_INT);
+        $req -> execute();
+    }
+}
 function ajouterFavori() {
     $codeArticle = $_GET['code'];
     $dateFav = date("Y-m-d");
@@ -21,12 +42,12 @@ function ajouterFavori() {
     $flag = 'f';
     
     $bdd = new PDO('mysql:host=localhost;dbname=okazou;charset=utf8', 'root', ''); 
-    $req1 = $bdd -> prepare("SELECT COUNT(id) FROM favori WHERE article LIKE :codeArticle AND membre LIKE :membre");
+    $req1 = $bdd -> prepare("SELECT COUNT(id) FROM favori WHERE article LIKE :codeArticle AND membre LIKE :membre AND flag LIKE :flag");
     $req1 -> bindParam(':codeArticle', $codeArticle, PDO::PARAM_INT);
     $req1 -> bindParam(':membre', $membre, PDO::PARAM_INT);
+    $req1 -> bindParam(':flag', $flag, PDO::PARAM_STR);
     $req1 -> execute(); 
     $test = $req1 -> fetch();
-    echo($test[0]);
     if($test[0]==0) {
         if(!empty($_GET['favori'])) {
             $req = $bdd -> prepare("INSERT INTO favori(date_favori, flag, article, membre) VALUES (:dateFav, :flag, :codeArticle, :membre)");
@@ -43,9 +64,10 @@ function ajouterFavori() {
         
     } else {
         if(!empty($_GET['favori'])) {
-            $req = $bdd -> prepare("DELETE FROM `favori` WHERE article LIKE :codeArticle AND membre LIKE :membre");
+            $req = $bdd -> prepare("DELETE FROM `favori` WHERE article LIKE :codeArticle AND membre LIKE :membre AND flag LIKE :flag");
             $req -> bindParam(':codeArticle', $codeArticle, PDO::PARAM_INT);
             $req -> bindParam(':membre', $membre, PDO::PARAM_INT);
+            $req -> bindParam(':flag', $flag, PDO::PARAM_STR);
             $req -> execute();
             $nomBouton = 'Ajouter aux Favoris';
             return $nomBouton;
