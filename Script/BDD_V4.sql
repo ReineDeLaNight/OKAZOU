@@ -55,23 +55,9 @@ CREATE TABLE IF NOT EXISTS `site` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `nom` VARCHAR(45) NULL,
   `lien` VARCHAR(45) NULL,
-  `logo` BLOB NULL,
+  `logo` VARCHAR(75) NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `taille`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `taille` ;
-
-CREATE TABLE IF NOT EXISTS `taille` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `taille` VARCHAR(45) NULL,
-  `categorie` ENUM('pantalon', 'chaussette', 'tshirt', 'chapeau', 'manteau','hauts') NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
-
 
 -- -----------------------------------------------------
 -- Table `categorie`
@@ -80,11 +66,31 @@ DROP TABLE IF EXISTS `categorie` ;
 
 CREATE TABLE IF NOT EXISTS `categorie` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `nom_categorie` ENUM('homme', 'femme', 'enfant', 'vestesManteauxBlousons', 'hautsTee-shirts', 'shortsPantalons', 'sousVetements', 'sportsVetements', 'chapeaux', 'sacs', 'montresBijoux', 'robesJupes', 'sweatsPull') NULL,
+  `nom_categorie` VARCHAR(45) NULL UNIQUE,
   `pere` INT NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_categorie_categorie1`
     FOREIGN KEY (`pere`)
+    REFERENCES `categorie` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
+INSERT INTO `categorie` (nom_categorie, pere) VALUES ("femmes", 1);
+INSERT INTO `categorie` (nom_categorie, pere) VALUES ("hommes", 2);
+INSERT INTO `categorie` (nom_categorie, pere) VALUES ("enfants", 3);
+-- -----------------------------------------------------
+-- Table `taille`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `taille` ;
+
+CREATE TABLE IF NOT EXISTS `taille` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `taille` VARCHAR(45) NULL,
+  `categorie` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_taille_categorie1`
+    FOREIGN KEY (`categorie`)
     REFERENCES `categorie` (`id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
@@ -99,6 +105,7 @@ DROP TABLE IF EXISTS `marque` ;
 CREATE TABLE IF NOT EXISTS `marque` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `marque` VARCHAR(30) NULL,
+  `afficher_marque` VARCHAR(30) NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -123,7 +130,7 @@ CREATE TABLE IF NOT EXISTS `article` (
   `site` INT NOT NULL,
   `marque` INT NOT NULL,
   PRIMARY KEY (`id`),
-  CONSTRAINT `fk_article_sites1`
+  CONSTRAINT `fk_article_site1`
     FOREIGN KEY (`site`)
     REFERENCES `site` (`id`)
     ON DELETE CASCADE
