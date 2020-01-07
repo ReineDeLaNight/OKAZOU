@@ -60,7 +60,7 @@ function ajout_articles() {
     $req3 -> execute();
     $idTaille = $req3 -> fetch();
     $idTaille = $idTaille[0];
-    echo($idTaille."<br>");
+    echo($idTaille);
 
     $req4 = $bdd -> prepare("SELECT id FROM marque WHERE marque LIKE :marque");
     $req4 ->bindParam(':marque', $marque, PDO::PARAM_STR);
@@ -82,9 +82,16 @@ function ajout_articles() {
     $reqAjout ->bindParam(':idCategorie', $idCategorie,  PDO::PARAM_INT);
     $reqAjout ->bindParam(':idSite', $idSite,  PDO::PARAM_INT);
     $reqAjout ->bindParam(':idMarque', $idMarque,  PDO::PARAM_INT);
-    $reqAjout -> execute();
+    $reqAjout -> execute(); 
     
-    
-    
+    echo($description);
+    echo($prix);
+    echo($couleur);
+    echo($etat);
+    echo($photo1);
+    echo($idTaille);
+    echo($idCategorie);
+    echo($idSite);
+    echo($idMarque);
 }
 ?>

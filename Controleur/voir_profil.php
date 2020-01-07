@@ -63,10 +63,13 @@ if(!empty($_GET['maj'])) {
             return $erreurVerif;
         }  
     }
+    
     $erreurVerif = verifDate($erreurVerif);
     
     require("../Modele/inscription.php");
+    $erreurVerif = verifMembres($erreurVerif);
     $erreurVerif = verifVille($erreurVerif);
+    print_r($erreurVerif);
     for($i = 0; $i < count($erreurVerif); $i++) {
         if($erreurVerif[$i][1] == true) {
             $checkFinal += 1;

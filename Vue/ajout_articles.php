@@ -89,6 +89,9 @@
      </select>
      <p>Marque</p> <select name="marque">
      <option value="don dada"> Don Dada</option>
+     <option value="apc"> APC</option>
+     <option value="nike"> Nike</option>
+     <option value="chevignon">Chevignon</option>
      </select>
     <p> <input type='submit' value=ok name='valide' ><p> </form>
     </body>
