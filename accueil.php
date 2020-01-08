@@ -20,6 +20,12 @@
         </form>
         <form action="./Vue/action_admin.php">
             <button type="submit">Page de contrôle admin</button>
+        </form>
+        <form action="./Controleur/voir_prod_consult.php">
+            <button type="submit">Historique</button>
+        </form>
+        <form action="./Controleur/voir_favoris.php">
+            <button type="submit">Favoris</button>
         </form>';
     } else if ($_SESSION['etatConnexion'] == true) { // Si l'utilisateur est connecté
         $boutonUtilisateur = 
@@ -28,6 +34,12 @@
         </form>
         <form action="./Controleur/deconnexion.php">
             <button type="submit">Se déconnecter</button>
+        </form>
+        <form action="./Controleur/voir_prod_consult.php">
+            <button type="submit">Historique</button>
+        </form>
+        <form action="./Controleur/voir_favoris.php">
+            <button type="submit">Favoris</button>
         </form>';
     } else { // A voir ce que ça fait là
         $_SESSION['etatConnexion'] = false;
