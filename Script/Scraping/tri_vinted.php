@@ -78,8 +78,9 @@
     //////////////////////////////////////////////////*/
 
 
-
+    ////////////////////////////
     // Fonction sur les strings
+    ////////////////////////////
     function convert_photo($string_photo) {
         if (empty($string_photo)) {
             $string_photo = NULL;
@@ -105,7 +106,9 @@
         return $clear_string;
     }
 
+    ////////////////
     // Fonctions SQL
+    ////////////////
 
     function ajout_categorie($main_categorie, $categorie) {
     
@@ -143,8 +146,6 @@
     }
 
     function ajout_taille($taille, $categorie) {
-        
-        
 
         $bdd = new PDO('mysql:host=localhost;dbname=okazou;charset=utf8', 'root', '');
 
@@ -161,10 +162,13 @@
 
         $req = $bdd->prepare("SELECT id FROM taille WHERE taille LIKE :taille AND categorie = :id_categorie");
         $req -> bindParam(':taille',$taille,PDO::PARAM_STR);
-        $req -> bindParam(':id_categorie',$id_categorie,PDO::PARAM_INT);
+        $req -> bindParam(':id_categorie',$id_categorie[0],PDO::PARAM_INT);
 
         $req->execute() or die(print_r($req->errorInfo(), TRUE));
         $id_taille = $req->fetch();
+
+        
+        
 
         if ($cpt[0] == 0) {
 
@@ -175,8 +179,7 @@
             $req->execute() or die(print_r($req->errorInfo(), TRUE));
 
         } else {
-            var_dump($id_taille);
-            echo "<br>";
+            
             if (!$id_taille) {
                 $req = $bdd->prepare("INSERT INTO taille(taille, categorie) VALUES(:taille, :id_categorie)");
                 $req -> bindParam(':taille',$taille,PDO::PARAM_STR);
