@@ -105,7 +105,6 @@ DROP TABLE IF EXISTS `marque` ;
 CREATE TABLE IF NOT EXISTS `marque` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `marque` VARCHAR(30) NULL,
-  `afficher_marque` VARCHAR(30) NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -117,7 +116,7 @@ DROP TABLE IF EXISTS `article` ;
 
 CREATE TABLE IF NOT EXISTS `article` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `description` VARCHAR(45) NULL,
+  `description` VARCHAR(400) NULL,
   `prix` DECIMAL(2) NULL,
   `keyword` VARCHAR(45) NULL,
   `couleur` VARCHAR(45) NULL,
