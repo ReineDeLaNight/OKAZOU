@@ -4,34 +4,12 @@
 
     $main_categorie = [
         'femmes',
-    ];
-
-    $categorie_femme = [
-        "Sweats et sweats à capuche",
-        "Robes",
-        "Hauts & Tee-shirts",
-        "Pantalons & leggings",
-        "Combinaisons & combishorts",
-        "Lingerie & pyjamas",
-        "Vêtements de sport",
-        "Manteaux & vestes",
-        "Blazers &  tailleurs",
-        "Jupes",
-        "Jeans",
-        "Shorts",
-        "Maillots de bain",
-        "Maternité",
-        "Costumes & tenues particulières"
-    ];
-
-    $categorie_enfant = [
-        "Filles",
-        "Jeux & Jouets",
-        "Poussettes",
-        "Garçons", 
+        'hommes',
+        'enfants'
     ];
 
     for ($i = 0; $i < sizeof($main_categorie); $i++) {
+        echo $main_categorie[$i];
         parcourir_categorie($main_categorie[$i]);
     }
 
@@ -111,7 +89,8 @@
     ////////////////
 
     function ajout_categorie($main_categorie, $categorie) {
-    
+        echo "categorie princ: ".$main_categorie."<br>";
+        echo "categorie: ".$categorie."<br>";
         $bdd = new PDO('mysql:host=localhost;dbname=okazou;charset=utf8', 'root', '');
         $req = $bdd->prepare('SELECT id FROM categorie WHERE nom_categorie LIKE :categorie');
         $req -> bindParam(':categorie',$categorie,PDO::PARAM_STR);
@@ -126,10 +105,11 @@
             $req->execute() or die(print_r($req->errorInfo(), TRUE));
 
             $id = $req->fetch();
+            echo $id[0]."<br>";
 
             $req = $bdd->prepare("INSERT IGNORE INTO categorie (nom_categorie, pere) VALUES (:categorie, :id)");
             $req -> bindParam(':categorie',$categorie,PDO::PARAM_STR);
-            $req -> bindParam(':id',$id,PDO::PARAM_INT);
+            $req -> bindParam(':id',$id[0],PDO::PARAM_INT);
 
             $req->execute() or die(print_r($req->errorInfo(), TRUE));
 
