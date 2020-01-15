@@ -1,6 +1,6 @@
 <?php
 function listeArticle() {
-$bdd = new PDO("mysql:host=localhost;dbname=okazou","root","");
+$bdd = new PDO('mysql:host=localhost;dbname=okazou;charset=utf8', 'root', '');
 $req = $bdd->prepare("SELECT A.id, A.description, A.prix, A.keyword, A.couleur, A.etat, A.photo1, A.photo2, A.photo3, T.taille, T.categorie, C.nom_categorie, S.nom, M.marque FROM article A
 INNER JOIN taille T on A.taille = T.id
 INNER JOIN categorie AS C ON A.categorie = C.id
@@ -15,7 +15,7 @@ function createItem($liste) {
     return $item;
 }
 function recupererCategorie() {
-    $bdd = new PDO("mysql:host=localhost;dbname=okazou","root","");
+    $bdd = new PDO('mysql:host=localhost;dbname=okazou;charset=utf8', 'root', '');
     $req1 = $bdd -> prepare("SELECT nom_categorie FROM categorie WHERE pere LIKE 1 ");
     $req1 -> execute();
     $categorie[0] = $req1 -> fetchall();
@@ -28,7 +28,7 @@ function recupererCategorie() {
     return $categorie;
 }
 function articleCategorie($categorie,$sousCategorie) {
-    $bdd = new PDO("mysql:host=localhost;dbname=okazou","root","");
+    $bdd = new PDO('mysql:host=localhost;dbname=okazou;charset=utf8', 'root', '');
     $req1 = $bdd -> prepare("SELECT pere FROM categorie WHERE nom_categorie LIKE :categorie");
     $req1 -> bindParam(':categorie',$categorie,PDO::PARAM_STR);
     $req1 -> execute();
