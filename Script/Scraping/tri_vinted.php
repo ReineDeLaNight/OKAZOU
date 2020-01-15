@@ -9,7 +9,6 @@
     ];
 
     for ($i = 0; $i < sizeof($main_categorie); $i++) {
-        echo $main_categorie[$i];
         parcourir_categorie($main_categorie[$i]);
     }
 
@@ -31,6 +30,7 @@
             $data[$i] = [];
             
             $data[$i]['categorie'] = $data_csv[$i][18];
+            $data[$i]['lien'] = $data_csv[$i][3];
             $data[$i]['photo1'] = convert_photo($data_csv[$i][5]);
             $data[$i]['photo2'] = convert_photo($data_csv[$i][7]);
             $data[$i]['photo3'] = convert_photo($data_csv[$i][9]);
@@ -47,7 +47,7 @@
                                                                                          // L'id de vinted dans la table site est 1
             $marque = ajout_marque($data[$i]['marque']);
 
-            ajout_article($data[$i]['description'], $data[$i]['prix'], $data[$i]['couleur'], $data[$i]['etat'], $data[$i]['photo1'], $data[$i]['photo2'], $data[$i]['photo3'], $taille, $categorie, $site, $marque);
+            ajout_article($data[$i]['description'], $data[$i]['lien'], $data[$i]['prix'], $data[$i]['couleur'], $data[$i]['etat'], $data[$i]['photo1'], $data[$i]['photo2'], $data[$i]['photo3'], $taille, $categorie, $site, $marque);
         }
     }
 
@@ -77,8 +77,8 @@
     }
 
     function remove_emoji($string) {
-
-        $regex_all = '/[\x{00A6}-\x{1FA95}]/u';
+        $regex_all = '/[\x{0FF0}-\x{1FA95}]/u';
+        //$regex_all = '/[\x{00A6}-\x{1FA95}]/u';
         $clear_string = preg_replace($regex_all, '', $string);
 
         return $clear_string;
@@ -89,9 +89,10 @@
     ////////////////
 
     function ajout_categorie($main_categorie, $categorie) {
-        echo "categorie princ: ".$main_categorie."<br>";
-        echo "categorie: ".$categorie."<br>";
+        //echo "categorie princ: ".$main_categorie."<br>";
+        //echo "categorie: ".$categorie."<br>";
         $bdd = new PDO('mysql:host=localhost;dbname=okazou;charset=utf8', 'root', '');
+
         $req = $bdd->prepare('SELECT id FROM categorie WHERE nom_categorie LIKE :categorie');
         $req -> bindParam(':categorie',$categorie,PDO::PARAM_STR);
         $req->execute() or die(print_r($req->errorInfo(), TRUE));
@@ -105,7 +106,6 @@
             $req->execute() or die(print_r($req->errorInfo(), TRUE));
 
             $id = $req->fetch();
-            echo $id[0]."<br>";
 
             $req = $bdd->prepare("INSERT IGNORE INTO categorie (nom_categorie, pere) VALUES (:categorie, :id)");
             $req -> bindParam(':categorie',$categorie,PDO::PARAM_STR);
@@ -184,6 +184,7 @@
 
     function ajout_marque($marque) {
         $bdd = new PDO('mysql:host=localhost;dbname=okazou;charset=utf8', 'root', '');
+        
 
         $req = $bdd->prepare("SELECT id FROM marque WHERE marque LIKE :marque");
         $req -> bindParam(':marque',$marque,PDO::PARAM_STR);
@@ -233,8 +234,8 @@
         }
     }
 
-    function ajout_article($description, $prix, $couleur, $etat, $photo1, $photo2, $photo3, $taille, $categorie, $site, $marque) {
-    
+    function ajout_article($description, $lien, $prix, $couleur, $etat, $photo1, $photo2, $photo3, $taille, $categorie, $site, $marque) {
+        //echo $lien;
         /*echo $description."<br>";
         echo $prix."<br>";
         echo $couleur."<br>";
@@ -248,7 +249,6 @@
         echo $marque."<br>";*/
 
         $bdd = new PDO('mysql:host=localhost;dbname=okazou;charset=utf8', 'root', '');
-
         $req = $bdd->prepare("SELECT * FROM article WHERE description LIKE :description");
         $req -> bindParam(':description',$description,PDO::PARAM_STR);
 
@@ -257,9 +257,10 @@
         $flag = $req->fetch();
 
         if (!$flag) {
-            $req = $bdd->prepare("INSERT INTO article (description, prix, couleur, etat, photo1, photo2, photo3, taille, categorie, site, marque) VALUES(:description, :prix, :couleur, :etat, :photo1, :photo2, :photo3, :taille, :categorie, :site, :marque)");
+            $req = $bdd->prepare("INSERT INTO article (description, lien, prix, couleur, etat, photo1, photo2, photo3, taille, categorie, site, marque) VALUES(:description, :lien, :prix, :couleur, :etat, :photo1, :photo2, :photo3, :taille, :categorie, :site, :marque)");
             
             $req -> bindParam(':description',$description,PDO::PARAM_STR);
+            $req -> bindParam(':lien',$lien,PDO::PARAM_STR);
             $req -> bindParam(':prix',$prix,PDO::PARAM_INT);
             $req -> bindParam(':couleur',$couleur,PDO::PARAM_STR);
             $req -> bindParam(':etat',$etat,PDO::PARAM_STR);
