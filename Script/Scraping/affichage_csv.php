@@ -1,5 +1,5 @@
 <?php
-    $file = fopen('C:\Users\33781\Downloads\hommes.csv', "r");
+    $file = fopen('../hommes.csv', "r");
     $i = 0;
     $population = 0;
     while ($data[$i] = fgetcsv($file, 1024, ',')) {
