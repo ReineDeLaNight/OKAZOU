@@ -14,7 +14,7 @@
     }
 
     function parcourir_categorie($main_categorie) {
-        $file = fopen('C:/Users/33781/Downloads/'.$main_categorie.'.csv', "r");
+        $file = fopen('../'.$main_categorie.'.csv', "r");
         
         $i = 0;
         $population = 0;
