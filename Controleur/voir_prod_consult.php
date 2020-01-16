@@ -14,5 +14,9 @@ for($i=0; $i<sizeof($item) ;$i++)
         $article = $article.$item[$i];
     }
 }
+if(!empty($_GET['historique'])) {
+    supprimerHistorique();
+    $article = 'Aucun produit consulté';
+}
 require("../Vue/voir_prod_consult.php");
 ?>

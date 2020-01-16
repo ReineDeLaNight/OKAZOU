@@ -26,6 +26,7 @@
     <?php echo($cat[2]); ?>
   </div>
 </div>
+   <div><?php echo($descriptif) ?></div>
    <div> <?php echo($articleCategorie) ?> </div>
     <?php if(empty($_GET['categorie'])) {
     echo('<h1>Quelques articles au hasard :</h1>

@@ -67,8 +67,10 @@ for($i=0; $i<sizeof($categorie) ;$i++)
     }
 }
 $articleCategorie = '';
+$descriptif = '';
 if(!empty($_GET['categorie']) && !empty($_GET['souscategorie'])) {
    $listeArticleCategorie = articleCategorie($_GET['categorie'],$_GET['souscategorie']);
+   $descriptif = '<div><h1>'.$_GET['souscategorie'].' pour '.$_GET['categorie'].'</h1></div>';
    for($i=0;$i < sizeof($listeArticleCategorie);$i++) {
     $articleCategorie = $articleCategorie.'<div><a href ="Controleur\voir_articles.php?code='.$listeArticleCategorie[$i][0].'"><img class = "article" src="'.$listeArticleCategorie[$i][1].'"></a></div>';
    }
