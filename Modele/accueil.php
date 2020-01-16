@@ -8,6 +8,7 @@ INNER JOIN site S ON A.site = S.id
 INNER JOIN marque M ON A.marque = M.id WHERE A.id");
 $req -> execute();
 $listeArticle = $req -> fetchAll();
+
 return $listeArticle;
 }
 function createItem($liste) {
@@ -25,6 +26,7 @@ function recupererCategorie() {
     $req3 = $bdd -> prepare("SELECT nom_categorie FROM categorie WHERE pere LIKE 3 ");
     $req3 -> execute();
     $categorie[2] = $req3 -> fetchall();
+    
     return $categorie;
 }
 function articleCategorie($categorie,$sousCategorie) {

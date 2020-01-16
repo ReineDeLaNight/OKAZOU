@@ -29,7 +29,7 @@
         for ($i = 0; $i < sizeof($data_csv) - 1; $i++) {
             $data[$i] = [];
             
-            $data[$i]['categorie'] = $data_csv[$i][18];
+            $data[$i]['categorie'] = change_into_et($data_csv[$i][18]);
             $data[$i]['lien'] = $data_csv[$i][3];
             $data[$i]['photo1'] = convert_photo($data_csv[$i][5]);
             $data[$i]['photo2'] = convert_photo($data_csv[$i][7]);
@@ -59,6 +59,11 @@
     ////////////////////////////
     // Fonction sur les strings
     ////////////////////////////
+    function change_into_et($categorie) {
+        $categorie = str_replace('&', 'et', $categorie);
+        return $categorie;
+    }
+
     function convert_photo($string_photo) {
         if (empty($string_photo)) {
             $string_photo = NULL;
