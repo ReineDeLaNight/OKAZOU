@@ -44,13 +44,39 @@
       width: 250px;
       
   }
-  div {
+  #contentFlex {
     display: flex;
     align-content: center;
+    flex-direction: row;
     height: 100%;
-    border: solid;
   }
 
   body {
       background-color: antiquewhite;
   }
+  div {
+    border: black solid;
+  }
+
+#groupeArticle {
+  display: flex;
+}
+.articles {
+  display: flex;
+  flex-direction: column;
+}
+.infos {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+#photo {
+  width: 250px;
+  height: 250px;
+}
+#prix {
+  color: aqua;
+}
+#couleur {
+  color: blueviolet;
+}

@@ -54,8 +54,10 @@ if (!isset($_SESSION['etatConnexion'])) {  // Si l'utilisateur n'est pas connect
 $listeArticle = listeArticle();
 for($i=0; $i<sizeof($listeArticle) ;$i++)
 {
-    $item[$i] = createItem($listeArticle[$i]);
+        $item[$i] = '';
+        $item[$i] = $item[$i].'<a href ="Controleur\voir_articles.php?code='.$listeArticle[$i][0].'"><img class = "article" src="'.$listeArticle[$i][6].'"></a>';
 }
+
 $categorie = recupererCategorie();
 $cat[0] = '';
 $cat[1] = '';
@@ -71,9 +73,11 @@ $descriptif = '';
 if(!empty($_GET['categorie']) && !empty($_GET['souscategorie'])) {
    $listeArticleCategorie = articleCategorie($_GET['categorie'],$_GET['souscategorie']);
    $descriptif = '<div><h1>'.$_GET['souscategorie'].' pour '.$_GET['categorie'].'</h1></div>';
+   $articleCategorie = $articleCategorie.'<div id = "contentFlex">';
    for($i=0;$i < sizeof($listeArticleCategorie);$i++) {
     $articleCategorie = $articleCategorie.'<div><a href ="Controleur\voir_articles.php?code='.$listeArticleCategorie[$i][0].'"><img class = "article" src="'.$listeArticleCategorie[$i][1].'"></a></div>';
    }
+   $articleCategorie = $articleCategorie.'</div>';
 }
 include("./Vue/accueil.php");
 ?>

@@ -3,12 +3,13 @@
 <!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
+    <link href="../CSS/accueil.css" rel="stylesheet">
     <title>Historique</title>
 </head>
 <body>
     <h1>OKAZOU</h1>
     <h1>Articles consultés :</h1>
-    <?php echo($article) ?>
+   <div> <?php echo($article) ?> </div>
     <form action="./voir_prod_consult.php">
       <button type="submit" name="historique" value="supprimer"> Supprimer l'historique </button>
     </form>

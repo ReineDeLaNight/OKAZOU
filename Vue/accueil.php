@@ -3,10 +3,24 @@
 <head>
     <link href="./CSS/accueil.css" rel="stylesheet">
     <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script> 
+        $(document).ready(function() {
+            var articleCount = 5;
+            var categorie = "<?php echo $_GET['souscategorie']; ?>";
+            $("button").click(function(){
+                articleCount = articleCount + 5;
+                $("#listeArticle").load("Modele/loadArticle.php", {
+                    articleNewCount: articleCount,
+                    categorie: categorie
+                });
+            });
+        });
+    </script>
     <title>OKAZOU</title>
 </head>
 <body>
-<div> <a href="./accueil.php"><img  class="logo" src ="./Images/logo.png"></a>
+<div id="contentFlex"> <a href="./accueil.php"><img  class="logo" src ="./Images/logo.png"></a>
      <?php echo $boutonUtilisateur; ?> </div>
     <div class="dropdown">
   <label class="dropbtn">Femmes</label>
@@ -27,9 +41,13 @@
   </div>
 </div>
    <div><?php echo($descriptif) ?></div>
-   <div> <?php echo($articleCategorie) ?> </div>
+   
+   <div id="listeArticle"> <?php echo($articleCategorie) ?> </div>
+   <?php if(!empty($_GET['categorie'])) {
+     echo('<button>Afficher Plus</button>');
+    } ?>
     <?php if(empty($_GET['categorie'])) {
     echo('<h1>Quelques articles au hasard :</h1>
-    <div>'.$item[rand(0,sizeof($listeArticle)-1)].$item[rand(0,sizeof($listeArticle)-1)].$item[rand(0,sizeof($listeArticle)-1)].$item[rand(0,sizeof($listeArticle)-1)].$item[rand(0,sizeof($listeArticle)-1)].'</div>');} ?>
+    <div id="contentFlex">'.$item[rand(0,sizeof($listeArticle)-1)].$item[rand(0,sizeof($listeArticle)-1)].$item[rand(0,sizeof($listeArticle)-1)].$item[rand(0,sizeof($listeArticle)-1)].$item[rand(0,sizeof($listeArticle)-1)].'</div>');} ?>
 </body>
 </html>

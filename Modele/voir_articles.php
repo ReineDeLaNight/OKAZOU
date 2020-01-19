@@ -2,7 +2,7 @@
 function afficherArticles() {
     $codeArticle = $_GET['code'];
     $bdd = new PDO('mysql:host=localhost;dbname=okazou;charset=utf8', 'root', ''); 
-    $req = $bdd -> prepare("SELECT A.id, A.description, A.prix, A.keyword, A.couleur, A.etat, A.photo1, A.photo2, A.photo3, T.taille, T.categorie, C.nom_categorie, S.nom, S.lien, M.marque FROM article A
+    $req = $bdd -> prepare("SELECT A.id, A.description, A.lien, A.prix, A.keyword, A.couleur, A.etat, A.photo1, A.photo2, A.photo3, T.taille, T.categorie, C.nom_categorie, S.nom, S.logo, M.marque FROM article A
     INNER JOIN taille T on A.taille = T.id
     INNER JOIN categorie AS C ON A.categorie = C.id
     INNER JOIN site S ON A.site = S.id
