@@ -7,6 +7,7 @@
   <head>
     <title>ARTICLE</title>
     <link href="../CSS/accueil.css" rel="stylesheet">
+    <meta charset="UTF-8">
     <script type='text/javascript' src="https://code.jquery.com/jquery-3.4.1.min.js"> </script>
     <script> </script>
   </head>
@@ -14,7 +15,7 @@
   <body>
     <div>
          <h1><?php echo($infoArticle[1]);?></h1>
-         <img src="<?php echo($infoArticle[7]);?>">
+         <img id="photo"src="<?php echo($infoArticle[7]);?>">
          <div><?php echo($infoArticle[10]); ?></div>
          <div><?php echo($infoArticle[3]); ?>€</div>
          <div><?php echo($infoArticle[5]); ?></div>

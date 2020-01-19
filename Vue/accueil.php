@@ -8,11 +8,13 @@
         $(document).ready(function() {
             var articleCount = 5;
             var categorie = "<?php echo $_GET['souscategorie']; ?>";
+            var membre = "<?php echo $_SESSION['id']; ?>";
             $("button").click(function(){
                 articleCount = articleCount + 5;
                 $("#listeArticle").load("Modele/loadArticle.php", {
                     articleNewCount: articleCount,
-                    categorie: categorie
+                    categorie: categorie,
+                    membre : membre
                 });
             });
         });

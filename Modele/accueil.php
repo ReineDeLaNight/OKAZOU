@@ -34,7 +34,7 @@ function articleCategorie($categorie,$sousCategorie) {
     $idPere = $req1 -> fetch();
     $idPere = $idPere[0];
 
-    $req2 = $bdd -> prepare("SELECT A.id, A.photo1 FROM article A
+    $req2 = $bdd -> prepare("SELECT * FROM article A
     INNER JOIN categorie AS C ON A.categorie = C.id
     WHERE C.nom_categorie LIKE :sousCategorie AND pere LIKE :idPere
     LIMIT 5");
@@ -45,7 +45,27 @@ function articleCategorie($categorie,$sousCategorie) {
     return $listeArticle;
 }
 
+function afficherFavori($codeArticle) {
+    $membre = $_SESSION['id'];
+    $flag = 'f';
     
+    $bdd = new PDO('mysql:host=localhost;dbname=okazou;charset=utf8', 'root', ''); 
+    $req1 = $bdd -> prepare("SELECT COUNT(id) FROM favori WHERE article LIKE :codeArticle AND membre LIKE :membre AND flag LIKE :flag");
+    $req1 -> bindParam(':codeArticle', $codeArticle, PDO::PARAM_INT);
+    $req1 -> bindParam(':membre', $membre, PDO::PARAM_INT);
+    $req1 -> bindParam(':flag', $flag, PDO::PARAM_STR);
+    $req1 -> execute(); 
+    $test = $req1 -> fetch();
+    if($test[0]==0) {
+        $nomBouton = '♡';
+        return $nomBouton;
+        
+    } else {
+        $nomBouton = '♥';
+        return $nomBouton;
+    }
+    
+}
 
     
 ?>
