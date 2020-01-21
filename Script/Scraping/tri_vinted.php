@@ -40,6 +40,7 @@
             $data[$i]['couleur'] = $data_csv[$i][14];
             $data[$i]['description'] = remove_emoji($data_csv[$i][17]);
             $data[$i]['prix'] = convert_to_price($data_csv[$i][10]);
+            $data[$i]['nom'] = remove_emoji($data_csv[$i][19]);
 
 
             $categorie = ajout_categorie($data['main_categorie'], $data[$i]['categorie']);
@@ -47,7 +48,7 @@
                                                                                          // L'id de vinted dans la table site est 1
             $marque = ajout_marque($data[$i]['marque']);
 
-            ajout_article($data[$i]['description'], $data[$i]['lien'], $data[$i]['prix'], $data[$i]['couleur'], $data[$i]['etat'], $data[$i]['photo1'], $data[$i]['photo2'], $data[$i]['photo3'], $taille, $categorie, $site, $marque);
+            ajout_article($data[$i]['description'], $data[$i]['lien'], $data[$i]['prix'], $data[$i]['couleur'], $data[$i]['etat'], $data[$i]['photo1'], $data[$i]['photo2'], $data[$i]['photo3'], $taille, $categorie, $site, $marque, $data[$i]['nom']);
         }
     }
 
@@ -227,7 +228,7 @@
 
             $nom = "Vinted";
             $lien = "https://www.vinted.fr/";
-            $logo = "https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Vinted_logo.png/800px-Vinted_logo.png";
+            $logo = "https://upload.wikimedia.org/wikipedia/commons/2/29/Vinted_logo.png";
         
 
             $req = $bdd->prepare("INSERT INTO site(nom, lien, logo) VALUES (:nom, :lien, :logo)");
@@ -239,7 +240,7 @@
         }
     }
 
-    function ajout_article($description, $lien, $prix, $couleur, $etat, $photo1, $photo2, $photo3, $taille, $categorie, $site, $marque) {
+    function ajout_article($description, $lien, $prix, $couleur, $etat, $photo1, $photo2, $photo3, $taille, $categorie, $site, $marque, $nom) {
         //echo $lien;
         /*echo $description."<br>";
         echo $prix."<br>";
@@ -262,7 +263,7 @@
         $flag = $req->fetch();
 
         if (!$flag) {
-            $req = $bdd->prepare("INSERT INTO article (description, lien, prix, couleur, etat, photo1, photo2, photo3, taille, categorie, site, marque) VALUES(:description, :lien, :prix, :couleur, :etat, :photo1, :photo2, :photo3, :taille, :categorie, :site, :marque)");
+            $req = $bdd->prepare("INSERT INTO article (description, lien, prix, couleur, etat, photo1, photo2, photo3, taille, categorie, site, marque, nom) VALUES(:description, :lien, :prix, :couleur, :etat, :photo1, :photo2, :photo3, :taille, :categorie, :site, :marque, :nom)");
             
             $req -> bindParam(':description',$description,PDO::PARAM_STR);
             $req -> bindParam(':lien',$lien,PDO::PARAM_STR);
@@ -274,9 +275,9 @@
             $req -> bindParam(':photo3',$photo3,PDO::PARAM_STR);
             $req -> bindParam(':taille',$taille,PDO::PARAM_INT);
             $req -> bindParam(':categorie',$categorie,PDO::PARAM_INT);
-
             $req -> bindParam(':site',$site,PDO::PARAM_INT);
             $req -> bindParam(':marque',$marque,PDO::PARAM_INT);
+            $req -> bindParam(':nom',$nom,PDO::PARAM_STR);
 
             $req->execute() or die(print_r($req->errorInfo(), TRUE));
         }
