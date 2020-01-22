@@ -116,6 +116,7 @@ DROP TABLE IF EXISTS `article` ;
 
 CREATE TABLE IF NOT EXISTS `article` (
   `id` INT NOT NULL AUTO_INCREMENT,
+  `nom` VARCHAR(50) NULL,
   `description` VARCHAR(400) NULL,
   `lien` VARCHAR(150) NULL,
   `prix` DECIMAL(2) NULL,
@@ -129,6 +130,7 @@ CREATE TABLE IF NOT EXISTS `article` (
   `categorie` INT NOT NULL,
   `site` INT NOT NULL,
   `marque` INT NOT NULL,
+  `reference` INT(10) NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_article_site1`
     FOREIGN KEY (`site`)
