@@ -35,7 +35,7 @@ for($i=0; $i < $articleCount; $i++) {
         echo('<div class="articles">
         <a href="Controleur/voir_articles.php?code='.$listeArticle['id'].'"><img id="photo" src="'.$listeArticle['photo1'].'"></a>
         <div class="infos">
-        <span id="categorie">'.$listeArticle['nom_categorie'].'</span>
+        <span id="categorie">'.$listeArticle['marque'].'</span>
         <span id="couleur">'.$listeArticle['couleur'].'</span>
         <span id="prix">'.$listeArticle['prix'].'€</span>
         <span id="favori">'.$nomBouton.'</span>

@@ -22,6 +22,7 @@
     <title>OKAZOU</title>
 </head>
 <body>
+<header>
 <div id="contentFlex"> <a href="./accueil.php"><img  class="logo" src ="./Images/logo.png"></a>
      <?php echo $boutonUtilisateur; ?> </div>
     <div class="dropdown">
@@ -42,6 +43,7 @@
     <?php echo($cat[2]); ?>
   </div>
 </div>
+</header>
    <div><?php echo($descriptif) ?></div>
    
    <div id="listeArticle"> <?php echo($articleCategorie) ?> </div>

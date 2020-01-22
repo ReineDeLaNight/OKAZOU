@@ -54,11 +54,21 @@ if (!isset($_SESSION['etatConnexion'])) {  // Si l'utilisateur n'est pas connect
 $listeArticle = listeArticle();
 for($i=0; $i<sizeof($listeArticle) ;$i++)
 {
+    $nomBouton[$i] = '';
+    if(isset($_SESSION['id'])) {
+        $nomBouton[$i] = afficherFavori($listeArticle[$i][0]);
+    }
     $item[$i] = '';
     $item[$i] = $item[$i].'<div class ="articles">
     <a href ="Controleur\voir_articles.php?code='.$listeArticle[$i][0].'">
     <img id = "photo" src="'.$listeArticle[$i][6].'">
     </a>
+    <div class="infos">
+    <span id="categorie">'.$listeArticle[$i]['marque'].'</span>
+    <span id="couleur">'.$listeArticle[$i]['couleur'].'</span>
+    <span id="prix">'.$listeArticle[$i]['prix'].'€</span>
+    <span id="favori">'.$nomBouton[$i].'</span>
+    </div>
     </div>';
 }
 
@@ -76,16 +86,19 @@ $articleCategorie = '';
 $descriptif = '';
 if(!empty($_GET['categorie']) && !empty($_GET['souscategorie'])) {
     $listeArticleCategorie = articleCategorie($_GET['categorie'],$_GET['souscategorie']);
-    $descriptif = '<div><h1>'.$_GET['souscategorie'].' pour '.$_GET['categorie'].'</h1></div>';
+    $descriptif = '<div  class="desc" ><h1>'.$_GET['souscategorie'].' pour '.$_GET['categorie'].'</h1></div>';
     $articleCategorie = $articleCategorie.'<div id = "contentFlex">';
     for($i=0;$i < sizeof($listeArticleCategorie);$i++) {
-        $nomBouton[$i] = afficherFavori($listeArticleCategorie[$i][0]);
+        $nomBouton[$i] = '';
+        if(isset($_SESSION['id'])) {
+            $nomBouton[$i] = afficherFavori($listeArticleCategorie[$i][0]);
+        }
         $articleCategorie = $articleCategorie.'<div class ="articles">
         <a href ="Controleur\voir_articles.php?code='.$listeArticleCategorie[$i][0].'">
         <img id = "photo" src="'.$listeArticleCategorie[$i]['photo1'].'">
         </a>
         <div class="infos">
-        <span id="categorie">'.$listeArticleCategorie[$i]['nom_categorie'].'</span>
+        <span id="categorie">'.$listeArticleCategorie[$i]['marque'].'</span>
         <span id="couleur">'.$listeArticleCategorie[$i]['couleur'].'</span>
         <span id="prix">'.$listeArticleCategorie[$i]['prix'].'€</span>
         <span id="favori">'.$nomBouton[$i].'</span>

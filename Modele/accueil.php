@@ -36,6 +36,7 @@ function articleCategorie($categorie,$sousCategorie) {
 
     $req2 = $bdd -> prepare("SELECT * FROM article A
     INNER JOIN categorie AS C ON A.categorie = C.id
+    INNER JOIN marque AS M ON A.marque = M.id
     WHERE C.nom_categorie LIKE :sousCategorie AND pere LIKE :idPere
     LIMIT 5");
     $req2 -> bindParam(':sousCategorie',$sousCategorie,PDO::PARAM_STR);

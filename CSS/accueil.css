@@ -1,6 +1,7 @@
 .dropdown {
     position: relative;
     display: inline-block;
+    margin: 0px 200px 0px 0px;
   }
   
   /* Dropdown Content (Hidden by Default) */
@@ -46,12 +47,11 @@
   }
 
   body {
-      background-color: antiquewhite;
+      background-color: burlywood;
   }
-  div {
-    border: black solid;
-  }
+  
 #listeArticle {
+  margin-top: 200px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -88,4 +88,16 @@ body {
   margin: 0;
   text-align: center;
 
+}
+header {
+  width: 1600px;
+	color : black;
+	background-color: antiquewhite;
+	margin: -150px 0 0 -800px;
+	left: 50%;
+	position:fixed
+}
+.desc {
+  margin-top: 150px;
+  margin-bottom: -200px;
 }

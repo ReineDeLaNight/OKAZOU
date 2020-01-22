@@ -4,6 +4,7 @@
 <!DOCTYPE html>
     <head>
         <meta charset="UTF-8">
+        <link href="../CSS/profil.css" rel="stylesheet">
         <title>OKAZOU</title>
     </head>
     <body>
