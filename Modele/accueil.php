@@ -67,6 +67,52 @@ function afficherFavori($codeArticle) {
     }
     
 }
+function testAlgo($id) {
+    $membre = $id;
+    $flag = 'f';
+    $bdd = new PDO("mysql:host=localhost;dbname=okazou;charset=utf8","root","");
+    $req = $bdd -> prepare("SELECT A.id, A.couleur, T.taille, C.nom_categorie, M.marque FROM article AS A
+    INNER JOIN taille T on A.taille = T.id
+    INNER JOIN categorie AS C ON A.categorie = C.id
+    INNER JOIN site S ON A.site = S.id
+    INNER JOIN marque M on A.marque = M.id
+    INNER JOIN favori AS F ON F.article = A.id
+    WHERE F.membre = :membre
+    AND F.flag = :flag");
+    $req -> bindParam(':membre', $membre, PDO::PARAM_INT);
+    $req -> bindParam(':flag', $flag, PDO::PARAM_STR);
+    $req -> execute();
+    $result = $req -> fetchall();
+    return $result;
+}
 
+function recupArticle($taille, $categorie, $couleur) {
+
+    $bdd = new PDO("mysql:host=localhost;dbname=okazou;charset=utf8","root","");
+    $req = $bdd -> prepare("SELECT A.id, A.photo1, A.prix, A.couleur, T.taille, C.nom_categorie, M.marque FROM article AS A
+    INNER JOIN taille T on A.taille = T.id
+    INNER JOIN categorie AS C ON A.categorie = C.id
+    INNER JOIN site S ON A.site = S.id
+    INNER JOIN marque M on A.marque = M.id
+    WHERE T.taille LIKE :taille AND C.nom_categorie LIKE :categorie AND LOCATE( :couleur, couleur)");
+    $req ->bindParam(':taille', $taille,  PDO::PARAM_STR);
+    $req ->bindParam(':categorie', $categorie,  PDO::PARAM_STR);
+    $req ->bindParam(':couleur', $couleur,  PDO::PARAM_STR);
+    $req -> execute();
+    $result = $req -> fetchall();
+    return $result;
+}
+function nombreFavoris() {
+    $membre = $_SESSION['id'];
+    $flag = 'f';
+    $bdd = new PDO("mysql:host=localhost;dbname=okazou;charset=utf8","root","");
+    $req = $bdd -> prepare("SELECT COUNT(id) FROM favori WHERE flag LIKE :flag AND membre LIKE :membre");
+    $req -> bindParam(':membre', $membre, PDO::PARAM_INT);
+    $req -> bindParam(':flag', $flag, PDO::PARAM_STR);
+    $req -> execute();
+    $result = $req -> fetch();
+    $result = $result[0];
+    return $result;
+}
     
 ?>
