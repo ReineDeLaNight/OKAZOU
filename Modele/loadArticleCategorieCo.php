@@ -1,4 +1,5 @@
 <?php
+
 $articleCount = $_POST['articleNewCount'];
 $categorie = $_POST['categorie'];
 $membre = $_POST['membre'];
@@ -25,10 +26,7 @@ for($i=0; $i < $articleCount; $i++) {
             $nomBouton = '♡';
         } else {
             $nomBouton = '♥';
-        }
-        
-        if($i == $j)
-        {
+        } if($i == $j){
             echo('<div id ="groupeArticle">');
             $j += 5;
         }        

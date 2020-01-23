@@ -70,23 +70,26 @@
     <?php echo($cat[2]); ?>
   </div>
 </div>
+<div><?php echo $filtre ?></div>
 </header>
    <div><?php echo($descriptif) ?></div>
-   
    <div id="listeArticle"> <?php echo($articleCategorie) ?> </div>
-   <?php if(!empty($_GET['categorie']) && $_SESSION['etatConnexion'] == true) {
-     echo('<button id="afficherPlusCategorieConnecte">Afficher Plus</button>');
-    } ?>
-    <?php if(!empty($_GET['categorie']) && $_SESSION['etatConnexion'] == false) {
+   <?php 
+  if(!empty($_GET['categorie']) && $_SESSION['etatConnexion'] == true) {
+    echo('<button id="afficherPlusCategorieConnecte">Afficher Plus</button>');
+  }
+  if(!empty($_GET['categorie']) && $_SESSION['etatConnexion'] == false) {
      echo('<button id="afficherPlusCategorieDeconnecte">Afficher Plus</button>');
-    } ?>
-    <?php if(empty($_GET['categorie']) && $_SESSION['etatConnexion'] == true) {
-      if($nombreFavoris > 10) {
-     echo('<button id="afficherPlusConseil">Afficher Plus</button>');
-      }
-    } ?>
-    <?php if(empty($_GET['categorie']) && $_SESSION['etatConnexion'] == false) {
+  }
+  if(empty($_GET['categorie']) && $_SESSION['etatConnexion'] == true) {
+    if($nombreFavoris > 10) {
+      echo('<button id="afficherPlusConseil">Afficher Plus</button>');
+    }
+  }
+  if(empty($_GET['categorie']) && $_SESSION['etatConnexion'] == false) {
     echo('<h1>Quelques articles au hasard :</h1>
-    <div id="contentFlex">'.$item[rand(0,sizeof($listeArticle)-1)].$item[rand(0,sizeof($listeArticle)-1)].$item[rand(0,sizeof($listeArticle)-1)].$item[rand(0,sizeof($listeArticle)-1)].$item[rand(0,sizeof($listeArticle)-1)].'</div>');} ?>
+    <div id="contentFlex">'.$item[rand(0,sizeof($listeArticle)-1)].$item[rand(0,sizeof($listeArticle)-1)].$item[rand(0,sizeof($listeArticle)-1)].$item[rand(0,sizeof($listeArticle)-1)].$item[rand(0,sizeof($listeArticle)-1)].'</div>');
+  }
+    ?>
 </body>
 </html>
