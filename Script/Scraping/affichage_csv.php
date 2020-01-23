@@ -1,5 +1,5 @@
 <?php
-    $file = fopen('../hommes.csv', "r");
+    $file = fopen('../femmes.csv', "r");
     $i = 0;
     $population = 0;
     while ($data[$i] = fgetcsv($file, 1024, ',')) {

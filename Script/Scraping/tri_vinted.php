@@ -95,35 +95,43 @@
     ////////////////
 
     function ajout_categorie($main_categorie, $categorie) {
-        //echo "categorie princ: ".$main_categorie."<br>";
-        //echo "categorie: ".$categorie."<br>";
+        echo "<br>categorie princ: ".$main_categorie."<br>";
+        echo "categorie: ".$categorie."<br>";
+
+        if ($main_categorie == "femmes") {
+            $pere = 1;
+        } else if ($main_categorie == "hommes") {
+            $pere = 2;
+        } else {
+            $pere = 3;
+        }
+
         $bdd = new PDO('mysql:host=localhost;dbname=okazou;charset=utf8', 'root', '');
 
-        $req = $bdd->prepare('SELECT id FROM categorie WHERE nom_categorie LIKE :categorie');
+        $req = $bdd->prepare('SELECT id FROM categorie WHERE nom_categorie LIKE :categorie AND pere = :pere');
         $req -> bindParam(':categorie',$categorie,PDO::PARAM_STR);
+        $req -> bindParam(':pere',$pere,PDO::PARAM_INT);
         $req->execute() or die(print_r($req->errorInfo(), TRUE));
 
         $id_categorie = $req->fetch();        
         
+        var_dump($id_categorie);
+
         if(!$id_categorie) {
             
-            $req = $bdd->prepare("SELECT id FROM categorie WHERE :main_categorie LIKE nom_categorie");
-            $req -> bindParam(':main_categorie',$main_categorie,PDO::PARAM_STR);
-            $req->execute() or die(print_r($req->errorInfo(), TRUE));
-
-            $id = $req->fetch();
-
-            $req = $bdd->prepare("INSERT IGNORE INTO categorie (nom_categorie, pere) VALUES (:categorie, :id)");
+            //$req = $bdd->prepare("INSERT IGNORE INTO categorie (nom_categorie, pere) VALUES (:categorie, :pere)");
+            $req = $bdd->prepare("INSERT INTO categorie (nom_categorie, pere) VALUES (:categorie, :pere)");
             $req -> bindParam(':categorie',$categorie,PDO::PARAM_STR);
-            $req -> bindParam(':id',$id[0],PDO::PARAM_INT);
+            $req -> bindParam(':pere',$pere,PDO::PARAM_INT);
 
             $req->execute() or die(print_r($req->errorInfo(), TRUE));
 
-            $id_categorie++;
+            //$id_categorie++;
         }
 
-        $req = $bdd->prepare("SELECT id FROM categorie WHERE nom_categorie LIKE :categorie");
+        $req = $bdd->prepare("SELECT id FROM categorie WHERE nom_categorie LIKE :categorie AND pere = :pere");
         $req -> bindParam(':categorie',$categorie,PDO::PARAM_STR);
+        $req -> bindParam(':pere',$pere,PDO::PARAM_INT);
         $req->execute() or die(print_r($req->errorInfo(), TRUE));
 
         $id_categorie = $req->fetch();    
@@ -241,7 +249,7 @@
     }
 
     function ajout_article($description, $lien, $prix, $couleur, $etat, $photo1, $photo2, $photo3, $taille, $categorie, $site, $marque, $nom) {
-        //echo $lien;
+        //echo "<br>".$lien;
         /*echo $description."<br>";
         echo $prix."<br>";
         echo $couleur."<br>";
@@ -249,14 +257,17 @@
         echo $photo1."<br>";
         echo $photo2."<br>";
         echo $photo3."<br>";
-        echo $taille."<br>";
-        echo $categorie."<br>";
-        echo $site."<br>";
+        echo $taille."<br>";*/
+        //echo "<br>".$categorie;
+        /*echo $site."<br>";
         echo $marque."<br>";*/
 
+        //echo "<br>$description";
+        //echo "<br>$categorie<br>";
+
         $bdd = new PDO('mysql:host=localhost;dbname=okazou;charset=utf8', 'root', '');
-        $req = $bdd->prepare("SELECT * FROM article WHERE description LIKE :description");
-        $req -> bindParam(':description',$description,PDO::PARAM_STR);
+        $req = $bdd->prepare("SELECT * FROM article WHERE lien LIKE :lien");
+        $req -> bindParam(':lien',$lien,PDO::PARAM_STR);
 
         $req->execute() or die(print_r($req->errorInfo(), TRUE));
 

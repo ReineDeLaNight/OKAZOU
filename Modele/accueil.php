@@ -98,9 +98,29 @@ function liste_cat() {
 }
 
 
-function liste_marque() {
+function liste_marque($categorie, $sousCategorie) {
     $bdd = new PDO('mysql:host=localhost;dbname=okazou;charset=utf8', 'root', ''); 
-    $req = $bdd -> prepare("SELECT marque FROM marque");
+    if ($categorie == "femmes") {
+        $categorie = 1;
+    } else if ($categorie == "hommes") {
+        $categorie = 2;
+    } else {
+        $categorie = 3;
+    }
+    
+    $req = $bdd -> prepare("SELECT id FROM categorie WHERE nom_categorie = :sousCategorie AND pere = :pere");
+    
+    $req -> bindParam(':sousCategorie',$sousCategorie,PDO::PARAM_STR);
+    $req -> bindParam(':pere',$categorie,PDO::PARAM_INT);
+
+    $req -> execute() or die(print_r($req->errorInfo(), TRUE));
+
+    $id_cat = $req->fetch();
+    $id_cat = $id_cat[0];
+
+    $req = $bdd -> prepare("SELECT DISTINCT M.marque FROM marque AS M INNER JOIN article AS A ON A.marque = M.id INNER JOIN categorie AS C ON C.id = A.categorie WHERE A.categorie = :id_cat");
+    
+    $req -> bindParam(':id_cat',$id_cat,PDO::PARAM_INT);
 
     $req -> execute() or die(print_r($req->errorInfo(), TRUE));
     
@@ -109,6 +129,29 @@ function liste_marque() {
     return $liste_marque;
 }
 
+
+function article_marque_categorie($categorie,$souscategorie,$marque) {
+    
+    $bdd = new PDO('mysql:host=localhost;dbname=okazou;charset=utf8', 'root', '');
+    $req = $bdd -> prepare("SELECT pere FROM categorie WHERE nom_categorie LIKE :categorie");
+    $req -> bindParam(':categorie',$categorie,PDO::PARAM_STR);
+    $req -> execute() or die(print_r($req->errorInfo(), TRUE));
+    $idPere = $req -> fetch();
+    $idPere = $idPere[0];
+
+    echo "$idPere    $souscategorie       $marque";
+
+    $req2 = $bdd -> prepare("SELECT * FROM article AS A
+    INNER JOIN categorie AS C ON A.categorie = C.id
+    INNER JOIN marque AS M ON A.marque = M.id
+    WHERE C.nom_categorie LIKE :sousCategorie AND C.pere LIKE :idPere AND M.marque = :marque");
+    $req2 -> bindParam(':sousCategorie',$souscategorie,PDO::PARAM_STR);
+    $req2 -> bindParam(':marque',$marque,PDO::PARAM_STR);
+    $req2 -> bindParam(':idPere',$idPere,PDO::PARAM_INT);
+    $req2 -> execute() or die(print_r($req->errorInfo(), TRUE));
+    $listeArticle = $req2 -> fetchAll();
+    return $listeArticle;
+}
 /*function liste_taille() {
     $bdd = new PDO('mysql:host=localhost;dbname=okazou;charset=utf8', 'root', ''); 
     $req = $bdd -> prepare("SELECT taille, categorie FROM taille");

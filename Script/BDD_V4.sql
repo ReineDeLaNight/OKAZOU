@@ -66,7 +66,7 @@ DROP TABLE IF EXISTS `categorie` ;
 
 CREATE TABLE IF NOT EXISTS `categorie` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `nom_categorie` VARCHAR(45) NULL UNIQUE,
+  `nom_categorie` VARCHAR(45) NULL,
   `pere` INT NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_categorie_categorie1`

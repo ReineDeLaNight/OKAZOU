@@ -51,6 +51,7 @@ if (!isset($_SESSION['etatConnexion'])) {  // Si l'utilisateur n'est pas connect
     <button type="submit">Inscription</button>
     </form>';
 }
+// récuperer une liste d'articles a afficher
 $listeArticle = listeArticle();
 for($i=0; $i<sizeof($listeArticle) ;$i++)
 {
@@ -65,13 +66,12 @@ for($i=0; $i<sizeof($listeArticle) ;$i++)
     </a>
     <div class="infos">
     <span id="categorie">'.$listeArticle[$i]['marque'].'</span>
-    <span id="couleur">'.$listeArticle[$i]['couleur'].'</span>
     <span id="prix">'.$listeArticle[$i]['prix'].'€</span>
     <span id="favori">'.$nomBouton[$i].'</span>
     </div>
     </div>';
 }
-
+// Récuperer les catégories disponibles dans la BDD et les ranger dans le dropdown
 $categorie = recupererCategorie();
 $cat[0] = '';
 $cat[1] = '';
@@ -82,24 +82,30 @@ for($i=0; $i<sizeof($categorie) ;$i++)
         $cat[$i] = $cat[$i].'<a href ="./accueil.php?categorie='.$categorie[$i][0][0].'&souscategorie='.$categorie[$i][$j][0].'">'.$categorie[$i][$j][0].'</a>';
     }
 }
-
-// html pour affichage filtre
+// Recupérer les articles selon la catégorie choisie
 $filtre = "";
-
-$listeCat = liste_cat();
-$listeMarque = liste_marque();
-
-$filtre .= '<form href="./accueil.php">';
-/*for ($i = 0; $i < $listeCat; $i++) {
-    
-}*/
-$filtre .= "<div>hello</div>";
-$filtre .= '</form>';
-
 
 $articleCategorie = '';
 $descriptif = '';
 if(!empty($_GET['categorie']) && !empty($_GET['souscategorie']) && empty($_GET['filtre'])) {
+    
+    $listeMarque = liste_marque($_GET['categorie'], $_GET['souscategorie']);
+
+    $filtre .= '<div class="desco">
+    <div class="dropdown">
+    <label class="dropbtn">Marque</label>
+    <div class="dropdown-content">';
+
+    for ($i = 0; $i < sizeof($listeMarque); $i++) {
+        $filtre .= '<a href="accueil.php?filtre=go&marque='.$listeMarque[$i][0].'&categorie='.$_GET['categorie'].'&souscategorie='.$_GET['souscategorie'].'">'.$listeMarque[$i][0].'</a>';
+    }
+    $filtre .= '
+    </div>
+    </div>
+    </div>';
+
+    
+
     $listeArticleCategorie = articleCategorie($_GET['categorie'],$_GET['souscategorie']);
     $descriptif = '<div  class="desc" ><h1>'.$_GET['souscategorie'].' pour '.$_GET['categorie'].'</h1></div>';
     $articleCategorie = $articleCategorie.'<div id = "contentFlex">';
@@ -114,18 +120,197 @@ if(!empty($_GET['categorie']) && !empty($_GET['souscategorie']) && empty($_GET['
         </a>
         <div class="infos">
         <span id="categorie">'.$listeArticleCategorie[$i]['marque'].'</span>
-        <span id="couleur">'.$listeArticleCategorie[$i]['couleur'].'</span>
         <span id="prix">'.$listeArticleCategorie[$i]['prix'].'€</span>
         <span id="favori">'.$nomBouton[$i].'</span>
         </div>
         </div>';
     }
     $articleCategorie = $articleCategorie.'</div>';
+} else if(!empty($_GET['categorie']) && !empty($_GET['souscategorie']) && !empty($_GET['filtre'])) {
+    
+    $listeMarque = liste_marque($_GET['categorie'], $_GET['souscategorie']);
 
+    $filtre .= '<div class="desco">
+    <div class="dropdown">
+    <label class="dropbtn">Marque</label>
+    <div class="dropdown-content">';
 
-} /*else if (!empty($_GET['filtre'])) {
-    echo "salut";
-}*/
+    for ($i = 0; $i < sizeof($listeMarque); $i++) {
+        $filtre .= '<a href="accueil.php?filtre=go&marque='.$listeMarque[$i][0].'&categorie='.$_GET['categorie'].'&souscategorie='.$_GET['souscategorie'].'">'.$listeMarque[$i][0].'</a>';
+    }
+    $filtre .= '
+    </div>
+    </div>
+    </div>';
+
+    
+
+    $listeArticleCategorie = article_marque_categorie($_GET['categorie'],$_GET['souscategorie'],$_GET['marque']);
+    $descriptif = '<div  class="desc" ><h1>'.$_GET['souscategorie'].' pour '.$_GET['categorie'].'</h1></div>';
+    $articleCategorie = $articleCategorie.'<div id = "contentFlex">';
+    for($i=0;$i < sizeof($listeArticleCategorie);$i++) {
+        $nomBouton[$i] = '';
+        if(isset($_SESSION['id'])) {
+            $nomBouton[$i] = afficherFavori($listeArticleCategorie[$i][0]);
+        }
+        if (($i + 1) % 4) {
+            $articleCategorie .= "<div class=groupeArticle>";
+        }
+        $articleCategorie = $articleCategorie.'<div class ="articles">
+        <a href ="Controleur\voir_articles.php?code='.$listeArticleCategorie[$i][0].'">
+        <img id = "photo" src="'.$listeArticleCategorie[$i]['photo1'].'">
+        </a>
+        <div class="infos">
+        <span id="categorie">'.$listeArticleCategorie[$i]['marque'].'</span>
+        <span id="prix">'.$listeArticleCategorie[$i]['prix'].'€</span>
+        <span id="favori">'.$nomBouton[$i].'</span>
+        </div>
+        </div>';
+        if (($i + 1) % 4) {
+            $articleCategorie .= "</div>";
+        }
+    }
+    $articleCategorie = $articleCategorie.'</div>';
+}
+// Récupérer les produits conseillés si le mec est connecté et que la categorie n'a pas été choisie
+if(empty($_GET['categorie']) && $_SESSION['etatConnexion'] == true) {
+    $nombreFavoris = nombreFavoris();
+    if($nombreFavoris > 10) {
+        $infoHisto = testAlgo($_SESSION['id']);
+        for($i = 0; $i <sizeof($infoHisto); $i++){
+            $id[$i] = $infoHisto[$i]['id'];
+            $taille[$i] = $infoHisto[$i]['taille'];
+            $couleur[$i] = $infoHisto[$i]['couleur'];
+            $nom_categorie[$i] = $infoHisto[$i]['nom_categorie'];
+        }
+        $stats['taille'] = array_count_values($taille);
+        $stats['couleur'] = array_count_values($couleur);
+        $stats['nom_categorie'] = array_count_values($nom_categorie);
+        
+        foreach($stats['couleur'] as $key => $value)    
+        {
+            $tableCouleur[] = $key;
+        }
+        $tailleTab =  count($tableCouleur);
+        for ($i=0; $i < $tailleTab ; $i++) { 
+            $tableCouleurExplode[$i] = explode(", " ,$tableCouleur[$i]);
+            if(strpos($tableCouleur[$i], ",")) {
+                unset($tableCouleur[$i]);
+            }
+        }
+        $tableCouleur= array_values($tableCouleur);
+        
+        for ($i=0; $i < count($tableCouleurExplode) ; $i++) { 
+            
+            for ($j=0; $j < count($tableCouleurExplode[$i]); $j++) { 
+                
+                for ($k=0; $k < count($tableCouleur) ; $k++) { 
+                    if( !in_array($tableCouleurExplode[$i][$j],$tableCouleur) ) {
+                        array_push($tableCouleur,$tableCouleurExplode[$i][$j]);
+                    }
+                    
+                }
+            }
+        }
+        
+        foreach($tableCouleur as $key => $value) {
+            $newTableCouleur[$value] = 0;
+        }
+        foreach($stats['couleur'] as $key => $value) {
+            foreach($newTableCouleur as $key2 => $value2) {
+                if($key == $key2) {
+                    $newTableCouleur[$key2] += $value;
+                }
+                if(strpos($key, ",")) {
+                    if(strpos(" ".$key, $key2)) {
+                        $newTableCouleur[$key2] += $value/2;
+                    } 
+                }
+            }
+        }
+        $stats['couleur'] = $newTableCouleur;
+        array_multisort($stats['couleur'],SORT_DESC);
+        array_multisort($stats['taille'],SORT_DESC);
+        array_multisort($stats['nom_categorie'],SORT_DESC);
+        
+        
+        $tailleTab = count($stats['couleur']);
+        for($i=0; $i < $tailleTab - 4 ; $i++) { 
+            array_pop($stats['couleur']);
+        }
+        $tailleTab = count($stats['taille']);
+        for($i=0; $i < $tailleTab - 4 ; $i++) { 
+            array_pop($stats['taille']);
+        }
+        $tailleTab = count($stats['nom_categorie']);
+        for($i=0; $i < $tailleTab - 4 ; $i++) { 
+            array_pop($stats['nom_categorie']);
+        }
+        $compteurTaille = 0;
+        $compteurCouleur = 0;
+        $compteurCategorie = 0;
+        $nombreArticle = 0;
+        $listeArticleConseilles = [];
+        while($nombreArticle < 20) {
+            $verif = 0;
+            foreach($stats['taille'] as $key => $value) {
+                if($compteurTaille == $verif) {
+                    $taille = $key;
+                }
+                $verif++;
+            }
+            $verif = 0;
+            foreach($stats['couleur'] as $key => $value) {
+                if($compteurCouleur == $verif) {
+                    $couleur = $key;
+                }
+                $verif++;
+            }
+            $verif = 0;
+            foreach($stats['nom_categorie'] as $key => $value) {
+                if($compteurCategorie == $verif) {
+                    $categorie = $key;
+                }
+                $verif++;
+            }
+            $articleConseilles = recupArticle($taille, $categorie, $couleur);
+            for ($i=0; $i < count($articleConseilles) ; $i++) { 
+                if(!in_array($articleConseilles[$i]['id'], $id)) {
+                    $nombreArticle++;
+                    array_push($listeArticleConseilles, $articleConseilles[$i]);
+                }
+            }
+            $compteurCouleur++;
+            if($compteurCouleur == 4) {
+                $compteurTaille++;
+                $compteurCouleur = 0;
+            }
+            if($compteurTaille == 4) {
+                $compteurTaille = 0;
+                $compteurCategorie++;
+            }
+            if($compteurCategorie == 4) {
+            break;
+        }
+    }
+    $descriptif = '<div class="desc" ><h1>Les produits conseillés </h1></div>';
+    $articleCategorie = $articleCategorie.'<div id = "contentFlex">';
+    for ($i=0; $i < 5 ; $i++) { 
+        if(!empty($listeArticleConseilles)) {
+            $articleCategorie = $articleCategorie.'
+            <div class="articles">
+            <a href="Controleur/voir_articles.php?code='.$listeArticleConseilles[$i]['id'].'"><img id="photo" src="'.$listeArticleConseilles[$i]['photo1'].'"></a>
+            <div class="infos">
+            <span id="categorie">'.$listeArticleConseilles[$i]['marque'].'</span>
+            <span id="prix">'.$listeArticleConseilles[$i]['prix'].'€</span>
+            </div>
+            </div>';
+        }
+    }
+    $articleCategorie = $articleCategorie.'</div>';
+} else {
+    $descriptif = '<div class="desc">Ajoutez plus de produits a vos favoris pour avoir accès aux articles conseillés!</div>';
+}
+}
 include("./Vue/accueil.php");
 ?>
-
