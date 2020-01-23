@@ -15,7 +15,7 @@ function listeArticle() {
     return $listeArticle;
 }
 function createItem($liste) {
-    $item = '<div><a href ="voir_articles.php?code='.$liste[0].'"><img class="article" src="'.$liste[1].'"></div></a>';
+    $item = '<div class="articles"><a href ="voir_articles.php?code='.$liste[0].'"><img id="photo" src="'.$liste[1].'"></a></div>';
     return $item;
 }
 function supprimerHistorique() {

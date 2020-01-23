@@ -49,7 +49,8 @@
 </head>
 <body>
 <header>
-<div id="contentFlex"> <a href="./accueil.php"><img  class="logo" src ="./Images/logo.png"></a>
+<div id="contentFlexHop"><a href="./accueil.php">OKAZOU</a></div>
+<div id="contentFlex">
      <?php echo $boutonUtilisateur; ?> </div>
     <div class="dropdown">
   <label class="dropbtn">Femmes</label>

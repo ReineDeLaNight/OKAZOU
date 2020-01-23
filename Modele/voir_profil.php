@@ -8,7 +8,6 @@ function afficherProfil() {
     return $infoProfil;
 }
 function modifierProfil() {
-    $pseudo = $_GET['pseudo'];
     $mdp = $_GET['mdp'];
     $sexe = $_GET['sexe'];
     $dateNaissance = $_GET['dateNaissance'];
@@ -20,13 +19,11 @@ function modifierProfil() {
     $Req2 -> execute();
     $idVille = $Req2 -> fetch();
     $req = $bdd -> prepare("UPDATE membre
-    SET pseudo = :pseudo,
-    mdp = :mdp,
+    SET mdp = :mdp,
     date_naissance = :dateNaissance,
     sexe = :sexe,
     ville = :ville WHERE id LIKE :id");
     
-    $req->bindParam(':pseudo', $pseudo, PDO::PARAM_STR);
     $req->bindParam(':mdp', $mdp, PDO::PARAM_STR);
     $req->bindParam(':sexe', $sexe, PDO::PARAM_STR);
     $req->bindParam(':dateNaissance', $dateNaissance, PDO::PARAM_STR);
@@ -34,6 +31,22 @@ function modifierProfil() {
     $req->bindParam(':id', $_SESSION['id'], PDO::PARAM_INT);
     $req -> execute();
     
+}
+function verifVille($erreurVerif) {
+    $ville = strtolower($_GET['ville']);
+    $bdd = new PDO("mysql:host=localhost;dbname=okazou","root","");
+    $req = $bdd -> prepare("SELECT count(id) FROM ville WHERE nom LIKE :ville ");
+    $req -> bindParam(':ville',$ville,PDO::PARAM_STR);
+    $req -> execute();
+    $test = $req -> fetch();
+    if($test[0] == 1) {
+        $erreurVerif[3] = ["", true];
+        return $erreurVerif;
+    }
+    else {
+        $erreurVerif[3] = ["Cette ville n'existe pas", false];
+        return $erreurVerif;   
+    }
 }
 
 ?>

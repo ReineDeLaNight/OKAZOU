@@ -229,7 +229,7 @@ if(empty($_GET['categorie']) && $_SESSION['etatConnexion'] == true) {
         }
     }
     $descriptif = '<div class="desc" ><h1>Les produits conseillés </h1></div>';
-    $articleCategorie = $articleCategorie.'<div id = "contentFlex">';
+    $articleCategorie = $articleCategorie.'<div id = "contentFlexIP">';
     for ($i=0; $i < 5 ; $i++) { 
         if(!empty($listeArticleConseilles)) {
             $articleCategorie = $articleCategorie.'
