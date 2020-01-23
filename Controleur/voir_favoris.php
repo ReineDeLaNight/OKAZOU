@@ -13,7 +13,7 @@ if(!empty($listeArticle)){
     for($i=0; $i<sizeof($item) ;$i++) {
         if($i==$j){
             $article = $article.'<div class="groupeArticle">';
-            $j+=5;
+            $j+=8;
         }
         $article = $article.$item[$i];
         if($i==$j-1){

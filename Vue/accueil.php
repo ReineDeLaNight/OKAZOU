@@ -8,13 +8,15 @@
         $(document).ready(function() {
             var articleCount = 5;
             var categorie = "<?php echo $_GET['souscategorie']; ?>";
+            var pere = "<?php echo $_GET['pere']; ?>";
             var membre = "<?php echo $_SESSION['id']; ?>";
             $("#afficherPlusCategorieConnecte").click(function(){
                 articleCount = articleCount + 5;
                 $("#listeArticle").load("Modele/loadArticleCategorieCo.php", {
                     articleNewCount: articleCount,
                     categorie: categorie,
-                    membre : membre
+                    membre : membre,
+                    pere: pere
                 });
             });
         });
@@ -36,11 +38,13 @@
         $(document).ready(function() {
             var articleCount = 5;
             var categorie = "<?php echo $_GET['souscategorie']; ?>";
+            var pere = "<?php echo $_GET['pere']; ?>";
             $("#afficherPlusCategorieDeconnecte").click(function(){
                 articleCount = articleCount + 5;
                 $("#listeArticle").load("Modele/loadArticleCategorieDeco.php", {
                     articleNewCount: articleCount,
-                    categorie: categorie
+                    categorie: categorie,
+                    pere: pere
                 });
             });
         });
