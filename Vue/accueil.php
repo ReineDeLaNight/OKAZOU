@@ -9,7 +9,7 @@
             var articleCount = 5;
             var categorie = "<?php echo $_GET['souscategorie']; ?>";
             var membre = "<?php echo $_SESSION['id']; ?>";
-            $("button").click(function(){
+            $("#afficherPlusCategorie").click(function(){
                 articleCount = articleCount + 5;
                 $("#listeArticle").load("Modele/loadArticle.php", {
                     articleNewCount: articleCount,
@@ -45,10 +45,10 @@
 </div>
 </header>
    <div><?php echo($descriptif) ?></div>
-   
+   <div class="desc"><?php echo $filtre ?></div>
    <div id="listeArticle"> <?php echo($articleCategorie) ?> </div>
    <?php if(!empty($_GET['categorie'])) {
-     echo('<button>Afficher Plus</button>');
+     echo('<button id="afficherPlusCategorie">Afficher Plus</button>');
     } ?>
     <?php if(empty($_GET['categorie'])) {
     echo('<h1>Quelques articles au hasard :</h1>

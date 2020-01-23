@@ -82,9 +82,24 @@ for($i=0; $i<sizeof($categorie) ;$i++)
         $cat[$i] = $cat[$i].'<a href ="./accueil.php?categorie='.$categorie[$i][0][0].'&souscategorie='.$categorie[$i][$j][0].'">'.$categorie[$i][$j][0].'</a>';
     }
 }
+
+// html pour affichage filtre
+$filtre = "";
+
+$listeCat = liste_cat();
+$listeMarque = liste_marque();
+
+$filtre .= '<form href="./accueil.php">';
+/*for ($i = 0; $i < $listeCat; $i++) {
+    
+}*/
+$filtre .= "";
+$filtre .= '</form>';
+
+
 $articleCategorie = '';
 $descriptif = '';
-if(!empty($_GET['categorie']) && !empty($_GET['souscategorie'])) {
+if(!empty($_GET['categorie']) && !empty($_GET['souscategorie']) && empty($_GET['filtre'])) {
     $listeArticleCategorie = articleCategorie($_GET['categorie'],$_GET['souscategorie']);
     $descriptif = '<div  class="desc" ><h1>'.$_GET['souscategorie'].' pour '.$_GET['categorie'].'</h1></div>';
     $articleCategorie = $articleCategorie.'<div id = "contentFlex">';
@@ -106,7 +121,11 @@ if(!empty($_GET['categorie']) && !empty($_GET['souscategorie'])) {
         </div>';
     }
     $articleCategorie = $articleCategorie.'</div>';
-}
+
+
+} /*else if (!empty($_GET['filtre'])) {
+    echo "salut";
+}*/
 include("./Vue/accueil.php");
 ?>
 

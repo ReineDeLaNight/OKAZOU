@@ -68,5 +68,55 @@ function afficherFavori($codeArticle) {
     
 }
 
+function liste_cat() {
+    $bdd = new PDO('mysql:host=localhost;dbname=okazou;charset=utf8', 'root', ''); 
+    $req = $bdd -> prepare("SELECT nom_categorie, pere FROM categorie");
+
+    $req -> execute() or die(print_r($req->errorInfo(), TRUE));
+    
+    $liste_cat = $req->fetchall();
+
+    return $liste_cat;
+}
+
+
+function liste_marque() {
+    $bdd = new PDO('mysql:host=localhost;dbname=okazou;charset=utf8', 'root', ''); 
+    $req = $bdd -> prepare("SELECT marque FROM marque");
+
+    $req -> execute() or die(print_r($req->errorInfo(), TRUE));
+    
+    $liste_marque = $req->fetchall();
+
+    return $liste_marque;
+}
+
+/*function liste_taille() {
+    $bdd = new PDO('mysql:host=localhost;dbname=okazou;charset=utf8', 'root', ''); 
+    $req = $bdd -> prepare("SELECT taille, categorie FROM taille");
+
+    $req -> execute() or die(print_r($req->errorInfo(), TRUE));
+    
+    $liste_cat = $req->fetchall();
+
+    for ($i = 0; $i < sizeof($liste_cat); $i++) {
+        $req = $bdd->prepare("SELECT nom_categorie FROM categorie WHERE id = :categorie");
+        $req ->bindParam(':categorie', $liste_cat[$i]['categorie'], PDO::PARAM_INT);
+
+        $req -> execute() or die(print_r($req->errorInfo(), TRUE));
+
+        $shnoushne[$i] = $req->fetch();       
+    }
+
+    for ($i = 0; $i < sizeof($liste_cat); $i++) {
+        //echo "<h1>i = $i</h1>"; 
+        //echo $shnoushne[$i][0];
+        $liste_cat[$i]['categorie'] = $shnoushne[$i][0]; 
+    } 
+
+    //print_r($liste_cat);
+
+    return $liste_cat;
+}*/
     
 ?>
