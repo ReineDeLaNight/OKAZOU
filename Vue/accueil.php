@@ -10,11 +10,38 @@
             var categorie = "<?php echo $_GET['souscategorie']; ?>";
             var membre = "<?php echo $_SESSION['id']; ?>";
             $("#afficherPlusCategorie").click(function(){
+            $("#afficherPlusCategorieConnecte").click(function(){
                 articleCount = articleCount + 5;
-                $("#listeArticle").load("Modele/loadArticle.php", {
+                $("#listeArticle").load("Modele/loadArticleCategorieCo.php", {
                     articleNewCount: articleCount,
                     categorie: categorie,
                     membre : membre
+                });
+            });
+        });
+    </script>
+    <script> 
+        $(document).ready(function() {
+            var articleCount = 5;
+            var membre = "<?php echo $_SESSION['id']; ?>";
+            $("#afficherPlusConseil").click(function(){
+                articleCount = articleCount + 5;
+                $("#listeArticle").load("Modele/loadArticleConseilles.php", {
+                    articleNewCount: articleCount,
+                    membre : membre
+                });
+            });
+        });
+    </script>
+    <script> 
+        $(document).ready(function() {
+            var articleCount = 5;
+            var categorie = "<?php echo $_GET['souscategorie']; ?>";
+            $("#afficherPlusCategorieDeconnecte").click(function(){
+                articleCount = articleCount + 5;
+                $("#listeArticle").load("Modele/loadArticleCategorieDeco.php", {
+                    articleNewCount: articleCount,
+                    categorie: categorie
                 });
             });
         });
@@ -49,8 +76,18 @@
    <div id="listeArticle"> <?php echo($articleCategorie) ?> </div>
    <?php if(!empty($_GET['categorie'])) {
      echo('<button id="afficherPlusCategorie">Afficher Plus</button>');
+   <?php if(!empty($_GET['categorie']) && $_SESSION['etatConnexion'] == true) {
+     echo('<button id="afficherPlusCategorieConnecte">Afficher Plus</button>');
     } ?>
-    <?php if(empty($_GET['categorie'])) {
+    <?php if(!empty($_GET['categorie']) && $_SESSION['etatConnexion'] == false) {
+     echo('<button id="afficherPlusCategorieDeconnecte">Afficher Plus</button>');
+    } ?>
+    <?php if(empty($_GET['categorie']) && $_SESSION['etatConnexion'] == true) {
+      if($nombreFavoris > 10) {
+     echo('<button id="afficherPlusConseil">Afficher Plus</button>');
+      }
+    } ?>
+    <?php if(empty($_GET['categorie']) && $_SESSION['etatConnexion'] == false) {
     echo('<h1>Quelques articles au hasard :</h1>
     <div id="contentFlex">'.$item[rand(0,sizeof($listeArticle)-1)].$item[rand(0,sizeof($listeArticle)-1)].$item[rand(0,sizeof($listeArticle)-1)].$item[rand(0,sizeof($listeArticle)-1)].$item[rand(0,sizeof($listeArticle)-1)].'</div>');} ?>
 </body>

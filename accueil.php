@@ -93,7 +93,7 @@ $filtre .= '<form href="./accueil.php">';
 /*for ($i = 0; $i < $listeCat; $i++) {
     
 }*/
-$filtre .= "";
+$filtre .= "<div>hello</div>";
 $filtre .= '</form>';
 
 
