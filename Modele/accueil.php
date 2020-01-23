@@ -139,7 +139,6 @@ function article_marque_categorie($categorie,$souscategorie,$marque) {
     $idPere = $req -> fetch();
     $idPere = $idPere[0];
 
-    echo "$idPere    $souscategorie       $marque";
 
     $req2 = $bdd -> prepare("SELECT * FROM article AS A
     INNER JOIN categorie AS C ON A.categorie = C.id

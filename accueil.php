@@ -91,7 +91,7 @@ if(!empty($_GET['categorie']) && !empty($_GET['souscategorie']) && empty($_GET['
     
     $listeMarque = liste_marque($_GET['categorie'], $_GET['souscategorie']);
 
-    $filtre .= '<div class="desco">
+    $filtre .= '<div class="desc">
     <div class="dropdown">
     <label class="dropbtn">Marque</label>
     <div class="dropdown-content">';
@@ -130,7 +130,7 @@ if(!empty($_GET['categorie']) && !empty($_GET['souscategorie']) && empty($_GET['
     
     $listeMarque = liste_marque($_GET['categorie'], $_GET['souscategorie']);
 
-    $filtre .= '<div class="desco">
+    $filtre .= '<div class="desc">
     <div class="dropdown">
     <label class="dropbtn">Marque</label>
     <div class="dropdown-content">';
