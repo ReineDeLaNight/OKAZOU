@@ -79,7 +79,7 @@ $cat[2] = '';
 for($i=0; $i<sizeof($categorie) ;$i++)
 {
     for($j = 1; $j<sizeof($categorie[$i]);$j++) {
-        $cat[$i] = $cat[$i].'<a href ="./accueil.php?categorie='.$categorie[$i][0][0].'&souscategorie='.$categorie[$i][$j][0].'">'.$categorie[$i][$j][0].'</a>';
+        $cat[$i] = $cat[$i].'<a href ="./accueil.php?pere='.$categorie[$i][0][1].'&categorie='.$categorie[$i][0][0].'&souscategorie='.$categorie[$i][$j][0].'">'.$categorie[$i][$j][0].'</a>';
     }
 }
 // Recupérer les articles selon la catégorie choisie
@@ -91,7 +91,7 @@ if(!empty($_GET['categorie']) && !empty($_GET['souscategorie']) && empty($_GET['
     
     $listeMarque = liste_marque($_GET['categorie'], $_GET['souscategorie']);
 
-    $filtre .= '<div class="desc">
+    $filtre .= '<div>
     <div class="dropdown">
     <label class="dropbtn">Marque</label>
     <div class="dropdown-content">';
@@ -107,7 +107,7 @@ if(!empty($_GET['categorie']) && !empty($_GET['souscategorie']) && empty($_GET['
     
 
     $listeArticleCategorie = articleCategorie($_GET['categorie'],$_GET['souscategorie']);
-    $descriptif = '<div  class="desc" ><h1>'.$_GET['souscategorie'].' pour '.$_GET['categorie'].'</h1></div>';
+    $descriptif = '<div class="desc"><h1>'.$_GET['souscategorie'].' pour '.$_GET['categorie'].'</h1></div>';
     $articleCategorie = $articleCategorie.'<div id = "contentFlex">';
     for($i=0;$i < sizeof($listeArticleCategorie);$i++) {
         $nomBouton[$i] = '';
@@ -130,7 +130,7 @@ if(!empty($_GET['categorie']) && !empty($_GET['souscategorie']) && empty($_GET['
     
     $listeMarque = liste_marque($_GET['categorie'], $_GET['souscategorie']);
 
-    $filtre .= '<div class="desc">
+    $filtre .= '<div>
     <div class="dropdown">
     <label class="dropbtn">Marque</label>
     <div class="dropdown-content">';
@@ -146,15 +146,12 @@ if(!empty($_GET['categorie']) && !empty($_GET['souscategorie']) && empty($_GET['
     
 
     $listeArticleCategorie = article_marque_categorie($_GET['categorie'],$_GET['souscategorie'],$_GET['marque']);
-    $descriptif = '<div  class="desc" ><h1>'.$_GET['souscategorie'].' pour '.$_GET['categorie'].'</h1></div>';
-    $articleCategorie = $articleCategorie.'<div id = "contentFlex">';
+    $descriptif = '<div class="desc" ><h1>'.$_GET['souscategorie'].' pour '.$_GET['categorie'].'</h1></div>';
+    $articleCategorie = $articleCategorie.'<div id = "contentFlexIP">';
     for($i=0;$i < sizeof($listeArticleCategorie);$i++) {
         $nomBouton[$i] = '';
         if(isset($_SESSION['id'])) {
             $nomBouton[$i] = afficherFavori($listeArticleCategorie[$i][0]);
-        }
-        if (($i + 1) % 4) {
-            $articleCategorie .= "<div class=groupeArticle>";
         }
         $articleCategorie = $articleCategorie.'<div class ="articles">
         <a href ="Controleur\voir_articles.php?code='.$listeArticleCategorie[$i][0].'">
@@ -166,9 +163,6 @@ if(!empty($_GET['categorie']) && !empty($_GET['souscategorie']) && empty($_GET['
         <span id="favori">'.$nomBouton[$i].'</span>
         </div>
         </div>';
-        if (($i + 1) % 4) {
-            $articleCategorie .= "</div>";
-        }
     }
     $articleCategorie = $articleCategorie.'</div>';
 }
@@ -294,7 +288,7 @@ if(empty($_GET['categorie']) && $_SESSION['etatConnexion'] == true) {
         }
     }
     $descriptif = '<div class="desc" ><h1>Les produits conseillés </h1></div>';
-    $articleCategorie = $articleCategorie.'<div id = "contentFlex">';
+    $articleCategorie = $articleCategorie.'<div id = "contentFlexIP">';
     for ($i=0; $i < 5 ; $i++) { 
         if(!empty($listeArticleConseilles)) {
             $articleCategorie = $articleCategorie.'

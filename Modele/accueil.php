@@ -14,13 +14,13 @@ return $listeArticle;
     
 function recupererCategorie() {
     $bdd = new PDO('mysql:host=localhost;dbname=okazou;charset=utf8', 'root', '');
-    $req1 = $bdd -> prepare("SELECT nom_categorie FROM categorie WHERE pere LIKE 1 ");
+    $req1 = $bdd -> prepare("SELECT nom_categorie, pere FROM categorie WHERE pere LIKE 1 ");
     $req1 -> execute();
     $categorie[0] = $req1 -> fetchall();
-    $req2 = $bdd -> prepare("SELECT nom_categorie FROM categorie WHERE pere LIKE 2 ");
+    $req2 = $bdd -> prepare("SELECT nom_categorie, pere FROM categorie WHERE pere LIKE 2 ");
     $req2 -> execute();
     $categorie[1] = $req2 -> fetchall();
-    $req3 = $bdd -> prepare("SELECT nom_categorie FROM categorie WHERE pere LIKE 3 ");
+    $req3 = $bdd -> prepare("SELECT nom_categorie, pere FROM categorie WHERE pere LIKE 3 ");
     $req3 -> execute();
     $categorie[2] = $req3 -> fetchall();
     
@@ -138,7 +138,6 @@ function article_marque_categorie($categorie,$souscategorie,$marque) {
     $req -> execute() or die(print_r($req->errorInfo(), TRUE));
     $idPere = $req -> fetch();
     $idPere = $idPere[0];
-
 
     $req2 = $bdd -> prepare("SELECT * FROM article AS A
     INNER JOIN categorie AS C ON A.categorie = C.id

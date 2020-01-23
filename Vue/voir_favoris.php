@@ -9,7 +9,7 @@
 <body>
     <h1>OKAZOU</h1>
     <h1>Articles Favoris :</h1>
-   <div> <?php echo($article) ?> </div>
+   <div id="contentFlexIPO"> <?php echo($article) ?> </div>
     <form action="../accueil.php">
       <button type="submit"> Retour à l'accueil </button>
     </form>

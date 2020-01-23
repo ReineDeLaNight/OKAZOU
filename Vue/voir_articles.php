@@ -13,7 +13,7 @@
   </head>
 
   <body>
-    <div>
+    
          <h1><?php echo($infoArticle[1]);?></h1>
          <img id="photo"src="<?php echo($infoArticle[7]);?>">
          <div><?php echo($infoArticle[10]); ?></div>

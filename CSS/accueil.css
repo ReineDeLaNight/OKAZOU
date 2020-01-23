@@ -1,14 +1,33 @@
+
 .dropdown {
     position: relative;
     display: inline-block;
     margin: 0px 200px 0px 0px;
   }
+  #contentFlexHop {
+    background-color: #F3F8F2;
+  }
+  #contentFlexHop a{
+    text-align: center;
+    text-decoration: none; 
+    color: #FCB07E;
+    font-size: 50px;
+}
+
+#contentFlexHop a:active {
+  text-align: center;
+    text-decoration: none; 
+    color: #FCB07E;
+    font-size: 50px;
+}
   
   /* Dropdown Content (Hidden by Default) */
   .dropdown-content {
+    
     display: none;
     position: absolute;
-    background-color: #a01c1c;
+    border: solid #FCB07E;
+    border-width: 1px;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
@@ -20,20 +39,33 @@
     padding: 12px 16px;
     text-decoration: none;
     display: block;
+    border: solid #FCB07E;
+    border-width: 1px;
   }
   
   /* Change color of dropdown links on hover */
-  .dropdown-content a:hover {background-color: #a01c1c}
+  .dropdown-content a:hover {
+    transition-duration: 0.4s;
+    border: solid #FCB07E;
+    border-width: 1px;;
+    background-color: #FCB07E;
+  color: white;
+  }
   
   /* Show the dropdown menu on hover */
   .dropdown:hover .dropdown-content {
+    transition-duration: 0.4s;
     display: block;
-    background-color: #a01c1c;
+    border: solid #FCB07E;
+    border-width: 1px;
+
   }
   
   /* Change the background color of the dropdown button when the dropdown content is shown */
   .dropdown:hover .dropbtn {
-    background-color: #3e8e41;
+    transition-duration: 0.4s;
+    background-color: #FCB07E;
+    color: white;
   }
   .logo {
       height: 100px;
@@ -41,16 +73,33 @@
   }
   #contentFlex {
     display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
+    height: 100%;
+    background-color: #F3F8F2;
+  }
+  #contentFlexIP {
+    display: flex;
     justify-content: center;
     flex-direction: row;
     height: 100%;
+    background-color: #F3F8F2;
+  }
+  #contentFlexIPO {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    height: 100%;
+    background-color: #F3F8F2;
   }
 
   body {
-      background-color: burlywood;
+      background-color: #EBE9E9;
+      font-family: Verdana,sans-serif;
   }
   
 #listeArticle {
+  background-color: #F3F8F2;
   margin-top: 200px;
   display: flex;
   flex-direction: column;
@@ -66,6 +115,7 @@
   margin: 10px 10px 10px 10px;
       height: 250px;
       width: 250px;
+  background-color: #DEE2D6;
       
 }
 .infos {
@@ -75,6 +125,7 @@
   font-size: auto;
 }
 #photo {
+  margin-top: 20px;
   width: 150px;
   height: 195px;
 }
@@ -92,12 +143,28 @@ body {
 header {
   width: 1600px;
 	color : black;
-	background-color: antiquewhite;
+	background-color: #DEE2D6;
 	margin: -150px 0 0 -800px;
 	left: 50%;
 	position:fixed
 }
 .desc {
   margin-top: 150px;
-  margin-bottom: -200px;
+  margin-bottom: -180px;
+}
+button { 
+  border: none;
+  color: black;
+
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+  cursor: pointer;
+  border: 2px black;
+}
+button:hover {
+  background-color: #FCB07E;
+  color: white;
 }

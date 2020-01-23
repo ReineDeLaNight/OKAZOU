@@ -1,13 +1,15 @@
 <?php
 $articleCount = $_POST['articleNewCount'];
 $categorie = $_POST['categorie'];
+$pere = $_POST['pere'];
 $bdd = new PDO('mysql:host=localhost;dbname=okazou;charset=utf8', 'root', '');
 $req = $bdd->prepare("SELECT A.id, A.lien, A.description, A.prix, A.keyword, A.couleur, A.etat, A.photo1, A.photo2, A.photo3, T.taille, T.categorie, C.nom_categorie, S.logo, M.marque FROM article A
 INNER JOIN taille T on A.taille = T.id
 INNER JOIN categorie AS C ON A.categorie = C.id
 INNER JOIN site S ON A.site = S.id
-INNER JOIN marque M ON A.marque = M.id WHERE C.nom_categorie LIKE :categorie");
+INNER JOIN marque M ON A.marque = M.id WHERE C.nom_categorie LIKE :categorie AND pere LIKE :pere");
 $req -> bindParam(':categorie', $categorie, PDO::PARAM_STR);
+$req -> bindParam(':pere', $pere, PDO::PARAM_INT);
 $req -> execute();
 $j = 0;
 for($i=0; $i < $articleCount; $i++) {

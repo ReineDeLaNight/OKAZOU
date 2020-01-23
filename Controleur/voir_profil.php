@@ -1,18 +1,26 @@
 <?php 
     session_start();
     require("../Modele/voir_profil.php");
-if(!empty($_GET['maj'])) {
-    $checkFinal = 0;
-    // On déclare le tableau a deux dimesions
     $erreurVerif = array();
     $erreurVerif[] = [NULL , NULL];
-    
-    /* Déclaration de la fonction qui vérifie que tous les champs sont complets. Si il manque un ou plusieurs
-    champs, on affecte à la case [0][0] le message d'erreur correspondant et a la case [0][1] la réponse false.
-    */
+    $erreurVerif[0][0] = ""; 
+    $erreurVerif[1][0] = ""; 
+    $erreurVerif[2][0] = ""; 
+    $erreurVerif[3][0] = ""; 
+    $infoProfil = afficherProfil();
+    $afficherProfil = '';
+    $afficherProfil = '<ul class="w3-ul w3-border">
+    <li>Pseudo : '.$infoProfil['pseudo'].'</li>
+    <li>Mot de passe : '.$infoProfil['mdp'].'</li>
+    <li>Sexe : '.$infoProfil['sexe'].'</li>
+    <li>Date de Naissance : '.$infoProfil['date_naissance'].'</li>
+    <li>Ville : '.$infoProfil['nom'].'</li>
+    </ul>';
+    if(!empty($_GET['modif']) && !empty($_GET['maj'])) {
+    $checkFinal = 0;
     function champsComplets($erreurVerif) {
         
-        if(!empty($_GET['pseudo']) && !empty($_GET['mdp']) && !empty($_GET['dateNaissance'])&& !empty($_GET['sexe'])) {
+        if(!empty($_GET['mdp']) && !empty($_GET['dateNaissance'])&& !empty($_GET['sexe'])) {
             $erreurVerif[0] = [ "", true ]; 
             return $erreurVerif;
         }
@@ -24,29 +32,15 @@ if(!empty($_GET['maj'])) {
     
     $erreurVerif = champsComplets($erreurVerif);
     
-    function verifTaillePseudo($erreurVerif) {
-        
-        $taillePseudoMax = 45;
-        $taillePseudoMin = 3;
-        if(strlen($_GET['pseudo']) >= $taillePseudoMax || strlen($_GET['pseudo']) <= $taillePseudoMin) {
-            $erreurVerif[1] = ["Le pseudo n'est pas correctement écrit (entre 4 et 45 caractères)", false];
-            return $erreurVerif;
-        } else {
-            $erreurVerif[1] = [ "", true ];
-            return $erreurVerif;
-        }
-    }
-    $erreurVerif = verifTaillePseudo($erreurVerif);
-    
     function verifTailleMdp($erreurVerif) {
         $tailleMdpMin = 3;
         $tailleMdpMax = 45;
         if(strlen($_GET['mdp']) >= $tailleMdpMax || strlen($_GET['mdp']) <= $tailleMdpMin) {
-            $erreurVerif[2] = ["Le mot de passe n'est pas correctement écrit (entre 4 et 45 caractères)", false];
+            $erreurVerif[1] = ["Le mot de passe n'est pas correctement écrit (entre 4 et 45 caractères)", false];
             return $erreurVerif;
         }
         else {
-            $erreurVerif[2] = [ "", true ];
+            $erreurVerif[1] = [ "", true ];
             return $erreurVerif;
         }
     }
@@ -55,21 +49,18 @@ if(!empty($_GET['maj'])) {
         $dateNaissance = $_GET['dateNaissance'];
         $anneeNaissance = substr($dateNaissance, 0, 4);
         if ($anneeNaissance >= date("Y") || $anneeNaissance <= 1919) {
-            $erreurVerif[3] = ["Date Incorrecte", false];
+            $erreurVerif[2] = ["Date Incorrecte", false];
             return $erreurVerif;
         }
         else {
-            $erreurVerif[3] = [ "", true ];
+            $erreurVerif[2] = [ "", true ];
             return $erreurVerif;
         }  
     }
     
     $erreurVerif = verifDate($erreurVerif);
-    
-    require("../Modele/inscription.php");
-    $erreurVerif = verifMembres($erreurVerif);
-    $erreurVerif = verifVille($erreurVerif);
-    print_r($erreurVerif);
+
+    $erreurVerif = verifVille($erreurVerif);    
     for($i = 0; $i < count($erreurVerif); $i++) {
         if($erreurVerif[$i][1] == true) {
             $checkFinal += 1;
@@ -77,11 +68,8 @@ if(!empty($_GET['maj'])) {
     }
     if($checkFinal == count($erreurVerif)) {
         modifierProfil();
+        header("Location:./voir_profil.php");
     }
-}
-    $infoProfil = afficherProfil();
-    require("../Vue/voir_profil.php");
-
-    
-     
+    }
+require("../Vue/voir_profil.php"); 
 ?>

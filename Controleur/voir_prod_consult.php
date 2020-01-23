@@ -9,9 +9,15 @@ for($i=0; $i<sizeof($listeArticle) ;$i++)
         $item[$i] = createItem($listeArticle[$i]);
     }
 $article = '';
-for($i=0; $i<sizeof($item) ;$i++)
-    {
-        $article = $article.$item[$i];
+$j = 0;
+for($i=0; $i<sizeof($item) ;$i++) {
+    if($i==$j){
+        $article = $article.'<div class="groupeArticle">';
+        $j+=8;
+    }
+    $article = $article.$item[$i];
+    if($i==$j-1){
+        $article = $article.'</div>';
     }
 }
 if(!empty($_GET['historique'])) {
@@ -19,4 +25,5 @@ if(!empty($_GET['historique'])) {
     $article = 'Aucun produit consulté';
 }
 require("../Vue/voir_prod_consult.php");
+}
 ?>
