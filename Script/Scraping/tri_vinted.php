@@ -34,7 +34,7 @@
             $data[$i]['photo1'] = convert_photo($data_csv[$i][5]);
             $data[$i]['photo2'] = convert_photo($data_csv[$i][7]);
             $data[$i]['photo3'] = convert_photo($data_csv[$i][9]);
-            $data[$i]['marque'] = $data_csv[$i][11];
+            $data[$i]['marque'] = change_into_et($data_csv[$i][11]);
             $data[$i]['taille'] = $data_csv[$i][12];
             $data[$i]['etat'] = $data_csv[$i][13];
             $data[$i]['couleur'] = $data_csv[$i][14];

@@ -93,6 +93,34 @@
             });
         });
     </script>
+    <script> 
+        $(document).ready(function() {
+            var articleCount = 5;
+            var recherche = "<?php echo $_GET['recherche']; ?>";
+            $("#afficherPlusRechercheDeco").click(function(){
+                articleCount = articleCount + 5;
+                $("#listeArticle").load("Modele/loadArticleRechercheDeco.php", {
+                    articleNewCount: articleCount,
+                    recherche: recherche
+                });
+            });
+        });
+    </script>
+    <script> 
+        $(document).ready(function() {
+            var articleCount = 5;
+            var recherche = "<?php echo $_GET['recherche']; ?>";
+            var membre = "<?php echo $_SESSION['id']; ?>";
+            $("#afficherPlusRechercheCo").click(function(){
+                articleCount = articleCount + 5;
+                $("#listeArticle").load("Modele/loadArticleRechercheCo.php", {
+                    articleNewCount: articleCount,
+                    recherche: recherche,
+                    membre: membre
+                });
+            });
+        });
+    </script>
     <title>OKAZOU</title>
 </head>
 <body>
@@ -143,10 +171,16 @@
   if (!empty($_GET['min']) && !empty($_GET['max']) && !empty($_GET['categorie']) && empty($_GET['recherche']) && $_SESSION['etatConnexion'] == true) {
     echo('<button id="afficherPlusPrixCo">Afficher Plus</button>');
   }
-  if(empty($_GET['categorie']) && $_SESSION['etatConnexion'] == false) {
+  if(empty($_GET['recherche']) && empty($_GET['categorie']) && $_SESSION['etatConnexion'] == false) {
     
     echo('<h1>Quelques articles au hasard :</h1>
     <div id="contentFlex">'.$item[rand(0,sizeof($listeArticle)-1)].$item[rand(0,sizeof($listeArticle)-1)].$item[rand(0,sizeof($listeArticle)-1)].$item[rand(0,sizeof($listeArticle)-1)].$item[rand(0,sizeof($listeArticle)-1)].'</div>');
+  }
+  if(!empty($_GET['recherche']) && $_SESSION['etatConnexion'] == false) { 
+    echo('<button id="afficherPlusRechercheDeco">Afficher Plus</button>');
+  }
+  if(!empty($_GET['recherche']) && $_SESSION['etatConnexion'] == true) { 
+    echo('<button id="afficherPlusRechercheCo">Afficher Plus</button>');
   }
     ?>
 </body>

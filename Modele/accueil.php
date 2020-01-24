@@ -145,7 +145,7 @@ function article_marque_categorie($categorie,$souscategorie,$marque) {
     $req2 -> bindParam(':sousCategorie',$souscategorie,PDO::PARAM_STR);
     $req2 -> bindParam(':marque',$marque,PDO::PARAM_STR);
     $req2 -> bindParam(':idPere',$idPere,PDO::PARAM_INT);
-    $req2 -> execute() or die(print_r($req->errorInfo(), TRUE));
+    $req2 -> execute() or die(print_r($req2->errorInfo(), TRUE));
     $listeArticle = $req2 -> fetchAll();
     return $listeArticle;
 }
@@ -240,7 +240,7 @@ function article_prix_cat($min, $max, $categorie, $souscategorie) {
 
 function article_recherche($recherche) {
     $bdd = new PDO("mysql:host=localhost;dbname=okazou;charset=utf8","root","");
-    $req = $bdd -> prepare("SELECT * FROM article A INNER JOIN taille T ON T.id = A.taille INNER JOIN categorie C ON C.id = A.categorie INNER JOIN site S ON S.id = A.site INNER JOIN marque M ON M.id = A.marque WHERE locate(:recherche, A.nom) || locate(:recherche, A.description) || locate(:recherche, A.prix) || locate(:recherche, A.couleur) || locate(:recherche, A.etat) || locate(:recherche, T.taille) || locate(:recherche, C.nom_categorie) || locate(:recherche, S.nom) || locate(:recherche, M.marque)");
+    $req = $bdd -> prepare("SELECT * FROM article A INNER JOIN taille T ON T.id = A.taille INNER JOIN categorie C ON C.id = A.categorie INNER JOIN site S ON S.id = A.site INNER JOIN marque M ON M.id = A.marque WHERE locate(:recherche, A.nom) || locate(:recherche, A.description) || locate(:recherche, A.prix) || locate(:recherche, A.couleur) || locate(:recherche, A.etat) || locate(:recherche, T.taille) || locate(:recherche, C.nom_categorie) || locate(:recherche, S.nom) || locate(:recherche, M.marque) LIMIT 5");
     $req ->bindParam(':recherche', $recherche,  PDO::PARAM_STR);
 
     $req -> execute();

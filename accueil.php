@@ -120,7 +120,7 @@ if(!empty($_GET['categorie']) && !empty($_GET['souscategorie']) && empty($_GET['
     <div class="dropdown-content">';
 
     for ($i = 0; $i < sizeof($listeMarque); $i++) {
-        $filtre .= '<a href="accueil.php?filtre=go&marque='.$listeMarque[$i][0].'&categorie='.$_GET['categorie'].'&souscategorie='.$_GET['souscategorie'].'">'.$listeMarque[$i][0].'</a>';
+        $filtre .= '<a href="accueil.php?filtre=go&marque='.$listeMarque[$i][0].'&pere='.$_GET['pere'].'&categorie='.$_GET['categorie'].'&souscategorie='.$_GET['souscategorie'].'">'.$listeMarque[$i][0].'</a>';
     }
     $filtre .= '
     </div>
@@ -191,12 +191,12 @@ if(!empty($_GET['categorie']) && !empty($_GET['souscategorie']) && empty($_GET['
 } else if (!empty($_GET['recherche']) && empty($_GET['categorie'])) {
 
     $recherche .= '<form href="./accueil.php?">
-    <input type="text" name="recherche">
+    <input type="text" placeholder="Cherchez un article.." name="recherche">
     <input type="submit" value="Go !">
     </form>';
 
     $listeArticleCategorie = article_recherche($_GET['recherche']);
-    $descriptif = '<div class="desc" ><h1>Résultats de la recherche</h1></div>';
+    $descriptif = '<div class="desc" ><h1>Résultats de la recherche: '.$_GET['recherche'].'</h1></div>';
     $articleCategorie = $articleCategorie.'<div id = "contentFlexIP">';
     for($i=0;$i < sizeof($listeArticleCategorie);$i++) {
         $nomBouton[$i] = '';
@@ -266,7 +266,7 @@ if (!empty($_GET['min']) && !empty($_GET['max']) && !empty($_GET['categorie']) &
     $nombreFavoris = nombreFavoris();
 
     $recherche .= '<form href="./accueil.php?">
-    <input type="text" name="recherche">
+    <input type="text" placeholder="Cherchez un article.." name="recherche">
     <input type="submit" value="Go !">
     </form>';
 
@@ -409,12 +409,13 @@ if (!empty($_GET['min']) && !empty($_GET['max']) && !empty($_GET['categorie']) &
     $descriptif = '<div class="desc">Ajoutez plus de produits a vos favoris pour avoir accès aux articles conseillés!</div>';
 }
 
-if (empty($_GET['categorie']) && !isset($_SESSION['id'])) {
+
+}
+if (empty($_GET['categorie']) && $_SESSION['etatConnexion'] == false && empty($_GET['recherche']) ) {
     $recherche .= '<form href="./accueil.php?">
-    <input type="text" name="recherche">
+    <input type="text" placeholder="Cherchez un article.." name="recherche">
     <input type="submit" value="Go !">
     </form>';
-}
 }
 
 include("./Vue/accueil.php");
