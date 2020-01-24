@@ -97,7 +97,6 @@ function liste_cat() {
     return $liste_cat;
 }
 
-
 function liste_marque($categorie, $sousCategorie) {
     $bdd = new PDO('mysql:host=localhost;dbname=okazou;charset=utf8', 'root', ''); 
     if ($categorie == "femmes") {
@@ -206,7 +205,7 @@ function nombreFavoris() {
     return $result;
 }
     
-function article_prix($min, $max) {
+/*function article_prix($min, $max) {
     $bdd = new PDO("mysql:host=localhost;dbname=okazou;charset=utf8","root","");
     $req = $bdd -> prepare("SELECT * FROM article WHERE prix >= :min AND prix <= :max GROUP BY prix");
     $req ->bindParam(':min', $min,  PDO::PARAM_INT);
@@ -215,7 +214,7 @@ function article_prix($min, $max) {
     $req -> execute();
     $result = $req -> fetchall();
     return $result;
-}
+}*/
 
 function article_prix_cat($min, $max, $categorie, $souscategorie) {
     $bdd = new PDO('mysql:host=localhost;dbname=okazou;charset=utf8', 'root', '');

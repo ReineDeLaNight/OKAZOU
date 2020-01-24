@@ -24,6 +24,50 @@
     <script> 
         $(document).ready(function() {
             var articleCount = 5;
+            var min = "<?php echo $_GET['min']; ?>";
+            var max = "<?php echo $_GET['max']; ?>";
+            var categorie = "<?php echo $_GET['categorie']; ?>";
+            var souscategorie = "<?php echo $_GET['souscategorie']; ?>";
+            var pere = "<?php echo $_GET['pere']; ?>";
+            $("#afficherPlusPrixDeco").click(function(){
+                articleCount = articleCount + 5;
+                $("#listeArticle").load("Modele/loadArticlePrixDeco.php", {
+                    articleNewCount: articleCount,
+                    categorie: categorie,
+                    pere: pere,
+                    min: min, 
+                    souscategorie: souscategorie,
+                    max: max
+                });
+            });
+        });
+    </script>
+    <script> 
+        $(document).ready(function() {
+            var articleCount = 5;
+            var membre = "<?php echo $_SESSION['id']; ?>";
+            var min = "<?php echo $_GET['min']; ?>";
+            var max = "<?php echo $_GET['max']; ?>";
+            var categorie = "<?php echo $_GET['categorie']; ?>";
+            var souscategorie = "<?php echo $_GET['souscategorie']; ?>";
+            var pere = "<?php echo $_GET['pere']; ?>";
+            $("#afficherPlusPrixCo").click(function(){
+                articleCount = articleCount + 5;
+                $("#listeArticle").load("Modele/loadArticlePrixCo.php", {
+                    articleNewCount: articleCount,
+                    categorie: categorie,
+                    pere: pere,
+                    membre: membre,
+                    min: min, 
+                    souscategorie: souscategorie,
+                    max: max
+                });
+            });
+        });
+    </script>
+    <script> 
+        $(document).ready(function() {
+            var articleCount = 5;
             var membre = "<?php echo $_SESSION['id']; ?>";
             $("#afficherPlusConseil").click(function(){
                 articleCount = articleCount + 5;
@@ -82,16 +126,22 @@
    <div><?php echo($descriptif) ?></div>
    <div id="listeArticle"> <?php echo($articleCategorie) ?> </div>
    <?php 
-  if(!empty($_GET['categorie']) && $_SESSION['etatConnexion'] == true) {
+  if(!empty($_GET['categorie']) && !empty($_GET['souscategorie']) && empty($_GET['filtre']) && empty($_GET['min']) && $_SESSION['etatConnexion'] == true) {
     echo('<button id="afficherPlusCategorieConnecte">Afficher Plus</button>');
   }
-  if(!empty($_GET['categorie']) && $_SESSION['etatConnexion'] == false) {
+  if(!empty($_GET['categorie']) && !empty($_GET['souscategorie']) && empty($_GET['filtre']) && empty($_GET['min']) && $_SESSION['etatConnexion'] == false) {
      echo('<button id="afficherPlusCategorieDeconnecte">Afficher Plus</button>');
   }
-  if(empty($_GET['categorie']) && $_SESSION['etatConnexion'] == true && empty($_GET['min'])) {
+  if(empty($_GET['categorie']) && $_SESSION['etatConnexion'] == true && empty($_GET['min']) && empty($_GET['min']) && empty($_GET['recherche'])) {
     if($nombreFavoris > 10) {
       echo('<button id="afficherPlusConseil">Afficher Plus</button>');
     }
+  }
+  if (!empty($_GET['min']) && !empty($_GET['max']) && !empty($_GET['categorie']) && empty($_GET['recherche']) && $_SESSION['etatConnexion'] == false) {
+    echo('<button id="afficherPlusPrixDeco">Afficher Plus</button>');
+  }
+  if (!empty($_GET['min']) && !empty($_GET['max']) && !empty($_GET['categorie']) && empty($_GET['recherche']) && $_SESSION['etatConnexion'] == true) {
+    echo('<button id="afficherPlusPrixCo">Afficher Plus</button>');
   }
   if(empty($_GET['categorie']) && $_SESSION['etatConnexion'] == false) {
     

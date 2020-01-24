@@ -97,7 +97,7 @@ if (!empty($_GET['categorie']) && !empty($_GET['souscategorie'])) {
     <input type="number" name="max"></input>
     <input type="hidden" name="categorie" value="'.$_GET['categorie'].'"></input>
     <input type="hidden" name="souscategorie" value="'.$_GET['souscategorie'].'"></input>
-    <input type="hidden" name="pere" value="'.$categorie.'"></input>
+    <input type="hidden" name="pere" value="'.$_GET['pere'].'"></input>
     <input type="submit" value="Ok">
     </form>';
 }
@@ -217,7 +217,7 @@ if(!empty($_GET['categorie']) && !empty($_GET['souscategorie']) && empty($_GET['
     $articleCategorie = $articleCategorie.'</div>';
 }
 // Récupérer les produits conseillés si le mec est connecté et que la categorie n'a pas été choisie
-if (!empty($_GET['min']) && !empty($_GET['max']) && empty($_GET['categorie']) && empty($_GET['recherche'])) {
+/*if (!empty($_GET['min']) && !empty($_GET['max']) && empty($_GET['categorie']) && empty($_GET['recherche'])) {
     
     $listeArticleCategorie = article_prix($_GET['min'],$_GET['max']);
     $descriptif = '<div class="desc" ><h1>Articles triés par prix</h1></div>';
@@ -239,8 +239,8 @@ if (!empty($_GET['min']) && !empty($_GET['max']) && empty($_GET['categorie']) &&
         </div>';
     }
     $articleCategorie = $articleCategorie.'</div>';
-
-} else if (!empty($_GET['min']) && !empty($_GET['max']) && !empty($_GET['categorie']) && empty($_GET['recherche'])) {
+} */
+if (!empty($_GET['min']) && !empty($_GET['max']) && !empty($_GET['categorie']) && empty($_GET['recherche'])) {
     
     $listeArticleCategorie = article_prix_cat($_GET['min'],$_GET['max'],$_GET['categorie'], $_GET['souscategorie']);
     $descriptif = '<div class="desc" ><h1>Articles triés par prix</h1></div>';
