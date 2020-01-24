@@ -28,6 +28,7 @@
          <div>Marque : <?php echo($infoArticle['marque']); ?></div>
          <div>Couleur : <?php echo($infoArticle['couleur']); ?></div>
          <div>Categorie : <?php echo($infoArticle['nom_categorie']); ?></div>
+         <div>Taille : <?php echo($infoArticle['taille']); ?></div>
          <div>Vu sur <a href="<?php echo($infoArticle['lien']); ?>"> <img class="logo" src="<?php echo($infoArticle[14]); ?>"></div> </a>
          <?php if(isset($_SESSION['id'])) {
            echo('<form action="../Controleur/voir_articles.php" method = "get">
