@@ -76,7 +76,9 @@
 </div>
 <div><?php echo $filtre; ?></div>
 <div><?php echo $tri_prix; ?></div>
+<?php echo $recherche; ?>
 </header>
+
    <div><?php echo($descriptif) ?></div>
    <div id="listeArticle"> <?php echo($articleCategorie) ?> </div>
    <?php 
@@ -92,6 +94,7 @@
     }
   }
   if(empty($_GET['categorie']) && $_SESSION['etatConnexion'] == false) {
+    
     echo('<h1>Quelques articles au hasard :</h1>
     <div id="contentFlex">'.$item[rand(0,sizeof($listeArticle)-1)].$item[rand(0,sizeof($listeArticle)-1)].$item[rand(0,sizeof($listeArticle)-1)].$item[rand(0,sizeof($listeArticle)-1)].$item[rand(0,sizeof($listeArticle)-1)].'</div>');
   }

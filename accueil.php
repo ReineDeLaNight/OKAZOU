@@ -85,7 +85,10 @@ for($i=0; $i<sizeof($categorie) ;$i++)
 // barre de recherche
 
 // tri prix
+
 $tri_prix = "";
+$recherche = "";
+
 if (!empty($_GET['categorie']) && !empty($_GET['souscategorie'])) {
     
     $tri_prix = '<form href="./accueil.php">
@@ -94,17 +97,11 @@ if (!empty($_GET['categorie']) && !empty($_GET['souscategorie'])) {
     <input type="number" name="max"></input>
     <input type="hidden" name="categorie" value="'.$_GET['categorie'].'"></input>
     <input type="hidden" name="souscategorie" value="'.$_GET['souscategorie'].'"></input>
-    <input type="submit" value="Ok">
-    </form>';
-} else {
-    $tri_prix = "";
-    $tri_prix = '<form href="./accueil.php">
-    Prix min:&nbsp;
-    <input type="number" name="min"></input>&nbsp;max:&nbsp;
-    <input type="number" name="max"></input>
+    <input type="hidden" name="pere" value="'.$categorie.'"></input>
     <input type="submit" value="Ok">
     </form>';
 }
+
 
 
 
@@ -191,9 +188,36 @@ if(!empty($_GET['categorie']) && !empty($_GET['souscategorie']) && empty($_GET['
         </div>';
     }
     $articleCategorie = $articleCategorie.'</div>';
+} else if (!empty($_GET['recherche']) && empty($_GET['categorie'])) {
+
+    $recherche .= '<form href="./accueil.php?">
+    <input type="text" name="recherche">
+    <input type="submit" value="Go !">
+    </form>';
+
+    $listeArticleCategorie = article_recherche($_GET['recherche']);
+    $descriptif = '<div class="desc" ><h1>Résultats de la recherche</h1></div>';
+    $articleCategorie = $articleCategorie.'<div id = "contentFlexIP">';
+    for($i=0;$i < sizeof($listeArticleCategorie);$i++) {
+        $nomBouton[$i] = '';
+        if(isset($_SESSION['id'])) {
+            $nomBouton[$i] = afficherFavori($listeArticleCategorie[$i][0]);
+        }
+        $articleCategorie = $articleCategorie.'<div class ="articles">
+        <a href ="Controleur\voir_articles.php?code='.$listeArticleCategorie[$i][0].'">
+        <img id = "photo" src="'.$listeArticleCategorie[$i]['photo1'].'">
+        </a>
+        <div class="infos">
+        <span id="categorie">'.$listeArticleCategorie[$i]['marque'].'</span>
+        <span id="prix">'.$listeArticleCategorie[$i]['prix'].'€</span>
+        <span id="favori">'.$nomBouton[$i].'</span>
+        </div>
+        </div>';
+    }
+    $articleCategorie = $articleCategorie.'</div>';
 }
 // Récupérer les produits conseillés si le mec est connecté et que la categorie n'a pas été choisie
-if (!empty($_GET['min']) && !empty($_GET['max']) && empty($_GET['categorie'])) {
+if (!empty($_GET['min']) && !empty($_GET['max']) && empty($_GET['categorie']) && empty($_GET['recherche'])) {
     
     $listeArticleCategorie = article_prix($_GET['min'],$_GET['max']);
     $descriptif = '<div class="desc" ><h1>Articles triés par prix</h1></div>';
@@ -216,7 +240,7 @@ if (!empty($_GET['min']) && !empty($_GET['max']) && empty($_GET['categorie'])) {
     }
     $articleCategorie = $articleCategorie.'</div>';
 
-} else if (!empty($_GET['min']) && !empty($_GET['max']) && !empty($_GET['categorie'])) {
+} else if (!empty($_GET['min']) && !empty($_GET['max']) && !empty($_GET['categorie']) && empty($_GET['recherche'])) {
     
     $listeArticleCategorie = article_prix_cat($_GET['min'],$_GET['max'],$_GET['categorie'], $_GET['souscategorie']);
     $descriptif = '<div class="desc" ><h1>Articles triés par prix</h1></div>';
@@ -238,8 +262,16 @@ if (!empty($_GET['min']) && !empty($_GET['max']) && empty($_GET['categorie'])) {
         </div>';
     }
     $articleCategorie = $articleCategorie.'</div>';
-} else if(empty($_GET['categorie']) && $_SESSION['etatConnexion'] == true && empty($_GET['min'])) {
+} else if(empty($_GET['categorie']) && $_SESSION['etatConnexion'] == true && empty($_GET['min']) && empty($_GET['recherche'])) {
     $nombreFavoris = nombreFavoris();
+
+    $recherche .= '<form href="./accueil.php?">
+    <input type="text" name="recherche">
+    <input type="submit" value="Go !">
+    </form>';
+
+    
+
     if($nombreFavoris > 10) {
         $infoHisto = testAlgo($_SESSION['id']);
         for($i = 0; $i <sizeof($infoHisto); $i++){
@@ -373,9 +405,17 @@ if (!empty($_GET['min']) && !empty($_GET['max']) && empty($_GET['categorie'])) {
         }
     }
     $articleCategorie = $articleCategorie.'</div>';
-} else {
+} else if (empty($_GET['recherche'])) {
     $descriptif = '<div class="desc">Ajoutez plus de produits a vos favoris pour avoir accès aux articles conseillés!</div>';
 }
+
+if (!empty($_GET['recherche']) && $_SESSION['etatConnexion'] == false) {
+    $recherche .= '<form href="./accueil.php?">
+    <input type="text" name="recherche">
+    <input type="submit" value="Go !">
+    </form>';
 }
+}
+
 include("./Vue/accueil.php");
 ?>
