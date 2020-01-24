@@ -409,7 +409,7 @@ if (!empty($_GET['min']) && !empty($_GET['max']) && !empty($_GET['categorie']) &
     $descriptif = '<div class="desc">Ajoutez plus de produits a vos favoris pour avoir accès aux articles conseillés!</div>';
 }
 
-if (!empty($_GET['recherche']) && $_SESSION['etatConnexion'] == false) {
+if (empty($_GET['categorie']) && !isset($_SESSION['id'])) {
     $recherche .= '<form href="./accueil.php?">
     <input type="text" name="recherche">
     <input type="submit" value="Go !">
