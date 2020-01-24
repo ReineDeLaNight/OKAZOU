@@ -82,12 +82,38 @@ for($i=0; $i<sizeof($categorie) ;$i++)
         $cat[$i] = $cat[$i].'<a href ="./accueil.php?pere='.$categorie[$i][0][1].'&categorie='.$categorie[$i][0][0].'&souscategorie='.$categorie[$i][$j][0].'">'.$categorie[$i][$j][0].'</a>';
     }
 }
+// barre de recherche
+
+// tri prix
+$tri_prix = "";
+if (!empty($_GET['categorie']) && !empty($_GET['souscategorie'])) {
+    
+    $tri_prix = '<form href="./accueil.php">
+    Prix min:&nbsp;
+    <input type="number" name="min"></input>&nbsp;max:&nbsp;
+    <input type="number" name="max"></input>
+    <input type="hidden" name="categorie" value="'.$_GET['categorie'].'"></input>
+    <input type="hidden" name="souscategorie" value="'.$_GET['souscategorie'].'"></input>
+    <input type="submit" value="Ok">
+    </form>';
+} else {
+    $tri_prix = "";
+    $tri_prix = '<form href="./accueil.php">
+    Prix min:&nbsp;
+    <input type="number" name="min"></input>&nbsp;max:&nbsp;
+    <input type="number" name="max"></input>
+    <input type="submit" value="Ok">
+    </form>';
+}
+
+
+
 // Recupérer les articles selon la catégorie choisie
 $filtre = "";
 
 $articleCategorie = '';
 $descriptif = '';
-if(!empty($_GET['categorie']) && !empty($_GET['souscategorie']) && empty($_GET['filtre'])) {
+if(!empty($_GET['categorie']) && !empty($_GET['souscategorie']) && empty($_GET['filtre']) && empty($_GET['min'])) {
     
     $listeMarque = liste_marque($_GET['categorie'], $_GET['souscategorie']);
 
@@ -167,7 +193,52 @@ if(!empty($_GET['categorie']) && !empty($_GET['souscategorie']) && empty($_GET['
     $articleCategorie = $articleCategorie.'</div>';
 }
 // Récupérer les produits conseillés si le mec est connecté et que la categorie n'a pas été choisie
-if(empty($_GET['categorie']) && $_SESSION['etatConnexion'] == true) {
+if (!empty($_GET['min']) && !empty($_GET['max']) && empty($_GET['categorie'])) {
+    
+    $listeArticleCategorie = article_prix($_GET['min'],$_GET['max']);
+    $descriptif = '<div class="desc" ><h1>Articles triés par prix</h1></div>';
+    $articleCategorie = $articleCategorie.'<div id = "contentFlexIP">';
+    for($i=0;$i < sizeof($listeArticleCategorie);$i++) {
+        $nomBouton[$i] = '';
+        if(isset($_SESSION['id'])) {
+            $nomBouton[$i] = afficherFavori($listeArticleCategorie[$i][0]);
+        }
+        $articleCategorie = $articleCategorie.'<div class ="articles">
+        <a href ="Controleur\voir_articles.php?code='.$listeArticleCategorie[$i][0].'">
+        <img id = "photo" src="'.$listeArticleCategorie[$i]['photo1'].'">
+        </a>
+        <div class="infos">
+        <span id="categorie">'.$listeArticleCategorie[$i]['marque'].'</span>
+        <span id="prix">'.$listeArticleCategorie[$i]['prix'].'€</span>
+        <span id="favori">'.$nomBouton[$i].'</span>
+        </div>
+        </div>';
+    }
+    $articleCategorie = $articleCategorie.'</div>';
+
+} else if (!empty($_GET['min']) && !empty($_GET['max']) && !empty($_GET['categorie'])) {
+    
+    $listeArticleCategorie = article_prix_cat($_GET['min'],$_GET['max'],$_GET['categorie'], $_GET['souscategorie']);
+    $descriptif = '<div class="desc" ><h1>Articles triés par prix</h1></div>';
+    $articleCategorie = $articleCategorie.'<div id = "contentFlexIP">';
+    for($i=0;$i < sizeof($listeArticleCategorie);$i++) {
+        $nomBouton[$i] = '';
+        if(isset($_SESSION['id'])) {
+            $nomBouton[$i] = afficherFavori($listeArticleCategorie[$i][0]);
+        }
+        $articleCategorie = $articleCategorie.'<div class ="articles">
+        <a href ="Controleur\voir_articles.php?code='.$listeArticleCategorie[$i][0].'">
+        <img id = "photo" src="'.$listeArticleCategorie[$i]['photo1'].'">
+        </a>
+        <div class="infos">
+        <span id="categorie">'.$listeArticleCategorie[$i]['marque'].'</span>
+        <span id="prix">'.$listeArticleCategorie[$i]['prix'].'€</span>
+        <span id="favori">'.$nomBouton[$i].'</span>
+        </div>
+        </div>';
+    }
+    $articleCategorie = $articleCategorie.'</div>';
+} else if(empty($_GET['categorie']) && $_SESSION['etatConnexion'] == true && empty($_GET['min'])) {
     $nombreFavoris = nombreFavoris();
     if($nombreFavoris > 10) {
         $infoHisto = testAlgo($_SESSION['id']);

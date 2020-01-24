@@ -206,4 +206,36 @@ function nombreFavoris() {
     return $result;
 }
     
+function article_prix($min, $max) {
+    $bdd = new PDO("mysql:host=localhost;dbname=okazou;charset=utf8","root","");
+    $req = $bdd -> prepare("SELECT * FROM article WHERE prix >= :min AND prix <= :max GROUP BY prix");
+    $req ->bindParam(':min', $min,  PDO::PARAM_INT);
+    $req ->bindParam(':max', $max,  PDO::PARAM_INT);
+
+    $req -> execute();
+    $result = $req -> fetchall();
+    return $result;
+}
+
+function article_prix_cat($min, $max, $categorie, $souscategorie) {
+    $bdd = new PDO('mysql:host=localhost;dbname=okazou;charset=utf8', 'root', '');
+    $req1 = $bdd -> prepare("SELECT pere FROM categorie WHERE nom_categorie LIKE :categorie");
+    $req1 -> bindParam(':categorie',$categorie,PDO::PARAM_STR);
+    $req1 -> execute();
+    $idPere = $req1 -> fetch();
+    $idPere = $idPere[0];
+
+    $req2 = $bdd -> prepare("SELECT * FROM article A
+    INNER JOIN categorie AS C ON A.categorie = C.id
+    INNER JOIN marque AS M ON A.marque = M.id
+    WHERE C.nom_categorie LIKE :sousCategorie AND C.pere LIKE :idPere AND A.prix >= :min AND A.prix <= :max
+    LIMIT 5");
+    $req2 -> bindParam(':sousCategorie',$souscategorie,PDO::PARAM_STR);
+    $req2 -> bindParam(':idPere',$idPere,PDO::PARAM_INT);
+    $req2 -> bindParam(':min',$min,PDO::PARAM_INT);
+    $req2 -> bindParam(':max',$max,PDO::PARAM_INT);
+    $req2 -> execute();
+    $listeArticle = $req2 -> fetchAll();
+    return $listeArticle;
+}
 ?>

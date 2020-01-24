@@ -74,7 +74,8 @@
     <?php echo($cat[2]); ?>
   </div>
 </div>
-<div><?php echo $filtre ?></div>
+<div><?php echo $filtre; ?></div>
+<div><?php echo $tri_prix; ?></div>
 </header>
    <div><?php echo($descriptif) ?></div>
    <div id="listeArticle"> <?php echo($articleCategorie) ?> </div>
@@ -85,7 +86,7 @@
   if(!empty($_GET['categorie']) && $_SESSION['etatConnexion'] == false) {
      echo('<button id="afficherPlusCategorieDeconnecte">Afficher Plus</button>');
   }
-  if(empty($_GET['categorie']) && $_SESSION['etatConnexion'] == true) {
+  if(empty($_GET['categorie']) && $_SESSION['etatConnexion'] == true && empty($_GET['min'])) {
     if($nombreFavoris > 10) {
       echo('<button id="afficherPlusConseil">Afficher Plus</button>');
     }
