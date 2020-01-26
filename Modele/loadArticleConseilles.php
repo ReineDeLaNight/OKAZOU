@@ -20,17 +20,17 @@ function testAlgo($id) {
     return $result;
 }
 
-function recupArticle($taille, $categorie, $couleur) {
-
+function recupArticle($categorie, $couleur) {
+    $couleur2 = " ".$couleur;
     $bdd = new PDO("mysql:host=localhost;dbname=okazou;charset=utf8","root","");
     $req = $bdd -> prepare("SELECT A.id, A.photo1, A.prix, A.couleur, T.taille, C.nom_categorie, M.marque FROM article AS A
     INNER JOIN taille T on A.taille = T.id
     INNER JOIN categorie AS C ON A.categorie = C.id
     INNER JOIN site S ON A.site = S.id
     INNER JOIN marque M on A.marque = M.id
-    WHERE T.taille LIKE :taille AND C.nom_categorie LIKE :categorie AND LOCATE( :couleur, couleur)");
-    $req ->bindParam(':taille', $taille,  PDO::PARAM_STR);
+    WHERE C.nom_categorie LIKE :categorie AND (LOCATE(:couleur2, couleur) OR LOCATE(:couleur, couleur))");
     $req ->bindParam(':categorie', $categorie,  PDO::PARAM_STR);
+    $req ->bindParam(':couleur2', $couleur2,  PDO::PARAM_STR);
     $req ->bindParam(':couleur', $couleur,  PDO::PARAM_STR);
     $req -> execute();
     $result = $req -> fetchall();
@@ -39,14 +39,9 @@ function recupArticle($taille, $categorie, $couleur) {
 $infoHisto = testAlgo($membre);
 for($i = 0; $i <sizeof($infoHisto); $i++){
     $id[$i] = $infoHisto[$i]['id'];
-    $taille[$i] = $infoHisto[$i]['taille'];
     $couleur[$i] = $infoHisto[$i]['couleur'];
     $nom_categorie[$i] = $infoHisto[$i]['nom_categorie'];
 }
-
-// print_r($infoHisto);
-
-$stats['taille'] = array_count_values($taille);
 $stats['couleur'] = array_count_values($couleur);
 $stats['nom_categorie'] = array_count_values($nom_categorie);
 
@@ -92,10 +87,7 @@ foreach($stats['couleur'] as $key => $value) {
     }
 }
 $stats['couleur'] = $newTableCouleur;
-//print_r($stats);
-
 array_multisort($stats['couleur'],SORT_DESC);
-array_multisort($stats['taille'],SORT_DESC);
 array_multisort($stats['nom_categorie'],SORT_DESC);
 
 
@@ -103,28 +95,17 @@ $tailleTab = count($stats['couleur']);
 for($i=0; $i < $tailleTab - 4 ; $i++) { 
     array_pop($stats['couleur']);
 }
-$tailleTab = count($stats['taille']);
-for($i=0; $i < $tailleTab - 4 ; $i++) { 
-    array_pop($stats['taille']);
-}
 $tailleTab = count($stats['nom_categorie']);
 for($i=0; $i < $tailleTab - 4 ; $i++) { 
     array_pop($stats['nom_categorie']);
 }
-//print_r($id);
 $compteurTaille = 0;
 $compteurCouleur = 0;
 $compteurCategorie = 0;
 $nombreArticle = 0;
 $listeArticleConseilles = [];
-while($nombreArticle < 50) {
+while($nombreArticle < 200) {
     $verif = 0;
-    foreach($stats['taille'] as $key => $value) {
-        if($compteurTaille == $verif) {
-            $taille = $key;
-        }
-        $verif++;
-    }
     $verif = 0;
     foreach($stats['couleur'] as $key => $value) {
         if($compteurCouleur == $verif) {
@@ -139,25 +120,21 @@ while($nombreArticle < 50) {
         }
         $verif++;
     }
-    $articleConseilles = recupArticle($taille, $categorie, $couleur);
+    $articleConseilles = recupArticle($categorie, $couleur);
     for ($i=0; $i < count($articleConseilles) ; $i++) { 
         if(!in_array($articleConseilles[$i]['id'], $id)) {
             $nombreArticle++;
             array_push($listeArticleConseilles, $articleConseilles[$i]);
         }
     }
-      $compteurCouleur++;
-      if($compteurCouleur == 4) {
-        $compteurTaille++;
+    $compteurCouleur++;
+    if($compteurCouleur == 4) {
+        $compteurCategorie++;
         $compteurCouleur = 0;
     }
-    if($compteurTaille == 4) {
-        $compteurTaille = 0;
-        $compteurCategorie++;
-    }    
     if($compteurCategorie == 4) {
     break;
-    }
+}
 }
 if($articleCount < $nombreArticle) {
 $j = 0;
@@ -183,6 +160,7 @@ for ($i=0; $i < $articleCount ; $i++) {
 }
 }
 else {
+    echo $nombreArticle;
     echo("Ajoutez Plus d'articles a vos favoris!");
 }
 

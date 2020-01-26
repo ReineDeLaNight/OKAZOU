@@ -191,7 +191,7 @@ if(!empty($_GET['categorie']) && !empty($_GET['souscategorie']) && empty($_GET['
 } else if (!empty($_GET['recherche']) && empty($_GET['categorie'])) {
 
     $recherche .= '<form href="./accueil.php?">
-    <input type="text" placeholder="Cherchez un article.." name="recherche">
+    <input type="text" class="recherche" placeholder="Cherchez un article.." name="recherche">
     <input type="submit" value="Go !">
     </form>';
 
@@ -266,21 +266,19 @@ if (!empty($_GET['min']) && !empty($_GET['max']) && !empty($_GET['categorie']) &
     $nombreFavoris = nombreFavoris();
 
     $recherche .= '<form href="./accueil.php?">
-    <input type="text" placeholder="Cherchez un article.." name="recherche">
+    <input type="text" class="recherche" placeholder="Cherchez un article.." name="recherche">
     <input type="submit" value="Go !">
     </form>';
 
     
 
-    if($nombreFavoris > 10) {
+    if($nombreFavoris > 5) {
         $infoHisto = testAlgo($_SESSION['id']);
         for($i = 0; $i <sizeof($infoHisto); $i++){
             $id[$i] = $infoHisto[$i]['id'];
-            $taille[$i] = $infoHisto[$i]['taille'];
             $couleur[$i] = $infoHisto[$i]['couleur'];
             $nom_categorie[$i] = $infoHisto[$i]['nom_categorie'];
         }
-        $stats['taille'] = array_count_values($taille);
         $stats['couleur'] = array_count_values($couleur);
         $stats['nom_categorie'] = array_count_values($nom_categorie);
         
@@ -327,17 +325,12 @@ if (!empty($_GET['min']) && !empty($_GET['max']) && !empty($_GET['categorie']) &
         }
         $stats['couleur'] = $newTableCouleur;
         array_multisort($stats['couleur'],SORT_DESC);
-        array_multisort($stats['taille'],SORT_DESC);
         array_multisort($stats['nom_categorie'],SORT_DESC);
         
         
         $tailleTab = count($stats['couleur']);
         for($i=0; $i < $tailleTab - 4 ; $i++) { 
             array_pop($stats['couleur']);
-        }
-        $tailleTab = count($stats['taille']);
-        for($i=0; $i < $tailleTab - 4 ; $i++) { 
-            array_pop($stats['taille']);
         }
         $tailleTab = count($stats['nom_categorie']);
         for($i=0; $i < $tailleTab - 4 ; $i++) { 
@@ -348,14 +341,8 @@ if (!empty($_GET['min']) && !empty($_GET['max']) && !empty($_GET['categorie']) &
         $compteurCategorie = 0;
         $nombreArticle = 0;
         $listeArticleConseilles = [];
-        while($nombreArticle < 20) {
+        while($nombreArticle < 50) {
             $verif = 0;
-            foreach($stats['taille'] as $key => $value) {
-                if($compteurTaille == $verif) {
-                    $taille = $key;
-                }
-                $verif++;
-            }
             $verif = 0;
             foreach($stats['couleur'] as $key => $value) {
                 if($compteurCouleur == $verif) {
@@ -370,7 +357,7 @@ if (!empty($_GET['min']) && !empty($_GET['max']) && !empty($_GET['categorie']) &
                 }
                 $verif++;
             }
-            $articleConseilles = recupArticle($taille, $categorie, $couleur);
+            $articleConseilles = recupArticle($categorie, $couleur);
             for ($i=0; $i < count($articleConseilles) ; $i++) { 
                 if(!in_array($articleConseilles[$i]['id'], $id)) {
                     $nombreArticle++;
@@ -379,12 +366,8 @@ if (!empty($_GET['min']) && !empty($_GET['max']) && !empty($_GET['categorie']) &
             }
             $compteurCouleur++;
             if($compteurCouleur == 4) {
-                $compteurTaille++;
-                $compteurCouleur = 0;
-            }
-            if($compteurTaille == 4) {
-                $compteurTaille = 0;
                 $compteurCategorie++;
+                $compteurCouleur = 0;
             }
             if($compteurCategorie == 4) {
             break;
@@ -404,6 +387,7 @@ if (!empty($_GET['min']) && !empty($_GET['max']) && !empty($_GET['categorie']) &
             </div>';
         }
     }
+
     $articleCategorie = $articleCategorie.'</div>';
 } else if (empty($_GET['recherche'])) {
     $descriptif = '<div class="desc">Ajoutez plus de produits a vos favoris pour avoir accès aux articles conseillés!</div>';
@@ -413,7 +397,7 @@ if (!empty($_GET['min']) && !empty($_GET['max']) && !empty($_GET['categorie']) &
 }
 if (empty($_GET['categorie']) && $_SESSION['etatConnexion'] == false && empty($_GET['recherche']) ) {
     $recherche .= '<form href="./accueil.php?">
-    <input type="text" placeholder="Cherchez un article.." name="recherche">
+    <input type="text" class"recherche" placeholder="Cherchez un article.." name="recherche">
     <input type="submit" value="Go !">
     </form>';
 }

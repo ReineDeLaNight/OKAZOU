@@ -12,5 +12,8 @@
     <form action="../Controleur/trouver_modif_article.php">
         <button type="submit">Modifier un article</button>
     </form>
+    <form action="../Controleur/voir_membres.php">
+        <button type="submit">Voir les membres</button>
+    </form>
 </body>
 </html>

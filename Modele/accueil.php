@@ -176,17 +176,17 @@ function article_marque_categorie($categorie,$souscategorie,$marque) {
 
     return $liste_cat;
 }*/
-function recupArticle($taille, $categorie, $couleur) {
-
+function recupArticle($categorie, $couleur) {
+    $couleur2 = " ".$couleur;
     $bdd = new PDO("mysql:host=localhost;dbname=okazou;charset=utf8","root","");
     $req = $bdd -> prepare("SELECT A.id, A.photo1, A.prix, A.couleur, T.taille, C.nom_categorie, M.marque FROM article AS A
     INNER JOIN taille T on A.taille = T.id
     INNER JOIN categorie AS C ON A.categorie = C.id
     INNER JOIN site S ON A.site = S.id
     INNER JOIN marque M on A.marque = M.id
-    WHERE T.taille LIKE :taille AND C.nom_categorie LIKE :categorie AND LOCATE( :couleur, couleur)");
-    $req ->bindParam(':taille', $taille,  PDO::PARAM_STR);
+    WHERE C.nom_categorie LIKE :categorie AND (LOCATE(:couleur2, couleur) OR LOCATE(:couleur, couleur))");
     $req ->bindParam(':categorie', $categorie,  PDO::PARAM_STR);
+    $req ->bindParam(':couleur2', $couleur2,  PDO::PARAM_STR);
     $req ->bindParam(':couleur', $couleur,  PDO::PARAM_STR);
     $req -> execute();
     $result = $req -> fetchall();

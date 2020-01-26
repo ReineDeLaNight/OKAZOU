@@ -9,11 +9,6 @@ $membre = $_POST['membre'];
 $flag = 'f';
 
 $bdd = new PDO('mysql:host=localhost;dbname=okazou;charset=utf8', 'root', '');
-$req1 = $bdd -> prepare("SELECT pere FROM categorie WHERE nom_categorie LIKE :categorie");
-$req1 -> bindParam(':categorie',$categorie,PDO::PARAM_STR);
-$req1 -> execute();
-$pere = $req1 -> fetch();
-$pere = $pere[0];
 
 $req2 = $bdd -> prepare("SELECT * FROM article A
 INNER JOIN categorie AS C ON A.categorie = C.id
@@ -46,7 +41,7 @@ for($i=0; $i < $articleCount; $i++) {
             $j += 5;
         }        
         echo('<div class="articles">
-        <a href="Controleur/voir_articles.php?code='.$listeArticle['id'].'"><img id="photo" src="'.$listeArticle['photo1'].'"></a>
+        <a href="Controleur/voir_articles.php?code='.$listeArticle[0].'"><img id="photo" src="'.$listeArticle['photo1'].'"></a>
         <div class="infos">
         <span id="categorie">'.$listeArticle['marque'].'</span>
         <span id="prix">'.$listeArticle['prix'].'€</span>
