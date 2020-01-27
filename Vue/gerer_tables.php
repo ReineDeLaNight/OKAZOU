@@ -15,7 +15,6 @@
         <div><a href="gerer_tables.php?table=marque">Marque</a></div>
         <div><a href="gerer_tables.php?table=site">Site</a></div>
         <div><a href="gerer_tables.php?table=taille">Taille</a></div>
-        <div><a href="gerer_tables.php?table=Ville">Ville</a></div>
         ');
         } echo($categorie);
         echo($marque);
