@@ -161,7 +161,7 @@
      echo('<button id="afficherPlusCategorieDeconnecte">Afficher Plus</button>');
   }
   if(empty($_GET['categorie']) && $_SESSION['etatConnexion'] == true && empty($_GET['min']) && empty($_GET['min']) && empty($_GET['recherche'])) {
-    if($nombreFavoris > 10) {
+    if($nombreFavoris > 5) {
       echo('<button id="afficherPlusConseil">Afficher Plus</button>');
     }
   }

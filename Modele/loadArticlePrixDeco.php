@@ -32,7 +32,7 @@ $pere = $_POST['pere'];
                 $j += 5;
             }        
             echo('<div class="articles">
-            <a href="Controleur/voir_articles.php?code='.$listeArticle['id'].'"><img id="photo" src="'.$listeArticle['photo1'].'"></a>
+            <a href="Controleur/voir_articles.php?code='.$listeArticle[0].'"><img id="photo" src="'.$listeArticle['photo1'].'"></a>
             <div class="infos">
             <span id="categorie">'.$listeArticle['marque'].'</span>
             <span id="prix">'.$listeArticle['prix'].'€</span>

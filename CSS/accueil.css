@@ -192,3 +192,14 @@ button:hover {
   flex-direction: column;
   background-color: #DEE2D6 ;
 }
+#recherche {
+  width: 130px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: black;
+  background-position: 10px 10px; 
+  background-repeat: no-repeat;
+  padding: 12px 20px 12px 40px;
+}
