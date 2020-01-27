@@ -191,7 +191,7 @@ if(!empty($_GET['categorie']) && !empty($_GET['souscategorie']) && empty($_GET['
 } else if (!empty($_GET['recherche']) && empty($_GET['categorie'])) {
 
     $recherche .= '<form href="./accueil.php?">
-    <input type="text" placeholder="Cherchez un article.." name="recherche">
+    <input type="search" placeholder="Cherchez un article.." name="recherche">
     <input type="submit" value="Go !">
     </form>';
 
@@ -266,7 +266,7 @@ if (!empty($_GET['min']) && !empty($_GET['max']) && !empty($_GET['categorie']) &
     $nombreFavoris = nombreFavoris();
 
     $recherche .= '<form href="./accueil.php?">
-    <input type="text" placeholder="Cherchez un article.." name="recherche">
+    <input type="search" placeholder="Cherchez un article.." name="recherche">
     <input type="submit" value="Go !">
     </form>';
 
@@ -413,7 +413,7 @@ if (!empty($_GET['min']) && !empty($_GET['max']) && !empty($_GET['categorie']) &
 }
 if (empty($_GET['categorie']) && $_SESSION['etatConnexion'] == false && empty($_GET['recherche']) ) {
     $recherche .= '<form href="./accueil.php?">
-    <input type="text" placeholder="Cherchez un article.." name="recherche">
+    <input type="search" placeholder="Cherchez un article.." name="recherche">
     <input type="submit" value="Go !">
     </form>';
 }

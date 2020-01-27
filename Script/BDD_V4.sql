@@ -17,8 +17,6 @@ CREATE TABLE IF NOT EXISTS `ville` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `nom` VARCHAR(45) NULL,
   `nom_reel` VARCHAR(45) NULL,
-  `longitude` VARCHAR(45) NULL,
-  `latitude` VARCHAR(45) NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -120,7 +118,6 @@ CREATE TABLE IF NOT EXISTS `article` (
   `description` VARCHAR(400) NULL,
   `lien` VARCHAR(150) NULL,
   `prix` DECIMAL(2) NULL,
-  `keyword` VARCHAR(45) NULL,
   `couleur` VARCHAR(45) NULL,
   `etat` ENUM('Neuf, avec étiquette', 'Neuf', 'Très bon état', 'Bon état', 'Satisfaisant') NULL,
   `photo1` VARCHAR(200) NULL,
@@ -130,7 +127,6 @@ CREATE TABLE IF NOT EXISTS `article` (
   `categorie` INT NOT NULL,
   `site` INT NOT NULL,
   `marque` INT NOT NULL,
-  `reference` INT(10) NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_article_site1`
     FOREIGN KEY (`site`)
@@ -173,24 +169,6 @@ CREATE TABLE IF NOT EXISTS `favori` (
     ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `fk_favori_membre1`
-    FOREIGN KEY (`membre`)
-    REFERENCES `membre` (`id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `recherche`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `recherche` ;
-
-CREATE TABLE IF NOT EXISTS `recherche` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `terme` VARCHAR(45) NULL,
-  `membre` INT NOT NULL,
-  PRIMARY KEY (`id`),
-  CONSTRAINT `fk_recherche_membre1`
     FOREIGN KEY (`membre`)
     REFERENCES `membre` (`id`)
     ON DELETE CASCADE
