@@ -15,5 +15,8 @@
     <form action="../Controleur/voir_membres.php">
         <button type="submit">Voir les membres</button>
     </form>
+    <form action="../Controleur/gerer_tables.php">
+        <button type="submit">Gerer Tables</button>
+    </form>
 </body>
 </html>
