@@ -61,6 +61,65 @@ if($_GET['table'] == 'marque' && !empty($_GET['add'])) {
     ajouterMarque();
     header("Location:./gerer_tables.php?table=marque");
 }
+if($_GET['table'] == 'categorie') {
+    $listeCategories = afficherCategorie();
+    $categorie = '';
+    for ($i=0; $i < count($listeCategories); $i++) { 
+        $categorie = $categorie.'<div>
+        '.$listeCategories[$i]['nom_categorie'].'
+        </div>';
+    }
+    $categorie .= '<a href="gerer_tables.php?table=categorie&ajouter=ok">Ajouter une categorie </a>
+    <br><a href="gerer_tables.php?">Retour</a>';
+}
+if($_GET['table'] == 'categorie' && !empty($_GET['ajouter'])) {
+    $categorie = '<form action="../Controleur/gerer_tables.php">
+    <label>Nom du categorie : <input type="text" name="categorie"></label>
+    <input type="hidden" name="table" value="categorie">
+    <select name="pere">
+        <option value="1" >Femmes</option>
+        <option value="2" >Hommes</option>
+        <option value="3" >Enfants</option>
+    </select>
+    <input type="submit" value="Go" name="add"><label>
+</form>';
+}
+if($_GET['table'] == 'categorie' && !empty($_GET['add'])) {
+    ajouterCategorie();
+    header("Location:./gerer_tables.php?table=categorie");
+}
+if($_GET['table'] == 'taille') {
+    $listeTailles = afficherTaille();
+    $taille = '';
+    for ($i=0; $i < count($listeTailles); $i++) { 
+        $taille = $taille.'<div>
+        '.$listeTailles[$i]['taille'].'
+        </div>';
+    }
+    $taille .= '<a href="gerer_tables.php?table=taille&ajouter=ok">Ajouter une taille </a>
+    <br><a href="gerer_tables.php?">Retour</a>';
+}
+if($_GET['table'] == 'taille' && !empty($_GET['ajouter'])) {
+    $listeCategories = afficherCategorie();
+    $infosCategorie = '';
+    for ($i=0; $i < count($listeCategories); $i++) { 
+        $infosCategorie = $infosCategorie.
+       '<option value="'.$listeCategories[$i]['nom_categorie'].'" >'.$listeCategories[$i]['nom_categorie'].'</option>'
+        ;
+    }
+
+    $taille = '<form action="../Controleur/gerer_tables.php">
+    <label>Nom du taille : <input type="text" name="taille"></label>
+    <input type="hidden" name="table" value="taille">
+    <label> Catégorie associée</label> <select name="categorie">'.$infosCategorie.'</select>
+    <input type="submit" value="Go" name="add"><label>
+</form>';
+}
+if($_GET['table'] == 'taille' && !empty($_GET['add'])) {
+    ajouterTaille();
+   // header("Location:./gerer_tables.php?table=taille");
+}
+
 }
 require("../Vue/gerer_tables.php");
 ?>

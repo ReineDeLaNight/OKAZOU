@@ -18,5 +18,8 @@
     <form action="../Controleur/gerer_tables.php">
         <button type="submit">Gerer Tables</button>
     </form>
+    <form action="../accueil.php">
+        <button type="submit">Retour à l'accueil</button>
+    </form>
 </body>
 </html>
