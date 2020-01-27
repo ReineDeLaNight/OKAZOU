@@ -16,16 +16,17 @@
         return $req->fetch();
     }
 
-    function modif_article($id, $description, $prix, $keyword, $couleur, $etat, $photo1, $photo2, $photo3, $taille, $categorie, $site, $marque) {
+    function modif_article($id, $nom, $description, $prix, $lien, $couleur, $etat, $photo1, $photo2, $photo3, $taille, $categorie, $site, $marque) {
         $bdd = new PDO('mysql:host=localhost;dbname=okazou;charset=utf8', 'root', '');
 
-        $req = $bdd->prepare("UPDATE article SET description = :description, prix = :prix, keyword = :keyword, couleur = :couleur, etat = :etat, photo1 = :photo1, photo2 = :photo2, photo3 = :photo3, taille = :taille, categorie = :categorie, site = :site, marque = :marque
+        $req = $bdd->prepare("UPDATE article SET nom = :nom, description = :description, prix = :prix, lien = :lien, couleur = :couleur, etat = :etat, photo1 = :photo1, photo2 = :photo2, photo3 = :photo3, taille = :taille, categorie = :categorie, site = :site, marque = :marque
         WHERE id = :id");
 
         $req -> bindParam(':id',$id,PDO::PARAM_INT);
+        $req -> bindParam(':nom',$nom,PDO::PARAM_STR);
         $req -> bindParam(':description',$description,PDO::PARAM_STR);
         $req -> bindParam(':prix',$prix,PDO::PARAM_INT);
-        $req -> bindParam(':keyword',$keyword,PDO::PARAM_STR);
+        $req -> bindParam(':lien',$lien,PDO::PARAM_STR);
         $req -> bindParam(':couleur',$couleur,PDO::PARAM_STR);
         $req -> bindParam(':etat',$etat,PDO::PARAM_STR);
         $req -> bindParam(':photo1',$photo1,PDO::PARAM_STR);

@@ -8,6 +8,10 @@
 
     <body>
 		<h1>Ajoutez un article</h1>
+      <form action="../Vue/action_admin.php">
+         <button type="submit">Retourner au menu admin</button>
+      </form>
+      
        <form action="ajout_articles.php" method="get" >
          <p> Nom </p> <input type="text" name="nom"/>
          <p> Description </p> <input type="text" name="description"/> 

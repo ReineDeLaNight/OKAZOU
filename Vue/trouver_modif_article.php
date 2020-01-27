@@ -9,6 +9,10 @@
     <form action="./trouver_modif_article.php" method="get">
         <p>Entrer le nom exact de l'article à modifier:   <input type="text" name="nom_article"/>
         <button type="submit">Confirmer</button>
+        
+    </form>
+    <form action="../Vue/action_admin.php">
+         <button type="submit">Retourner au menu admin</button>
     </form>
 </body>
 </html>
