@@ -22,10 +22,10 @@
     if (!isset($_GET['modif'])) {
 
         $html .= '<form action="modif_article.php" method="get">';
-
         $html .= "<div>&nbsp;description:&nbsp;&nbsp;".$attributs[1].$erreur[1].'&nbsp;&nbsp;-->&nbsp;&nbsp;<input type ="text" placeholder="description" name="description" value="'.$autocompletion[1].'"/>';
-        $html .= "<div>&nbsp;prix:&nbsp;&nbsp;".$attributs[2].$erreur[2].'&nbsp;&nbsp;-->&nbsp;&nbsp;<input type ="number" placeholder="prix" name="prix" value="'.$autocompletion[2].'"/>';
-        $html .= "<div>&nbsp;keyword:&nbsp;&nbsp;".$attributs[3].$erreur[3].'&nbsp;&nbsp;-->&nbsp;&nbsp;<input type ="text" placeholder="keyword" name="keyword" value="'.$autocompletion[3].'"/>';
+        $html .= "<div>&nbsp;description:&nbsp;&nbsp;".$attributs[2].$erreur[2].'&nbsp;&nbsp;-->&nbsp;&nbsp;<input type ="text" placeholder="description" name="description" value="'.$autocompletion[1].'"/>';
+        $html .= "<div>&nbsp;prix:&nbsp;&nbsp;".$attributs[3].$erreur[3].'&nbsp;&nbsp;-->&nbsp;&nbsp;<input type ="number" placeholder="prix" name="prix" value="'.$autocompletion[2].'"/>';
+        $html .= "<div>&nbsp;keyword:&nbsp;&nbsp;".$attributs[4].$erreur[4].'&nbsp;&nbsp;-->&nbsp;&nbsp;<input type ="text" placeholder="keyword" name="keyword" value="'.$autocompletion[3].'"/>';
         $html .= "<div>&nbsp;couleur:&nbsp;&nbsp;".$attributs[4].$erreur[4].'&nbsp;&nbsp;-->&nbsp;&nbsp;<input type ="text" placeholder="couleur" name="couleur" value="'.$autocompletion[4].'"/>';
         $html .= "<div>&nbsp;etat:&nbsp;&nbsp;".$attributs[5].$erreur[5].'&nbsp;&nbsp;-->&nbsp;&nbsp;<input type ="text" placeholder="etat" name="etat" value="'.$autocompletion[5].'"/>';
         $html .= "<div>&nbsp;photo1:&nbsp;&nbsp;".$attributs[6].$erreur[6].'&nbsp;&nbsp;-->&nbsp;&nbsp;<input type ="text" placeholder="photo1" name="photo1" value="'.$autocompletion[6].'"/>';

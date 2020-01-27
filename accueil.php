@@ -402,11 +402,8 @@ if (!empty($_GET['min']) && !empty($_GET['max']) && !empty($_GET['categorie']) &
 }
 if (empty($_GET['categorie']) && $_SESSION['etatConnexion'] == false && empty($_GET['recherche']) ) {
     $recherche .= '<form href="./accueil.php?">
-<<<<<<< HEAD
     <input type="search" placeholder="Cherchez un article.." name="recherche">
-=======
     <input type="text" class"recherche" placeholder="Cherchez un article.." name="recherche">
->>>>>>> 858a930f2cddaafcb333b7c2c98ae11ef13ad70b
     <input type="submit" value="Go !">
     </form>';
 }
