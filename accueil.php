@@ -57,7 +57,7 @@ for($i=0; $i<sizeof($listeArticle) ;$i++)
 {
     $nomBouton[$i] = '';
     if(isset($_SESSION['id'])) {
-        $nomBouton[$i] = afficherFavori($listeArticle[$i][0]);
+        //$nomBouton[$i] = afficherFavori($listeArticle[$i][0]);
     }
     $item[$i] = '';
     $item[$i] = $item[$i].'<div class ="articles">
@@ -191,11 +191,8 @@ if(!empty($_GET['categorie']) && !empty($_GET['souscategorie']) && empty($_GET['
 } else if (!empty($_GET['recherche']) && empty($_GET['categorie'])) {
 
     $recherche .= '<form href="./accueil.php?">
-<<<<<<< HEAD
-    <input type="search" placeholder="Cherchez un article.." name="recherche">
-=======
+    
     <input type="text" class="recherche" placeholder="Cherchez un article.." name="recherche">
->>>>>>> 858a930f2cddaafcb333b7c2c98ae11ef13ad70b
     <input type="submit" value="Go !">
     </form>';
 
@@ -270,7 +267,6 @@ if (!empty($_GET['min']) && !empty($_GET['max']) && !empty($_GET['categorie']) &
     $nombreFavoris = nombreFavoris();
 
     $recherche .= '<form href="./accueil.php?">
-    <input type="search" placeholder="Cherchez un article.." name="recherche">
     <input type="text" class="recherche" placeholder="Cherchez un article.." name="recherche">
     <input type="submit" value="Go !">
     </form>';

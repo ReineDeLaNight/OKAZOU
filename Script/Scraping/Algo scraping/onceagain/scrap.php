@@ -32,7 +32,7 @@ function regex_all($page_start, $page_end, $categorie) {
         curl_close($handle);
 
     }
-           
+
 }
 
 $page_start = 1;
