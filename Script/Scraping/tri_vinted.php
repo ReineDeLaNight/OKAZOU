@@ -238,7 +238,7 @@
 
             $nom = "Vinted";
             $lien = "https://www.vinted.fr/";
-            $logo = "https://upload.wikimedia.org/wikipedia/commons/2/29/Vinted_logo.png";
+            $logo = "https://image.jimcdn.com/app/cms/image/transf/dimension=940x1024:format=jpg/path/s32f3ef76ac00797c/image/i5c72a5f7f8fcdf89/version/1533281903/logo-vinted-velo.jpg";
         
 
             $req = $bdd->prepare("INSERT INTO site(nom, lien, logo) VALUES (:nom, :lien, :logo)");

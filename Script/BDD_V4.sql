@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS `site` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `nom` VARCHAR(45) NULL,
   `lien` VARCHAR(45) NULL,
-  `logo` VARCHAR(75) NULL,
+  `logo` VARCHAR(250) NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 

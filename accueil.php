@@ -55,7 +55,7 @@ $cat[1] = '';
 $cat[2] = '';
 
 for ($i = 0; $i < sizeof($categorie); $i++) {
-    for($j = 1; $j<sizeof($categorie[$i]);$j++) {
+    for($j = 0; $j<sizeof($categorie[$i]);$j++) {
         if ($categorie[$i][$j][0] == 'femmes' || $categorie[$i][$j][0] == 'hommes' || $categorie[$i][$j][0] == 'enfants') {
             unset($categorie[$i][$j]);
         }
