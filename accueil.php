@@ -8,50 +8,50 @@ if (!isset($_SESSION['etatConnexion'])) {  // Si l'utilisateur n'est pas connect
     $_SESSION['etatConnexion'] = false;
     $boutonUtilisateur = 
     '<form action="./Controleur/connexion.php">
-    <button type="submit">Connexion</button>
+    <button id="boutonPage" type="submit">Connexion</button>
     </form>
     <form action="./Controleur/inscription.php">
-    <button type="submit">Inscription</button>
+    <button id="boutonPage" type="submit">Inscription</button>
     </form>';
 } else if ($_SESSION['etatConnexion'] == true && $_SESSION['role'] == 'a') { // Si l'utilisateur est admin
     $boutonUtilisateur = 
     '<form action="./Controleur/voir_profil.php">
-    <button type="submit">Voir le profil</button>
+    <button id="boutonPage" type="submit">Voir le profil</button>
     </form>
     <form action="./Controleur/deconnexion.php">
-    <button type="submit">Se déconnecter</button>
+    <button id="boutonPage" type="submit">Se déconnecter</button>
     </form>
     <form action="./Vue/action_admin.php">
-    <button type="submit">Page de contrôle admin</button>
+    <button id="boutonPage" type="submit">Page de contrôle admin</button>
     </form>
     <form action="./Controleur/voir_prod_consult.php">
-    <button type="submit">Historique</button>
+    <button id="boutonPage" type="submit">Historique</button>
     </form>
     <form action="./Controleur/voir_favoris.php">
-    <button type="submit">Favoris</button>
+    <button id="boutonPage" type="submit">Favoris</button>
     </form>';
 } else if ($_SESSION['etatConnexion'] == true) { // Si l'utilisateur est connecté
     $boutonUtilisateur = 
     '<form action="./Controleur/voir_profil.php">
-    <button type="submit">Voir le profil</button>
+    <button id="boutonPage" type="submit">Voir le profil</button>
     </form>
     <form action="./Controleur/deconnexion.php">
-    <button type="submit">Se déconnecter</button>
+    <button id="boutonPage" type="submit">Se déconnecter</button>
     </form>
     <form action="./Controleur/voir_prod_consult.php">
-    <button type="submit">Historique</button>
+    <button id="boutonPage" type="submit">Historique</button>
     </form>
     <form action="./Controleur/voir_favoris.php">
-    <button type="submit">Favoris</button>
+    <button id="boutonPage" type="submit">Favoris</button>
     </form>';
 } else { // A voir ce que ça fait là
     $_SESSION['etatConnexion'] = false;
     $boutonUtilisateur = 
     '<form action="./Controleur/connexion.php">
-    <button type="submit">Connexion</button>
+    <button id="boutonPage" type="submit">Connexion</button>
     </form>
     <form action="./Controleur/inscription.php">
-    <button type="submit">Inscription</button>
+    <button id="boutonPage" type="submit">Inscription</button>
     </form>';
 }
 // récuperer une liste d'articles a afficher
@@ -137,7 +137,7 @@ if(!empty($_GET['categorie']) && !empty($_GET['souscategorie']) && empty($_GET['
     
     $listeMarque = liste_marque($_GET['categorie'], $_GET['souscategorie']);
 
-    $filtre .= '<div>
+    $filtre .= '
     <div class="dropdown">
     <label class="dropbtn">Marque</label>
     <div class="dropdown-content">';
@@ -146,7 +146,6 @@ if(!empty($_GET['categorie']) && !empty($_GET['souscategorie']) && empty($_GET['
         $filtre .= '<a href="accueil.php?filtre=go&marque='.$listeMarque[$i][0].'&pere='.$_GET['pere'].'&categorie='.$_GET['categorie'].'&souscategorie='.$_GET['souscategorie'].'">'.$listeMarque[$i][0].'</a>';
     }
     $filtre .= '
-    </div>
     </div>
     </div>';
 
@@ -172,6 +171,16 @@ if(!empty($_GET['categorie']) && !empty($_GET['souscategorie']) && empty($_GET['
         </div>';
     }
     $articleCategorie = $articleCategorie.'</div>';
+    $recherche .= '
+    <div id="cover">
+      <form method="get" action="">
+        <div class="tb">
+         <input class="recherche" name ="recherche" type="text" placeholder="Cherchez un article" required>
+            <button id="chercher" type="submit"> GO</button>
+          </div>
+        </div>
+      </form>
+    </div>';
 } else if(!empty($_GET['categorie']) && !empty($_GET['souscategorie']) && !empty($_GET['filtre'])) {
     
     $listeMarque = liste_marque($_GET['categorie'], $_GET['souscategorie']);
@@ -182,7 +191,7 @@ if(!empty($_GET['categorie']) && !empty($_GET['souscategorie']) && empty($_GET['
     <div class="dropdown-content">';
 
     for ($i = 0; $i < sizeof($listeMarque); $i++) {
-        $filtre .= '<a href="accueil.php?filtre=go&marque='.$listeMarque[$i][0].'&pere='.$_GET['pere'].'&categorie='.$_GET['categorie'].'&souscategorie='.$_GET['souscategorie'].'">'.$listeMarque[$i][0].'</a>';
+        $filtre .= '<a href="accueil.php?filtre=go&marque='.$listeMarque[$i][0].'&categorie='.$_GET['categorie'].'&souscategorie='.$_GET['souscategorie'].'&pere='.$_GET['pere'].'">'.$listeMarque[$i][0].'</a>';
     }
     $filtre .= '
     </div>
@@ -211,6 +220,17 @@ if(!empty($_GET['categorie']) && !empty($_GET['souscategorie']) && empty($_GET['
         </div>';
     }
     $articleCategorie = $articleCategorie.'</div>';
+    $recherche .= '
+    <div id="cover">
+      <form method="get" action="">
+        <div class="tb">
+         <input class="recherche" name ="recherche" type="text" placeholder="Cherchez un article" required>
+            <button id="chercher" type="submit"> GO</button>
+          </div>
+        </div>
+      </form>
+    </div>';
+    
 } else if (!empty($_GET['recherche']) && empty($_GET['categorie'])) {
 
     $recherche .= '<form href="./accueil.php?">
@@ -286,13 +306,28 @@ if (!empty($_GET['min']) && !empty($_GET['max']) && !empty($_GET['categorie']) &
         </div>';
     }
     $articleCategorie = $articleCategorie.'</div>';
+    $recherche .= '
+    <div id="cover">
+      <form method="get" action="">
+        <div class="tb">
+         <input class="recherche" name ="recherche" type="text" placeholder="Cherchez un article" required>
+            <button id="chercher" type="submit"> GO</button>
+          </div>
+        </div>
+      </form>
+    </div>';
 } else if(empty($_GET['categorie']) && $_SESSION['etatConnexion'] == true && empty($_GET['min']) && empty($_GET['recherche'])) {
     $nombreFavoris = nombreFavoris();
 
-    $recherche .= '<form href="./accueil.php?">
-    <input type="text" class="recherche" placeholder="Cherchez un article.." name="recherche">
-    <input type="submit" value="Go !">
-    </form>';
+    $recherche .= '<div id="cover">
+    <form method="get" action="">
+      <div class="tb">
+       <input class="recherche" name ="recherche" type="text" placeholder="Cherchez un article" required>
+          <button id="chercher" type="submit"> GO</button>
+        </div>
+      </div>
+    </form>
+  </div>';
 
     
 
@@ -420,12 +455,18 @@ if (!empty($_GET['min']) && !empty($_GET['max']) && !empty($_GET['categorie']) &
 
 }
 if (empty($_GET['categorie']) && $_SESSION['etatConnexion'] == false && empty($_GET['recherche']) ) {
-    $recherche .= '<form href="./accueil.php?">
-    <input type="search" placeholder="Cherchez un article.." name="recherche">
-    <input type="text" class"recherche" placeholder="Cherchez un article.." name="recherche">
-    <input type="submit" value="Go !">
-    </form>';
+    $recherche .= '
+    <div id="cover">
+      <form method="get" action="">
+        <div class="tb">
+         <input class="recherche" name ="recherche" type="text" placeholder="Cherchez un article" required>
+            <button id="chercher" type="submit"> GO</button>
+          </div>
+        </div>
+      </form>
+    </div>';
 }
+
 
 include("./Vue/accueil.php");
 ?>

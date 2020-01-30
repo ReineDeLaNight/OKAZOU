@@ -6,7 +6,7 @@
 
   <head>
     <title>ARTICLE</title>
-    <link href="../CSS/accueil.css" rel="stylesheet">
+    <link href="../CSS/accueils.css" rel="stylesheet">
     <meta charset="UTF-8">
     <script type='text/javascript' src="https://code.jquery.com/jquery-3.4.1.min.js"> </script>
     <script> </script>
