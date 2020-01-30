@@ -92,13 +92,13 @@ $recherche = "";
 if (!empty($_GET['categorie']) && !empty($_GET['souscategorie'])) {
     
     $tri_prix = '<form href="./accueil.php">
-    Prix min:&nbsp;
-    <input type="number" name="min"></input>&nbsp;max:&nbsp;
-    <input type="number" name="max"></input>
+   De :
+    <input class="prix" min=0 type="number" name="min"></input> à :&nbsp;
+    <input class="prix" min=0 type="number" name="max"></input>
     <input type="hidden" name="categorie" value="'.$_GET['categorie'].'"></input>
     <input type="hidden" name="souscategorie" value="'.$_GET['souscategorie'].'"></input>
     <input type="hidden" name="pere" value="'.$_GET['pere'].'"></input>
-    <input type="submit" value="Ok">
+    <input id ="chercher" type="submit" value="Ok">
     </form>';
 }
 

@@ -38,6 +38,10 @@
 <div class="button-section">
   <input type='submit' value=Inscription name='SignUp' ><label> </form>
     <?php if(!empty($_GET['SignUp'])) { echo($erreurVerif[0][0]); } ?>
+    <form action="../accueil.php">
+<input value="Retour à l'accueil" type="submit">
+         </form>
 </div>
+
     </body>
 </html>

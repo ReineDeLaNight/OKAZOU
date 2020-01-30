@@ -22,9 +22,13 @@
         </div>
         <div class="button-section">
         <input type="hidden" name="premiereConnexion" value="false">
-        <input type="submit" value="Confirmer">
+        <input type="submit" value="Confirmer"> 
         <?php echo $erreurAff; ?>
 </div>
-    </form>
+</form>
+<form action="../accueil.php">
+<input value="Retour à l'accueil" type="submit">
+         </form>
+   
 </body>
 </html>
