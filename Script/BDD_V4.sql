@@ -117,7 +117,7 @@ CREATE TABLE IF NOT EXISTS `article` (
   `nom` VARCHAR(50) NULL,
   `description` VARCHAR(400) NULL,
   `lien` VARCHAR(150) NULL,
-  `prix` DECIMAL(2) NULL,
+  `prix` DECIMAL(4) NULL,
   `couleur` VARCHAR(45) NULL,
   `etat` ENUM('Neuf, avec étiquette', 'Neuf', 'Très bon état', 'Bon état', 'Satisfaisant') NULL,
   `photo1` VARCHAR(200) NULL,

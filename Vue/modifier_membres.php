@@ -25,6 +25,7 @@
      <label> Sexe :</label> <select name="sexe">
         <option value="femme" >Femme</option>
         <option value="homme" >Homme</option>
+        <option value="autre" >Autre</option>
       </select>
 </div>
 <div class="section"></div>

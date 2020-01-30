@@ -1,7 +1,7 @@
 <?php
 function listeArticle() {
 $bdd = new PDO('mysql:host=localhost;dbname=okazou;charset=utf8', 'root', '');
-$req = $bdd->prepare("SELECT A.id, A.description, A.prix, A.keyword, A.couleur, A.etat, A.photo1, A.photo2, A.photo3, T.taille, T.categorie, C.nom_categorie, S.logo, M.marque FROM article A
+$req = $bdd->prepare("SELECT A.id, A.description, A.prix, A.couleur, A.etat, A.photo1, A.photo2, A.photo3, T.taille, T.categorie, C.nom_categorie, S.logo, M.marque FROM article A
 INNER JOIN taille T on A.taille = T.id
 INNER JOIN categorie AS C ON A.categorie = C.id
 INNER JOIN site S ON A.site = S.id
@@ -14,13 +14,13 @@ return $listeArticle;
     
 function recupererCategorie() {
     $bdd = new PDO('mysql:host=localhost;dbname=okazou;charset=utf8', 'root', '');
-    $req1 = $bdd -> prepare("SELECT nom_categorie, pere FROM categorie WHERE pere LIKE 1 ");
+    $req1 = $bdd -> prepare("SELECT nom_categorie, pere FROM categorie WHERE pere LIKE 1 ORDER BY nom_categorie");
     $req1 -> execute();
     $categorie[0] = $req1 -> fetchall();
-    $req2 = $bdd -> prepare("SELECT nom_categorie, pere FROM categorie WHERE pere LIKE 2 ");
+    $req2 = $bdd -> prepare("SELECT nom_categorie, pere FROM categorie WHERE pere LIKE 2 ORDER BY nom_categorie");
     $req2 -> execute();
     $categorie[1] = $req2 -> fetchall();
-    $req3 = $bdd -> prepare("SELECT nom_categorie, pere FROM categorie WHERE pere LIKE 3 ");
+    $req3 = $bdd -> prepare("SELECT nom_categorie, pere FROM categorie WHERE pere LIKE 3 ORDER BY nom_categorie");
     $req3 -> execute();
     $categorie[2] = $req3 -> fetchall();
     
@@ -117,7 +117,7 @@ function liste_marque($categorie, $sousCategorie) {
     $id_cat = $req->fetch();
     $id_cat = $id_cat[0];
 
-    $req = $bdd -> prepare("SELECT DISTINCT M.marque FROM marque AS M INNER JOIN article AS A ON A.marque = M.id INNER JOIN categorie AS C ON C.id = A.categorie WHERE A.categorie = :id_cat");
+    $req = $bdd -> prepare("SELECT DISTINCT M.marque FROM marque AS M INNER JOIN article AS A ON A.marque = M.id INNER JOIN categorie AS C ON C.id = A.categorie WHERE A.categorie = :id_cat ORDER BY C.nom_categorie");
     
     $req -> bindParam(':id_cat',$id_cat,PDO::PARAM_INT);
 

@@ -37,6 +37,7 @@
     <label> Sexe :</label> <select name="sexe"> 
     <option value="femme" >Femme</option>
     <option value="homme" >Homme</option>
+    <option value="autre" >Autre</option>
     </select>
     <label> Date de Naissance:</label> <input type="date" name="dateNaissance" />'.$erreurVerif[2][0].' 
     <label> Ville :</label> <input type = "text" name="ville">'.$erreurVerif[3][0].' 

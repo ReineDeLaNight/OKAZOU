@@ -36,7 +36,9 @@
            <input class="favori" type="submit" name=favori value="'.$favori.'">
            </form>');
            }?>
-           
+           <a href="<?php echo $url; ?>">
+          <button type="submit"> Retour à la page précédente </button>
+         </a>
     </div>
          <form action="../accueil.php">
           <button type="submit"> Retour à l'accueil </button>

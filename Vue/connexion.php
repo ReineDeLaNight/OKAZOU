@@ -18,7 +18,7 @@
 </div>
 <div class="section"></div>
     <div class="inner-wrap">
-        <label>Mot de passe<input type="text" name="mdp"></label>
+        <label>Mot de passe<input type="password" name="mdp"></label>
         </div>
         <div class="button-section">
         <input type="hidden" name="premiereConnexion" value="false">

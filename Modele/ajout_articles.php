@@ -165,4 +165,15 @@ function get_marque() {
 
     return $liste_marque;
 }
+
+function get_site() {
+    $bdd = new PDO('mysql:host=localhost;dbname=okazou;charset=utf8', 'root', ''); 
+    $req = $bdd -> prepare("SELECT nom FROM site");
+
+    $req -> execute() or die(print_r($req->errorInfo(), TRUE));
+    
+    $liste_site = $req->fetchall();
+
+    return $liste_site;
+}
 ?>

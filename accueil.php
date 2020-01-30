@@ -1,5 +1,8 @@
 <?php
 session_start();
+$monUrl = "http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+$_SESSION['url'] = $monUrl;
+
 include("./Modele/accueil.php");
 if (!isset($_SESSION['etatConnexion'])) {  // Si l'utilisateur n'est pas connecté
     $_SESSION['etatConnexion'] = false;
@@ -76,10 +79,30 @@ $categorie = recupererCategorie();
 $cat[0] = '';
 $cat[1] = '';
 $cat[2] = '';
-for($i=0; $i<sizeof($categorie) ;$i++)
-{
+
+for ($i = 0; $i < sizeof($categorie); $i++) {
     for($j = 1; $j<sizeof($categorie[$i]);$j++) {
-        $cat[$i] = $cat[$i].'<a href ="./accueil.php?pere='.$categorie[$i][0][1].'&categorie='.$categorie[$i][0][0].'&souscategorie='.$categorie[$i][$j][0].'">'.$categorie[$i][$j][0].'</a>';
+        if ($categorie[$i][$j][0] == 'femmes' || $categorie[$i][$j][0] == 'hommes' || $categorie[$i][$j][0] == 'enfants') {
+            unset($categorie[$i][$j]);
+        }
+    }
+}
+
+$categorie[0] = array_values($categorie[0]);
+$categorie[1] = array_values($categorie[1]);
+$categorie[2] = array_values($categorie[2]);
+
+for($i=0; $i < sizeof($categorie);$i++)
+{
+    for($j = 0; $j < sizeof($categorie[$i]); $j++) {
+        if ($categorie[$i][0][1] == 1) {
+            $catprin = 'femmes';
+        } else if ($categorie[$i][0][1] == 2) {
+            $catprin = 'hommes';
+        } else {
+            $catprin = 'enfants';
+        }
+        $cat[$i] = $cat[$i].'<a href ="./accueil.php?pere='.$categorie[$i][0][1].'&categorie='.$catprin.'&souscategorie='.$categorie[$i][$j][0].'">'.$categorie[$i][$j][0].'</a>';
     }
 }
 // barre de recherche
@@ -159,7 +182,7 @@ if(!empty($_GET['categorie']) && !empty($_GET['souscategorie']) && empty($_GET['
     <div class="dropdown-content">';
 
     for ($i = 0; $i < sizeof($listeMarque); $i++) {
-        $filtre .= '<a href="accueil.php?filtre=go&marque='.$listeMarque[$i][0].'&categorie='.$_GET['categorie'].'&souscategorie='.$_GET['souscategorie'].'">'.$listeMarque[$i][0].'</a>';
+        $filtre .= '<a href="accueil.php?filtre=go&marque='.$listeMarque[$i][0].'&pere='.$_GET['pere'].'&categorie='.$_GET['categorie'].'&souscategorie='.$_GET['souscategorie'].'">'.$listeMarque[$i][0].'</a>';
     }
     $filtre .= '
     </div>

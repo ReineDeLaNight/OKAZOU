@@ -18,13 +18,14 @@
 </div>
 <div class="section"></div>
     <div class="inner-wrap">
-     <label> Mot de Passe: </label> <input type="text" name="mdp"/> <?php if(!empty($_GET['SignUp'])) { echo($erreurVerif[2][0]); } ?>
+     <label> Mot de Passe: </label> <input type="password" name="mdp"/> <?php if(!empty($_GET['SignUp'])) { echo($erreurVerif[2][0]); } ?>
 </div>
 <div class="section"></div>
     <div class="inner-wrap">
      <label> Sexe :</label> <select name="sexe">
         <option value="femme" >Femme</option>
         <option value="homme" >Homme</option>
+        <option value="autre" >Autre</option>
       </select>
 </div>
 <div class="section"></div>

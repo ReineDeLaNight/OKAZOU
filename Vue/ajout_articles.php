@@ -37,10 +37,8 @@
      
      <?php echo $taille ?> 
         
-     <h2>Site</h2> <select name="site">
-     <option value="vinted"> Vinted </option>
-     <option value="vestiairecollective"> Vestiaire Collective </option>
-     </select>
+     <h2>Site</h2> 
+     <?php echo $site ?>
      <h2>Marque</h2>
      <?php echo $marque ?>
     <p> <input type='submit' value=ok name='valide' ><p> </form>

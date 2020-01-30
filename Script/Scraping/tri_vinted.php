@@ -61,7 +61,9 @@
     // Fonction sur les strings
     ////////////////////////////
     function change_into_et($categorie) {
-        $categorie = str_replace('&', 'et', $categorie);
+        if ($categorie != 'H&M') {
+            $categorie = str_replace('&', 'et', $categorie);
+        }
         return $categorie;
     }
 

@@ -72,8 +72,13 @@ for ($i = 0; $i < sizeof($liste_marque); $i++) {
 }
 $marque .= '</select></p>';
 
-
-
+$liste_site = get_site();
+$site = "";
+$site .= '<select name="site">';
+for ($i = 0; $i < sizeof($liste_site); $i++) {
+    $site .= '<option value="'.$liste_site[$i][0].'"> '.$liste_site[$i][0].' </option>';
+}
+$site .= '</select></p>';
 
 if(!empty($_GET['valide'])) {
     if(!empty($_GET['nom']) && !empty($_GET['description']) && !empty($_GET['lien']) && !empty($_GET['prix']) && !empty($_GET['couleur']) && !empty($_GET['etat']) && !empty($_GET['photo1']) && !empty($_GET['choix_cat']) && !empty($_GET['site']) && !empty($_GET['marque'])) {
