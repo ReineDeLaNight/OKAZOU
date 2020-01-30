@@ -169,7 +169,7 @@ header {
   margin-top: 150px;
   margin-bottom: -120px;
 }
-#boutonPage { 
+button { 
   border: none;
   color: black;
 
@@ -181,7 +181,7 @@ header {
   cursor: pointer;
   border: 2px black;
 }
-#boutonPage:hover {
+button:hover {
   background-color:rgba(248,188,60);
   color: white;
 }
@@ -200,6 +200,17 @@ header {
     width: 800px;
     padding: 5px;
     margin: 15px 0 0 -1300px;
+    border: 0;
+    background-color:  rgba(206,211,70);
+    border: solid 1px black;
+    border-radius: 10px;
+}
+.prix
+{   
+    color: black;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    width: 100px;
+    padding: 5px;
     border: 0;
     background-color:  rgba(206,211,70);
     border: solid 1px black;
