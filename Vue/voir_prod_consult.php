@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
-    <link href="../CSS/accueil.css" rel="stylesheet">
+    <link href="../CSS/accueils.css" rel="stylesheet">
     <title>Historique</title>
 </head>
 <body>

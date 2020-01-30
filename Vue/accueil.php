@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link href="./CSS/accueil.css" rel="stylesheet">
+    <link href="./CSS/accueils.css" rel="stylesheet">
     <meta charset="UTF-8">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
     <script> 
@@ -125,9 +125,15 @@
 </head>
 <body>
 <header>
-<div id="contentFlexHop"><a href="./accueil.php">OKAZOU</a></div>
+<div id="contentFlexHop"><a href="./accueil.php">OKAZOU</a><?php echo $recherche; ?></div>
 <div id="contentFlex">
-     <?php echo $boutonUtilisateur; ?> </div>
+     
+     <div class="dropdown">
+  <label class="dropbtn">Compte</label>
+  <div class="dropdown-content">
+  <?php echo $boutonUtilisateur; ?>
+  </div>
+</div>
     <div class="dropdown">
   <label class="dropbtn">Femmes</label>
   <div class="dropdown-content">
@@ -145,15 +151,26 @@
   <div class="dropdown-content">
     <?php echo($cat[2]); ?>
   </div>
+  </div>
 </div>
-<div><?php echo $filtre; ?></div>
-<div><?php echo $tri_prix; ?></div>
-<?php echo $recherche; ?>
+<div class = "filtre"><?php echo $filtre; echo $tri_prix; ?></div>
 </header>
-
+<?php
+if(empty($_GET['recherche']) && empty($_GET['categorie']) && $_SESSION['etatConnexion'] == false) {
+    
+    echo('<div class="desc"><h1>Quelques articles au hasard :</h1></div>');
+  }
+  ?>
    <div><?php echo($descriptif) ?></div>
    <div id="listeArticle"> <?php echo($articleCategorie) ?> </div>
    <?php 
+   if(empty($_GET['recherche']) && empty($_GET['categorie']) && $_SESSION['etatConnexion'] == false) {
+    
+    echo('
+    <div id="contentFlex">
+    '.$item[rand(0,sizeof($listeArticle)-1)].$item[rand(0,sizeof($listeArticle)-1)].$item[rand(0,sizeof($listeArticle)-1)].$item[rand(0,sizeof($listeArticle)-1)].$item[rand(0,sizeof($listeArticle)-1)].'
+    </div>');
+  }
   if(!empty($_GET['categorie']) && !empty($_GET['souscategorie']) && empty($_GET['filtre']) && empty($_GET['min']) && $_SESSION['etatConnexion'] == true) {
     echo('<button id="afficherPlusCategorieConnecte">Afficher Plus</button>');
   }
@@ -171,11 +188,7 @@
   if (!empty($_GET['min']) && !empty($_GET['max']) && !empty($_GET['categorie']) && empty($_GET['recherche']) && $_SESSION['etatConnexion'] == true) {
     echo('<button id="afficherPlusPrixCo">Afficher Plus</button>');
   }
-  if(empty($_GET['recherche']) && empty($_GET['categorie']) && $_SESSION['etatConnexion'] == false) {
-    
-    echo('<h1>Quelques articles au hasard :</h1>
-    <div id="contentFlex">'.$item[rand(0,sizeof($listeArticle)-1)].$item[rand(0,sizeof($listeArticle)-1)].$item[rand(0,sizeof($listeArticle)-1)].$item[rand(0,sizeof($listeArticle)-1)].$item[rand(0,sizeof($listeArticle)-1)].'</div>');
-  }
+  
   if(!empty($_GET['recherche']) && $_SESSION['etatConnexion'] == false) { 
     echo('<button id="afficherPlusRechercheDeco">Afficher Plus</button>');
   }
