@@ -11,25 +11,17 @@ if (!isset($_SESSION['etatConnexion'])) {  // Si l'utilisateur n'est pas connect
     <a href="./Controleur/inscription.php"> Inscription </a>';
 } else if ($_SESSION['etatConnexion'] == true && $_SESSION['role'] == 'a') { // Si l'utilisateur est admin
     $boutonUtilisateur = 
-    '<a href="./Controleur/connexion.php"> Connexion </a>
+    '<a href="./Controleur/voir_profil.php"> Voir le profil </a>
     <a href="./Controleur/deconnexion.php"> Déconnexion </a>
     <a href="./Vue/action_admin.php">Page de contrôle admin</a>
     <a href="./Controleur/voir_prod_consult.php"> Historique </a>
     <a href="./Controleur/voir_favoris.php"> Favoris </a>';
 } else if ($_SESSION['etatConnexion'] == true) { // Si l'utilisateur est connecté
     $boutonUtilisateur = 
-    '<form action="./Controleur/voir_profil.php">
-    <button id="boutonPage" type="submit">Voir le profil</button>
-    </form>
-    <form action="./Controleur/deconnexion.php">
-    <button id="boutonPage" type="submit">Se déconnecter</button>
-    </form>
-    <form action="./Controleur/voir_prod_consult.php">
-    <button id="boutonPage" type="submit">Historique</button>
-    </form>
-    <form action="./Controleur/voir_favoris.php">
-    <button id="boutonPage" type="submit">Favoris</button>
-    </form>';
+    '<a href="./Controleur/voir_profil.php"> Voir le profil </a>
+    <a href="./Controleur/deconnexion.php"> Déconnexion </a>
+    <a href="./Controleur/voir_prod_consult.php"> Historique </a>
+    <a href="./Controleur/voir_favoris.php"> Favoris </a>';
 } else { // A voir ce que ça fait là
     $_SESSION['etatConnexion'] = false;
     $boutonUtilisateur = 
